@@ -1,0 +1,6 @@
+$ grep -o '(' input.txt  | wc -l
+    3569
+$ grep -o ')' input.txt  | wc -l
+    3431
+
+# 3569 - 3431 = 138

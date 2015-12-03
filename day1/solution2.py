@@ -11,5 +11,9 @@ def solve(text):
 
 
 if __name__ == '__main__':
+    """
+    $ python solution2.py input.txt
+    Went into basement at floor 1771
+    """
     floor = solve(open(sys.argv[1]).read())
     print "Went into basement at floor %s" % floor

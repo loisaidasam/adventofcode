@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cat input.txt | xargs ./solution1_helper.sh | awk -f solution1_adder.awk
+cat input.txt | xargs ./solution1_helper.sh | awk -f sum.awk
 
 # Result: 1588178

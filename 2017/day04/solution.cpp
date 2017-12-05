@@ -1,5 +1,11 @@
 /**
  * $ g++ solution.cpp && ./a.out < input.txt
+ * Day 4!
+ * Part 1: 383
+ * Part 2: 265
+ *
+ * Really starting to think I should come up with a helper for reading in rows
+ * of space-delimited strings...
  */
 #include <algorithm>
 #include <iostream>

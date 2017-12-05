@@ -3,6 +3,8 @@
  * Day 3!
  * 419
  * 295229
+ *
+ * A re-introduction to classes in C++. Also got to give `enum` a spin.
  */
 #include <iostream>
 #include <unordered_map>

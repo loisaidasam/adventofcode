@@ -10,57 +10,89 @@ using namespace std;
 enum Direction {right, up, left, down};
 
 
-Direction turn(Direction direction) {
+class Stepper {
+    private:
+        int x, y, step, step_size, step_size_count;
+        Direction direction;
+        void turn();
+    public:
+        int count;
+        Stepper();
+        void do_step();
+        int get_distance();
+};
+
+Stepper::Stepper() {
+    count = 1;
+    x = 0;
+    y = 0;
+    step = 0;
+    step_size = 1;
+    step_size_count = 0;
+    direction = Direction::right;
+}
+
+void Stepper::turn() {
     switch (direction) {
         case Direction::right:
-            return Direction::up;
+            direction = Direction::up;
+            return;
         case Direction::up:
-            return Direction::left;
+            direction = Direction::left;
+            return;
         case Direction::left:
-            return Direction::down;
+            direction = Direction::down;
+            return;
         case Direction::down:
-            return Direction::right;
+            direction = Direction::right;
+            return;
+        default:
+            break;
     }
 }
 
-int get_distance(int x, int y) {
+void Stepper::do_step() {
+    switch (direction) {
+        case Direction::right:
+            x += 1;
+            break;
+        case Direction::up:
+            y += 1;
+            break;
+        case Direction::left:
+            x -= 1;
+            break;
+        case Direction::down:
+            y -= 1;
+            break;
+        default:
+            break;
+    }
+    step++;
+    if (step == step_size) {
+        step = 0;
+        turn();
+        step_size_count++;
+        if (step_size_count == 2) {
+            step_size++;
+            step_size_count = 0;
+        }
+    }
+    count++;
+}
+
+
+int Stepper::get_distance() {
     return abs(x) + abs(y);
 }
 
 
 int part1(int input) {
-    int x = 0;
-    int y = 0;
-    int count = 1;
-    Direction direction = Direction::right;
-    int step_size = 1;
-    while (true) {
-        for (int i = 0; i < 2; i++) {
-            for (int step = 0; step < step_size; step++) {
-                // cout << x << " " << y << " " << direction << endl;
-                if (count == input) {
-                    return get_distance(x, y);
-                }
-                switch (direction) {
-                    case Direction::right:
-                        x += 1;
-                        break;
-                    case Direction::up:
-                        y += 1;
-                        break;
-                    case Direction::left:
-                        x -= 1;
-                        break;
-                    case Direction::down:
-                        y -= 1;
-                        break;
-                }
-                count++;
-            }
-            direction = turn(direction);
-        }
-        step_size++;
+    Stepper stepper;
+    while (stepper.count < input) {
+        stepper.do_step();
     }
+    return stepper.get_distance();
 }
 
 

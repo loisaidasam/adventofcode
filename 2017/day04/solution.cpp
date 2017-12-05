@@ -11,7 +11,7 @@ using namespace std;
 /**
  * O(n^2) word-by-word comparison
  */
-bool validate_line(string line) {
+bool part1_validate(string line) {
     string input1, input2;
     stringstream stream1(line);
     int counter1 = 0;
@@ -34,19 +34,14 @@ bool validate_line(string line) {
 }
 
 
-int part1() {
-    int total = 0;
-    string line;
-    while (getline(cin, line)) {
-        if (validate_line(line)) {
-            total++;
-        }
-    }
-    return total;
-}
-
-
 int main() {
     cout << "Day 4!\n";
-    cout << "Part 1: " << part1() << "\n";
+    int part1_total = 0;
+    string line;
+    while (getline(cin, line)) {
+        if (part1_validate(line)) {
+            part1_total++;
+        }
+    }
+    cout << "Part 1: " << part1_total << "\n";
 }

@@ -29,6 +29,8 @@ int main() {
     cout << numbers[2] << endl;
 
     // For BW:
+    // http://en.cppreference.com/w/cpp/container/vector/push_back
+    // http://en.cppreference.com/w/cpp/types/numeric_limits/max
 
     int max = numeric_limits<int>::max() - 1;
     cout << max;

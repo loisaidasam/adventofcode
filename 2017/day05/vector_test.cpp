@@ -5,9 +5,12 @@
  * 6
  * 5
  * 16
- * 21474836462
- * 21474836470
- * -21474836480
+ * 2147483646
+ * -2146959360
+ * 2147483647
+ * 32767
+ * -2147483648
+ * -1760552747
  */
 #include <iostream>
 #include <vector>
@@ -33,17 +36,17 @@ int main() {
     // http://en.cppreference.com/w/cpp/types/numeric_limits/max
 
     int max = numeric_limits<int>::max() - 1;
-    cout << max;
+    cout << max << endl;
     numbers.push_back(max);
     cout << numbers[4] << endl;
 
     max = numeric_limits<int>::max();
-    cout << max;
+    cout << max << endl;
     numbers.push_back(max);
     cout << numbers[5] << endl;
 
     max = numeric_limits<int>::max() + 1;
-    cout << max;
+    cout << max << endl;
     numbers.push_back(max);
     cout << numbers[6] << endl;
 }

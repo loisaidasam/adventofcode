@@ -17,4 +17,22 @@ int main() {
     cout << numbers[1] << endl;
     numbers[2] += 10;
     cout << numbers[2] << endl;
+
+    // For BW:
+
+    int max = numeric_limits<int>::max() - 1;
+    cout << max;
+    numbers.push_back(max);
+    cout << numbers[4] << endl;
+
+    max = numeric_limits<int>::max();
+    cout << max;
+    numbers.push_back(max);
+    cout << numbers[5] << endl;
+
+    max = numeric_limits<int>::max() + 1;
+    cout << max;
+    numbers.push_back(max);
+    cout << numbers[6] << endl;
 }
+

@@ -1,4 +1,14 @@
-
+/**
+ * g++ vector_test.cpp && ./a.out 
+ * 2
+ * 4
+ * 6
+ * 5
+ * 16
+ * 21474836462
+ * 21474836470
+ * -21474836480
+ */
 #include <iostream>
 #include <vector>
 

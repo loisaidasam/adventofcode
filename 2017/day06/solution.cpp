@@ -3,6 +3,8 @@
  * Day 6!
  * part 1: 3156
  * part 2: 1610
+ *
+ * Learned about accumulate - basically reduce(), unordered_set
  */
 
 #include <iostream>

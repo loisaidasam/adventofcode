@@ -2,11 +2,13 @@
  * $ g++ solution.cpp && ./a.out  < input.txt
  * Day 6!
  * part 1: 3156
+ * part 2: 1610
  */
 
 #include <iostream>
 #include <numeric>
 #include <string>
+#include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
@@ -86,6 +88,48 @@ int part1(vector<int> banks) {
 }
 
 
+/**
+ * `unordered_map` refs:
+ * - http://en.cppreference.com/w/cpp/container/unordered_map
+ * - http://en.cppreference.com/w/cpp/container/unordered_map/find
+ */
+int part2(vector<int> banks) {
+    // banks_string <string> / redistributions <int>
+    unordered_map<string, int> seen;
+    int redistributions = 0;
+    string banks_string;
+    int biggest_bank, bank_value, bank_index;
+    while(true) {
+        banks_string = get_banks_string(banks);
+        // cout << banks_string << endl;
+        auto search = seen.find(banks_string);
+        // Found it!
+        if (search != seen.end()) {
+            return redistributions - search->second;
+        }
+        // Not found. Redistribute.
+        seen.insert(make_pair(banks_string, redistributions));
+        biggest_bank = get_biggest_bank(banks);
+        bank_value = banks[biggest_bank];
+        banks[biggest_bank] = 0;
+        bank_index = biggest_bank + 1;
+        if (bank_index == banks.size()) {
+            bank_index = 0;
+        }
+        while (bank_value > 0) {
+            banks[bank_index]++;
+            bank_value--;
+            bank_index++;
+            if (bank_index == banks.size()) {
+                bank_index = 0;
+            }
+        }
+        redistributions++;
+    }
+    return 0;
+}
+
+
 int main() {
     cout << "Day 6!" << endl;
     vector<int> banks;
@@ -94,4 +138,5 @@ int main() {
         banks.push_back(blocks);
     }
     cout << "part 1: " << part1(banks) << endl;
+    cout << "part 2: " << part2(banks) << endl;
 }

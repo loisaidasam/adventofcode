@@ -84,6 +84,9 @@ string part1() {
 }
 
 
+/**
+ * Get the weight of just one item
+ */
 int get_item_weight(string item) {
     // All items should have a weight
     auto search = weights.find(item);
@@ -132,12 +135,12 @@ void print_tree(string item, int depth) {
 /**
  * Recursive function for finding mismatching node
  */
-string find_mismatch(string item) {
-    cout << "find_mismatch() " << item << endl;
+int find_mismatch(string item, int mismatch_weight) {
+    // cout << "find_mismatch() " << item << " " << mismatch_weight << endl;
     auto children_search = children.find(item);
     // No children, return self
     if (children_search == children.end()) {
-        return item;
+        return mismatch_weight;
     }
     // Find which child has the mismatch
     vector<string> item_children = children_search->second;
@@ -171,27 +174,34 @@ string find_mismatch(string item) {
         // value0 and value1 are both initialized
         // whichever one matches, the other one is the mismatch
         if (child_weight == value0) {
-            return find_mismatch(value1_child);
+            // value1 is the mismatch
+            mismatch_weight = get_item_weight(value0_child);
+            return find_mismatch(value1_child, mismatch_weight);
         } else {
-            return find_mismatch(value0_child);
+            // value0 is the mismatch
+            mismatch_weight = get_item_weight(value1_child);
+            return find_mismatch(value0_child, mismatch_weight);
         }
     }
     // value1 set, which means there was a mismatch
     if (value1 != -1) {
         // More value0 matches than value1 matches, value1 is the odd man out
         if (value0_matches > value1_matches) {
-            return find_mismatch(value1_child);
+            mismatch_weight = get_item_weight(value0_child);
+            return find_mismatch(value1_child, mismatch_weight);
         }
         // More value1 matches than value0 matches, value0 is the odd man out
-        return find_mismatch(value0_child);
+        mismatch_weight = get_item_weight(value1_child);
+        return find_mismatch(value0_child, mismatch_weight);
     }
-    // Otherwise there was no mismatch
-    return item;
+    // Otherwise there was no mismatch among the children, use the mismatch
+    // weight from one level up
+    return mismatch_weight;
 }
 
 
-string part2() {
-    return find_mismatch(get_root());
+int part2() {
+    return find_mismatch(get_root(), 0);
 }
 
 

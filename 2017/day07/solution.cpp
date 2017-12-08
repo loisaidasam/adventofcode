@@ -1,5 +1,12 @@
 /**
+ * $ g++ solution.cpp && ./a.out < input.txt
+ * Day 7!
+ * vtzay
+ * 910
+ *
+ * Trees, some string parsing, and a bit of recursion
  */
+
 #include <iostream>
 #include <unordered_map>
 #include <sstream>

@@ -111,7 +111,7 @@ int get_item_tree_weight(string item) {
 
 void print_tree(string item, int depth) {
     for (int i = 0; i < depth; i++) {
-        cout << " ";
+        cout << "    ";
     }
     int weight_item = get_item_weight(item);
     int weight_item_tree = get_item_tree_weight(item);
@@ -130,25 +130,25 @@ void print_tree(string item, int depth) {
 
 
 /**
- * Return empty if all children have the same weight, otherwise return the child
- * with the different weight
+ * Recursive function for finding mismatching node
  */
-string find_children_tree_weights_mismatch(string item) {
-    string child_mismatch;
+string find_mismatch(string item) {
+    cout << "find_mismatch() " << item << endl;
     auto children_search = children.find(item);
-    // No children
+    // No children, return self
     if (children_search == children.end()) {
-        return child_mismatch;
+        return item;
     }
     // Find which child has the mismatch
+    vector<string> item_children = children_search->second;
     int value0 = -1;
     int value0_matches = 0;
     int value1 = -1;
     int value1_matches = 0;
     string value0_child, value1_child;
-    for (int i = 0; i < children_search->second.size(); i++) {
-        string child = children_search->second[i];
-        int child_weight = get_item_weight(child);
+    for (int i = 0; i < item_children.size(); i++) {
+        string child = item_children[i];
+        int child_weight = get_item_tree_weight(child);
         // Nothing initialized yet
         if (value0 == -1 && value1 == -1) {
             value0 = child_weight;
@@ -171,36 +171,27 @@ string find_children_tree_weights_mismatch(string item) {
         // value0 and value1 are both initialized
         // whichever one matches, the other one is the mismatch
         if (child_weight == value0) {
-            return value1_child;
+            return find_mismatch(value1_child);
         } else {
-            return value0_child;
+            return find_mismatch(value0_child);
         }
     }
     // value1 set, which means there was a mismatch
     if (value1 != -1) {
         // More value0 matches than value1 matches, value1 is the odd man out
         if (value0_matches > value1_matches) {
-            return value1_child;
+            return find_mismatch(value1_child);
         }
         // More value1 matches than value0 matches, value0 is the odd man out
-        return value0_child;
+        return find_mismatch(value0_child);
     }
     // Otherwise there was no mismatch
-    return child_mismatch;
+    return item;
 }
 
 
 string part2() {
-    string item = get_root();
-    string item_mismatch;
-    while (true) {
-        item_mismatch = find_children_tree_weights_mismatch(item);
-        cout << "Node: " << item << " mismatch: " << item_mismatch << endl;
-        if (item_mismatch.empty()) {
-            return item;
-        }
-        item = item_mismatch;
-    }
+    return find_mismatch(get_root());
 }
 
 
@@ -210,7 +201,7 @@ int main() {
     while (getline(cin, line)) {
         handle_line(line);
     }
+    // print_tree(get_root(), 0);
     cout << part1() << endl;
-    print_tree(get_root(), 0);
     cout << part2() << endl;
 }

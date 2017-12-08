@@ -175,11 +175,11 @@ int find_mismatch(string item, int mismatch_weight) {
         // whichever one matches, the other one is the mismatch
         if (child_weight == value0) {
             // value1 is the mismatch
-            mismatch_weight = get_item_weight(value0_child);
+            mismatch_weight = get_item_weight(value1_child) - (value1 - value0);
             return find_mismatch(value1_child, mismatch_weight);
         } else {
             // value0 is the mismatch
-            mismatch_weight = get_item_weight(value1_child);
+            mismatch_weight = get_item_weight(value0_child) - (value0 - value1);
             return find_mismatch(value0_child, mismatch_weight);
         }
     }
@@ -187,11 +187,11 @@ int find_mismatch(string item, int mismatch_weight) {
     if (value1 != -1) {
         // More value0 matches than value1 matches, value1 is the odd man out
         if (value0_matches > value1_matches) {
-            mismatch_weight = get_item_weight(value0_child);
+            mismatch_weight = get_item_weight(value1_child) - (value1 - value0);
             return find_mismatch(value1_child, mismatch_weight);
         }
         // More value1 matches than value0 matches, value0 is the odd man out
-        mismatch_weight = get_item_weight(value1_child);
+        mismatch_weight = get_item_weight(value0_child) - (value0 - value1);
         return find_mismatch(value0_child, mismatch_weight);
     }
     // Otherwise there was no mismatch among the children, use the mismatch

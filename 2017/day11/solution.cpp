@@ -221,7 +221,7 @@ class Hive {
         vector<Node*> known_nodes;
         int num_steps = 0;
         void expand_hive() {
-            cout << "Expanding hive from " << known_nodes.size() << " ..." << endl;
+            // cout << "Expanding hive from " << known_nodes.size() << " ..." << endl;
             vector<Node*> new_nodes;
             for (int i = 0; i < known_nodes.size(); i++) {
                 vector<Node*> new_nodes_node = known_nodes[i]->expand();
@@ -232,7 +232,7 @@ class Hive {
             for (int i = 0; i < new_nodes.size(); i++) {
                 known_nodes.push_back(new_nodes[i]);
             }
-            cout << "Expanded hive to " << known_nodes.size() << endl;
+            // cout << "Expanded hive to " << known_nodes.size() << endl;
         }
     public:
         Hive() {

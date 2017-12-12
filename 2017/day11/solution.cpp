@@ -257,10 +257,33 @@ class Hive {
         int get_distance_from_home() {
             return current_node->get_depth();
         }
+        int get_deepest_depth() {
+            int deepest_depth = 0;
+            for (int i = 0; i < known_nodes.size(); i++) {
+                int depth = known_nodes[i]->get_depth();
+                if (depth > deepest_depth) {
+                    deepest_depth = depth;
+                }
+            }
+            return deepest_depth;
+        }
 };
 
 
-int part1(string input) {
+int part1(Hive* hive) {
+    return hive->get_distance_from_home();
+}
+
+
+int part2(Hive* hive) {
+    return hive->get_deepest_depth();
+}
+
+
+int main() {
+    cout << "Day 11!" << endl;
+    string input;
+    cin >> input;
     Hive* hive = new Hive();
     stringstream stream(input);
     string direction;
@@ -274,13 +297,6 @@ int part1(string input) {
         }
     }
     hive->step(string_to_direction(direction));
-    return hive->get_distance_from_home();
-}
-
-
-int main() {
-    cout << "Day 11!" << endl;
-    string input;
-    cin >> input;
-    cout << "Part 1: " << part1(input) << endl;
+    cout << "Part 1: " << part1(hive) << endl;
+    cout << "Part 2: " << part2(hive) << endl;
 }

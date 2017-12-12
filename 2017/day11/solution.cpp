@@ -12,6 +12,29 @@ using namespace std;
 enum Direction {NORTH, SOUTH, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST};
 
 
+Direction string_to_direction(string direction) {
+    if (direction == "n") {
+        return Direction::NORTH;
+    }
+    if (direction == "s") {
+        return Direction::SOUTH;
+    }
+    if (direction == "ne") {
+        return Direction::NORTHEAST;
+    }
+    if (direction == "nw") {
+        return Direction::NORTHWEST;
+    }
+    if (direction == "se") {
+        return Direction::SOUTHEAST;
+    }
+    if (direction == "sw") {
+        return Direction::SOUTHWEST;
+    }
+    throw 1099;
+}
+
+
 string get_direction_str(Direction direction) {
     switch (direction) {
         case Direction::NORTH:
@@ -114,7 +137,7 @@ class Node {
             }
         }
         Node* add_direction(Direction direction) {
-            cout << get_name() << " adding direction: " << get_direction_str(direction) << endl;
+            // cout << get_name() << " adding direction: " << get_direction_str(direction) << endl;
             string new_node_name = name + " -> " + get_direction_str(direction);
             Node* new_node = new Node(depth + 1, new_node_name);
             // cout << "new node depth: " << new_node.get_depth() << endl;
@@ -123,7 +146,7 @@ class Node {
             return new_node;
         }
         vector<Node*> expand() {
-            cout << get_name() << " expand()" << endl;
+            // cout << get_name() << " expand()" << endl;
             vector<Node*> new_nodes;
             if (north == NULL) {
                 new_nodes.push_back(add_direction(Direction::NORTH));
@@ -185,7 +208,7 @@ class Node {
             if (north->get_relationship(SOUTHWEST) == NULL) {
                 north->add_relationship(northwest, SOUTHWEST);
             }
-            cout << get_name() << " added " << new_nodes.size() << " in expand()" << endl;
+            // cout << get_name() << " added " << new_nodes.size() << " in expand()" << endl;
             return new_nodes;
         }
 };
@@ -193,11 +216,10 @@ class Node {
 
 class Hive {
     private:
-        // TODO: Do we need to persist root?
-        Node* root;
         Node* current_node;
         Node* next_node;
         vector<Node*> known_nodes;
+        int num_steps = 0;
         void expand_hive() {
             cout << "Expanding hive from " << known_nodes.size() << " ..." << endl;
             vector<Node*> new_nodes;
@@ -214,19 +236,19 @@ class Hive {
         }
     public:
         Hive() {
-            root = new Node(0, "ROOT");
-            current_node = root;
-            known_nodes.push_back(root);
+            current_node = new Node(0, "ROOT");
+            known_nodes.push_back(current_node);
         }
         string get_current_node_name() {
             return current_node->get_name();
         }
         void step(Direction direction) {
-            cout << "step(" << get_direction_str(direction) << ")" << endl;
+            num_steps++;
+            cout << num_steps << ". step(" << get_direction_str(direction) << ")" << endl;
             next_node = current_node->get_relationship(direction);
             // cout << "next_node: " << next_node << endl;
             if (next_node == NULL) {
-                cout << "next_node is NULL" << endl;
+                // cout << "next_node is NULL" << endl;
                 expand_hive();
                 next_node = current_node->get_relationship(direction);
             }
@@ -238,52 +260,8 @@ class Hive {
 };
 
 
-int main() {
-    cout << "Day 11!" << endl;
-    // string input;
-    // cin >> input;
-    // cout << "Part 1: " << part1(input) << endl;
-
-    Hive* hive = new Hive();
-    cout << "get_current_node_name() " << hive->get_current_node_name() << endl;
-    cout << "get_distance_from_home() " << hive->get_distance_from_home() << endl;
-    hive->step(Direction::NORTH);
-    cout << "get_current_node_name() " << hive->get_current_node_name() << endl;
-    cout << "get_distance_from_home() " << hive->get_distance_from_home() << endl;
-    hive->step(Direction::SOUTH);
-    cout << "get_current_node_name() " << hive->get_current_node_name() << endl;
-    cout << "get_distance_from_home() " << hive->get_distance_from_home() << endl;
-    hive->step(Direction::NORTHEAST);
-    cout << "get_current_node_name() " << hive->get_current_node_name() << endl;
-    cout << "get_distance_from_home() " << hive->get_distance_from_home() << endl;
-    hive->step(Direction::NORTHWEST);
-    cout << "get_current_node_name() " << hive->get_current_node_name() << endl;
-    cout << "get_distance_from_home() " << hive->get_distance_from_home() << endl;
-}
-
-
-/*
-void step(string direction) {
-    // cout << direction << endl;
-    // if (direction == "n") {
-    //     count_n_s++;
-    // } else if (direction == "s") {
-    //     count_n_s--;
-    // } else if (direction == "ne") {
-    //     count_ne_sw++;
-    // } else if (direction == "sw") {
-    //     count_ne_sw--;
-    // } else if (direction == "se") {
-    //     count_se_nw++;
-    // } else if (direction == "nw") {
-    //     count_se_nw--;
-    // } else {
-    //     throw 199;
-    // }
-}
-
-
 int part1(string input) {
+    Hive* hive = new Hive();
     stringstream stream(input);
     string direction;
     char buffer;
@@ -291,11 +269,18 @@ int part1(string input) {
         direction += buffer;
         if (stream.peek() == ',') {
             stream.ignore();
-            step(direction);
+            hive->step(string_to_direction(direction));
             direction = "";
         }
     }
-    step(direction);
-    return 0;
+    hive->step(string_to_direction(direction));
+    return hive->get_distance_from_home();
 }
-*/
+
+
+int main() {
+    cout << "Day 11!" << endl;
+    string input;
+    cin >> input;
+    cout << "Part 1: " << part1(input) << endl;
+}

@@ -4,11 +4,30 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
 
 enum Direction {NORTH, SOUTH, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST};
+
+
+string get_direction_str(Direction direction) {
+    switch (direction) {
+        case Direction::NORTH:
+            return "NORTH";
+        case Direction::SOUTH:
+            return "SOUTH";
+        case Direction::NORTHEAST:
+            return "NORTHEAST";
+        case Direction::NORTHWEST:
+            return "NORTHWEST";
+        case Direction::SOUTHEAST:
+            return "SOUTHEAST";
+        case Direction::SOUTHWEST:
+            return "SOUTHWEST";
+    }
+}
 
 
 Direction get_direction_opposite(Direction direction) {
@@ -17,29 +36,54 @@ Direction get_direction_opposite(Direction direction) {
             return Direction::SOUTH;
         case Direction::SOUTH:
             return Direction::NORTH;
+        case Direction::NORTHEAST:
+            return Direction::SOUTHWEST;
+        case Direction::NORTHWEST:
+            return Direction::SOUTHEAST;
+        case Direction::SOUTHEAST:
+            return Direction::NORTHWEST;
+        case Direction::SOUTHWEST:
+            return Direction::NORTHEAST;
     }
-    throw 200;
 }
 
 
 class Node {
     private:
         int depth;
-        Node* north;
-        Node* south;
-        // , s, ne, nw, se, sw;
+        string name;
+        Node* north = NULL;
+        Node* south = NULL;
+        Node* northeast = NULL;
+        Node* northwest = NULL;
+        Node* southeast = NULL;
+        Node* southwest = NULL;
     public:
-        Node(int depth) {
+        Node(int depth, string name) {
             this->depth = depth;
+            this->name = name;
         }
         int get_depth() {
             return depth;
         }
-        void add_direction(Direction direction) {
-            Node* new_node = new Node(depth + 1);
-            // cout << "new node depth: " << new_node.get_depth() << endl;
-            add_relationship(new_node, direction);
-            new_node->add_relationship(this, get_direction_opposite(direction));
+        string get_name() {
+            return "[" + name + "]";
+        }
+        Node* get_relationship(Direction direction) {
+            switch (direction) {
+                case Direction::NORTH:
+                    return north;
+                case Direction::SOUTH:
+                    return south;
+                case Direction::NORTHEAST:
+                    return northeast;
+                case Direction::NORTHWEST:
+                    return northwest;
+                case Direction::SOUTHEAST:
+                    return southeast;
+                case Direction::SOUTHWEST:
+                    return southwest;
+            }
         }
         void add_relationship(Node* new_node, Direction direction) {
             switch (direction) {
@@ -51,16 +95,145 @@ class Node {
                     south = new_node;
                     break;
                 }
+                case Direction::NORTHEAST: {
+                    northeast = new_node;
+                    break;
+                }
+                case Direction::NORTHWEST: {
+                    northwest = new_node;
+                    break;
+                }
+                case Direction::SOUTHEAST: {
+                    southeast = new_node;
+                    break;
+                }
+                case Direction::SOUTHWEST: {
+                    southwest = new_node;
+                    break;
+                }
             }
         }
-        Node* get_relationship(Direction direction) {
-            switch (direction) {
-                case Direction::NORTH:
-                    return north;
-                case Direction::SOUTH:
-                    return south;
+        Node* add_direction(Direction direction) {
+            cout << get_name() << " adding direction: " << get_direction_str(direction) << endl;
+            string new_node_name = name + " -> " + get_direction_str(direction);
+            Node* new_node = new Node(depth + 1, new_node_name);
+            // cout << "new node depth: " << new_node.get_depth() << endl;
+            add_relationship(new_node, direction);
+            new_node->add_relationship(this, get_direction_opposite(direction));
+            return new_node;
+        }
+        vector<Node*> expand() {
+            cout << get_name() << " expand()" << endl;
+            vector<Node*> new_nodes;
+            if (north == NULL) {
+                new_nodes.push_back(add_direction(Direction::NORTH));
             }
-            throw 100;
+            if (south == NULL) {
+                new_nodes.push_back(add_direction(Direction::SOUTH));
+            }
+            if (northeast == NULL) {
+                new_nodes.push_back(add_direction(Direction::NORTHEAST));
+            }
+            if (northwest == NULL) {
+                new_nodes.push_back(add_direction(Direction::NORTHWEST));
+            }
+            if (southeast == NULL) {
+                new_nodes.push_back(add_direction(Direction::SOUTHEAST));
+            }
+            if (southwest == NULL) {
+                new_nodes.push_back(add_direction(Direction::SOUTHWEST));
+            }
+            // North/Northeast
+            if (north->get_relationship(SOUTHEAST) == NULL) {
+                north->add_relationship(northeast, SOUTHEAST);
+            }
+            if (northeast->get_relationship(NORTHWEST) == NULL) {
+                northeast->add_relationship(north, NORTHWEST);
+            }
+            // Northeast/Southeast
+            if (northeast->get_relationship(SOUTH) == NULL) {
+                northeast->add_relationship(southeast, SOUTH);
+            }
+            if (southeast->get_relationship(NORTH) == NULL) {
+                southeast->add_relationship(northeast, NORTH);
+            }
+            // Southeast/South
+            if (southeast->get_relationship(SOUTHWEST) == NULL) {
+                southeast->add_relationship(south, SOUTHWEST);
+            }
+            if (south->get_relationship(NORTHEAST) == NULL) {
+                south->add_relationship(southeast, NORTHEAST);
+            }
+            // South/Southwest
+            if (south->get_relationship(NORTHWEST) == NULL) {
+                south->add_relationship(southwest, NORTHWEST);
+            }
+            if (southwest->get_relationship(SOUTHEAST) == NULL) {
+                southwest->add_relationship(south, SOUTHEAST);
+            }
+            // Southwest/Northwest
+            if (southwest->get_relationship(NORTH) == NULL) {
+                southwest->add_relationship(northwest, NORTH);
+            }
+            if (northwest->get_relationship(SOUTH) == NULL) {
+                northwest->add_relationship(southwest, SOUTH);
+            }
+            // Northwest/North
+            if (northwest->get_relationship(NORTHEAST) == NULL) {
+                northwest->add_relationship(north, NORTHEAST);
+            }
+            if (north->get_relationship(SOUTHWEST) == NULL) {
+                north->add_relationship(northwest, SOUTHWEST);
+            }
+            cout << get_name() << " added " << new_nodes.size() << " in expand()" << endl;
+            return new_nodes;
+        }
+};
+
+
+class Hive {
+    private:
+        // TODO: Do we need to persist root?
+        Node* root;
+        Node* current_node;
+        Node* next_node;
+        vector<Node*> known_nodes;
+        void expand_hive() {
+            cout << "Expanding hive from " << known_nodes.size() << " ..." << endl;
+            vector<Node*> new_nodes;
+            for (int i = 0; i < known_nodes.size(); i++) {
+                vector<Node*> new_nodes_node = known_nodes[i]->expand();
+                for (int j = 0; j < new_nodes_node.size(); j++) {
+                    new_nodes.push_back(new_nodes_node[j]);
+                }
+            }
+            for (int i = 0; i < new_nodes.size(); i++) {
+                known_nodes.push_back(new_nodes[i]);
+            }
+            cout << "Expanded hive to " << known_nodes.size() << endl;
+        }
+    public:
+        Hive() {
+            root = new Node(0, "ROOT");
+            current_node = root;
+            known_nodes.push_back(root);
+        }
+        string get_current_node_name() {
+            return current_node->get_name();
+        }
+        void step(Direction direction) {
+            cout << "step(" << get_direction_str(direction) << ")" << endl;
+            next_node = current_node->get_relationship(direction);
+            // cout << "next_node: " << next_node << endl;
+            if (next_node == NULL) {
+                cout << "next_node is NULL" << endl;
+                expand_hive();
+                next_node = current_node->get_relationship(direction);
+            }
+            current_node = next_node;
+        }
+        int get_distance_from_home() {
+            return current_node->get_depth();
         }
 };
 
@@ -71,13 +244,21 @@ int main() {
     // cin >> input;
     // cout << "Part 1: " << part1(input) << endl;
 
-    Node* root = new Node(0);
-    cout << "root depth: " << root->get_depth() << endl;
-    root->add_direction(Direction::NORTH);
-    Node* north = root->get_relationship(Direction::NORTH);
-    cout << "north depth: " << north->get_depth() << endl;
-    Node* south = north->get_relationship(Direction::SOUTH);
-    cout << "north's south depth: " << south->get_depth() << endl;
+    Hive* hive = new Hive();
+    cout << "get_current_node_name() " << hive->get_current_node_name() << endl;
+    cout << "get_distance_from_home() " << hive->get_distance_from_home() << endl;
+    hive->step(Direction::NORTH);
+    cout << "get_current_node_name() " << hive->get_current_node_name() << endl;
+    cout << "get_distance_from_home() " << hive->get_distance_from_home() << endl;
+    hive->step(Direction::SOUTH);
+    cout << "get_current_node_name() " << hive->get_current_node_name() << endl;
+    cout << "get_distance_from_home() " << hive->get_distance_from_home() << endl;
+    hive->step(Direction::NORTHEAST);
+    cout << "get_current_node_name() " << hive->get_current_node_name() << endl;
+    cout << "get_distance_from_home() " << hive->get_distance_from_home() << endl;
+    hive->step(Direction::NORTHWEST);
+    cout << "get_current_node_name() " << hive->get_current_node_name() << endl;
+    cout << "get_distance_from_home() " << hive->get_distance_from_home() << endl;
 }
 
 

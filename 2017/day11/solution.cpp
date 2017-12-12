@@ -1,4 +1,9 @@
 /**
+ * $ g++ solution.cpp && ./a.out < input.txt
+ * Part 1: 743
+ * Part 2: 1493
+ *
+ * 8,223 total steps
  */
 
 #include <iostream>

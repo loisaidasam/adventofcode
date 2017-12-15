@@ -10,7 +10,10 @@
 using namespace std;
 
 
-int binary_values[128][128];
+const int DIMENSION = 128;
+
+
+int binary_values[DIMENSION][DIMENSION];
 
 
 string hex_to_binary(char c) {
@@ -37,7 +40,7 @@ string hex_to_binary(char c) {
 
 
 void set_values(string input) {
-    for (int row = 0; row < 128; row++) {
+    for (int row = 0; row < DIMENSION; row++) {
         string hash_input = input + "-" + to_string(row);
         // cout << "hash_input " << hash_input << endl;
         string hash = knot_hash(hash_input);
@@ -54,7 +57,8 @@ void set_values(string input) {
                 if (binary[binary_col_num] == '0') {
                     binary_values[row][col] = 0;
                 } else if (binary[binary_col_num] == '1') {
-                    binary_values[row][col] = 1;
+                    // Using -1 to not conflict w/ part 2
+                    binary_values[row][col] = -1;
                 } else {
                     cout << "Unknown binary value: " << binary[binary_col_num] << endl;
                     throw 400;
@@ -67,9 +71,9 @@ void set_values(string input) {
 
 int part1() {
     int used = 0;
-    for (int i = 0; i < 128; i++) {
-        for (int j = 0; j < 128; j++) {
-            if (binary_values[i][j] == 1) {
+    for (int i = 0; i < DIMENSION; i++) {
+        for (int j = 0; j < DIMENSION; j++) {
+            if (binary_values[i][j] == -1) {
                 used++;
             }
         }
@@ -78,8 +82,40 @@ int part1() {
 }
 
 
-int part2(string input) {
-    return 0;
+/**
+ * Recursive depth-first search to "paint" all of the other group members
+ */
+bool update_square(int row, int col, int group) {
+    if (binary_values[row][col] != -1) {
+        return false;
+    }
+    binary_values[row][col] = group;
+    if (row > 0) {
+        update_square(row - 1, col, group);
+    }
+    if (row < DIMENSION - 1) {
+        update_square(row + 1, col, group);
+    }
+    if (col > 0) {
+        update_square(row, col - 1, group);
+    }
+    if (col < DIMENSION - 1) {
+        update_square(row, col + 1, group);
+    }
+    return true;
+}
+
+
+int part2() {
+    int group = 1;
+    for (int i = 0; i < DIMENSION; i++) {
+        for (int j = 0; j < DIMENSION; j++) {
+            if (update_square(i, j, group)) {
+                group++;
+            }
+        }
+    }
+    return group - 1;
 }
 
 
@@ -89,4 +125,5 @@ int main() {
     cin >> input;
     set_values(input);
     cout << "Part 1: " << part1() << endl;
+    cout << "Part 2: " << part2() << endl;
 }

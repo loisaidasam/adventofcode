@@ -2,6 +2,7 @@
  * $ g++ solution.cpp &&  ./a.out < input.txt 
  * Day 16!
  * Part 1: giadhmkpcnbfjelo
+ * Part 2: njfgilbkcoemhpad
  */
 
 #include <iostream>
@@ -11,14 +12,7 @@
 using namespace std;
 
 
-/**
- * s1, a spin of size 1: eabcd.
- * x3/4, swapping the last two programs: eabdc.
- * pe/b, swapping programs e and b: baedc.
- */
-string part1(string input) {
-    // string programs = "abcde";
-    string programs = "abcdefghijklmnop";
+string do_the_dance(string programs, string input) {
     string buffer;
     for (int i = 0; i < input.length(); i++) {
         buffer = "";
@@ -97,9 +91,95 @@ string part1(string input) {
 }
 
 
+/**
+ * s1, a spin of size 1: eabcd.
+ * x3/4, swapping the last two programs: eabdc.
+ * pe/b, swapping programs e and b: baedc.
+ */
+string part1(string input) {
+    // string programs = "abcde";
+    string programs = "abcdefghijklmnop";
+    return do_the_dance(programs, input);
+}
+
+
+string part2(string input) {
+    // const int NUM_DANCES = 5;
+    // const int NUM_DANCES = 40;
+    const int NUM_DANCES = 1000000000;
+    string programs = "abcdefghijklmnop";
+    // The naive/slow way:
+    // for (int i = 0; i < NUM_DANCES; i++) {
+    //     programs = do_the_dance(programs, input);
+    //     cout << i << ".\t" << programs << endl;
+    // }
+    // return programs;
+    // Optimization: Look for repeats!
+    int repeat = -1;
+    for (int i = 1; i <= NUM_DANCES; i++) {
+        programs = do_the_dance(programs, input);
+        if ("abcdefghijklmnop" == programs) {
+            repeat = i;
+            break;
+        }
+        // cout << i << ".\t" << programs << endl;
+    }
+    if (repeat == -1) {
+        return programs;
+    }
+    // cout << "Repeat! " << repeat << " " << programs << endl;
+
+    /* This won't work b/c of letter swaps:
+    // // Optimization: Get a map of the ending places of each position
+    // string programsA = do_the_dance(programs, input);
+    // // cout << programsA << endl;
+    // if (programs.length() != programsA.length()) {
+    //     throw 199;
+    // }
+    // int indexMap[programs.length()];
+    // for (int i = 0; i < programs.length(); i++) {
+    //     for (int j = 0; j < programsA.length(); j++) {
+    //         if (programs[i] == programsA[j]) {
+    //             indexMap[j] = i;
+    //             break;
+    //         }
+    //     }
+    // }
+    // // Run this swap a BILLION times!
+    // int repeat = NUM_DANCES;
+    // for (int i = 0; i < NUM_DANCES; i++) {
+    //     if (i % 10000000 == 0) {
+    //         cout << "count " << i << endl;
+    //     }
+    //     programsA = "";
+    //     for (int j = 0; j < programs.length(); j++) {
+    //         programsA += programs[indexMap[j]];
+    //     }
+    //     programs = programsA;
+    //     cout << i << ".\t" << programs << endl;
+    //     if ("abcdefghijklmnop" == programs) {
+    //         cout << "Repeat! " << i << " " << programs << endl;
+    //         repeat = i;
+    //         break;
+    //     }
+    // }
+    */
+
+    int num_non_repeat_dances = NUM_DANCES % repeat;
+    // cout << "num_non_repeat_dances: " << num_non_repeat_dances << endl;
+    programs = "abcdefghijklmnop";
+    for (int i = 0; i < num_non_repeat_dances; i++) {
+        programs = do_the_dance(programs, input);
+        // cout << i << ".\t" << programs << endl;
+    }
+    return programs;
+}
+
+
 int main() {
     cout << "Day 16!" << endl;
     string input;
     cin >> input;
     cout << "Part 1: " << part1(input) << endl;
+    cout << "Part 2: " << part2(input) << endl;
 }

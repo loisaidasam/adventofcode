@@ -29,14 +29,6 @@ const int NUM_ROUNDS = 40000000;
 // const int NUM_ROUNDS = 5;
 
 
-/**
- * via http://avidinsight.uk/2015/02/convert-a-number-to-a-binary-string-and-back-in-cpp/
- */
-string dec_to_binary(int input) {
-    return std::bitset<32>(input).to_string();
-}
-
-
 int part1() {
     int count = 0;
     uint64_t a = START_A;
@@ -50,11 +42,14 @@ int part1() {
         a = (a * FACTOR_A) % DIVISOR;
         b = (b * FACTOR_B) % DIVISOR;
         // cout << a << "\t" << b << endl;
-        str_a = dec_to_binary(a);
-        str_b = dec_to_binary(b);
+        // str_a = dec_to_binary(a);
+        // str_b = dec_to_binary(b);
         // cout << str_a << endl;
         // cout << str_b << "\n" << endl;
-        if (str_a.substr(16, 16) == str_b.substr(16, 16)) {
+        // if (str_a.substr(16, 16) == str_b.substr(16, 16)) {
+        //     count++;
+        // }
+        if (bitset<16>(a) == bitset<16>(b)) {
             count++;
         }
     }
@@ -64,5 +59,10 @@ int part1() {
 
 int main() {
     cout << "Day 15!" << endl;
+    // cout << 16807 << " " << bitset<32>(16807) << " " << bitset<4>(16807) << endl;
+    // cout << bitset<8>(17) << " " << bitset<8>(33) << endl;
+    // cout << bitset<3>(17) << " " << bitset<3>(33) << endl;
+    // bool yas = (bitset<3>(17) == bitset<3>(33));
+    // cout << yas << endl;
     cout << "Part 1: " << part1() << endl;
 }

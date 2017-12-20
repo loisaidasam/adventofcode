@@ -1,10 +1,13 @@
 /**
- * $ g++ solution.cpp && ./a.out < input.txt 
+ * $ g++ solution2.cpp && ./a.out < input.txt 
  * Day 18!
- * Part 2: 8600
+ * Part 2: 7239
  *
- * unsigned long long int
+ * long long int
  * https://stackoverflow.com/questions/1819189/what-range-of-values-can-integer-types-store-in-c/1819236#1819236
+ *
+ * My hiccup was the `jgz 1 3` line - I didn't know `jgz` could use value for
+ * its first operand!
  */
 
 #include <iostream>
@@ -18,17 +21,28 @@
 using namespace std;
 
 
+bool VERBOSE = false;
+int MAX_TOTAL_STEPS = -1;
+
+
 struct Instruction {
     string line;
     string instruction;
+    bool use_reg1;
     char reg1;
+    long long int value1;
     bool use_reg2;
     char reg2;
-    unsigned long long int value;
+    long long int value2;
 };
 
 
 vector<Instruction*> instructions;
+
+
+bool use_reg(string word) {
+    return word >= "a" && word <= "z";
+}
 
 
 void handle_line(string line) {
@@ -36,15 +50,23 @@ void handle_line(string line) {
     Instruction* instruction = new Instruction;
     instruction->line = line;
     stream >> instruction->instruction;
-    stream >> instruction->reg1;
+    string word;
+    stream >> word;
+    if (use_reg(word)) {
+        instruction->use_reg1 = true;
+        instruction->reg1 = word[0];
+    } else {
+        instruction->use_reg1 = false;
+        instruction->value1 = stoi(word);
+    }
     if (instruction->instruction != "snd" && instruction->instruction != "rcv") {
-        string word;
         stream >> word;
-        if (word >= "a" && word <= "z") {
+        if (use_reg(word)) {
             instruction->use_reg2 = true;
             instruction->reg2 = word[0];
         } else {
-            instruction->value = stoi(word);
+            instruction->use_reg2 = false;
+            instruction->value2 = stoi(word);
         }
     }
     instructions.push_back(instruction);
@@ -54,34 +76,35 @@ void handle_line(string line) {
 class Program {
     private:
         int pid;
-        unordered_map<char, unsigned long long int> register_values;
+        unordered_map<char, long long int> register_values;
         int line = 0;
-        unsigned long long int frequency;
-        queue<unsigned long long int>* queue_send;
-        queue<unsigned long long int>* queue_receive;
+        long long int frequency;
+        queue<long long int>* queue_send;
+        queue<long long int>* queue_receive;
         int num_values_sent = 0;
 
     public:
         Program(int pid,
-                queue<unsigned long long int>* queue_send,
-                queue<unsigned long long int>* queue_receive) {
+                queue<long long int>* queue_send,
+                queue<long long int>* queue_receive) {
+            register_values['p'] = pid;
             this->pid = pid;
             this->queue_send = queue_send;
             this->queue_receive = queue_receive;
         }
 
         void print_registers() {
-            cout << "pid=" << pid << " " << register_values.size() << " registers:" << endl;
-            for (unordered_map<char, unsigned long long int>::iterator it = register_values.begin(); it != register_values.end(); it++) {
+            cout << register_values.size() << " registers:" << endl;
+            for (unordered_map<char, long long int>::iterator it = register_values.begin(); it != register_values.end(); it++) {
                 cout << "\t" << it->first << ": " << it->second << endl;
             }
         }
 
         void print_queues() {
-            cout << "pid=" << pid << " queues: send=" << queue_send->size() << " receive=" << queue_receive->size() << endl;
+            cout << "queues: send=" << queue_send->size() << " receive=" << queue_receive->size() << endl;
         }
 
-        unsigned long long int get_register_value(char reg) {
+        long long int get_register_value(char reg) {
             auto search = register_values.find(reg);
             if (search == register_values.end()) {
                 return 0;
@@ -90,7 +113,7 @@ class Program {
         }
 
         void print_line_str() {
-            cout << "\n" << "pid=" << pid << " " << line << ". " << instructions[line]->line << endl;
+            cout << "step " << line << ". " << instructions[line]->line << endl;
         }
 
         /**
@@ -131,23 +154,28 @@ class Program {
                 register_values[instruction->reg1] = queue_receive->front();
                 queue_receive->pop();
             } else {
-                unsigned long long int value;
-                if (instruction->use_reg2) {
-                    value = get_register_value(instruction->reg2);
+                long long int value1, value2;
+                if (instruction->use_reg1) {
+                    value1 = get_register_value(instruction->reg1);
                 } else {
-                    value = instruction->value;
+                    value1 = instruction->value1;
+                }
+                if (instruction->use_reg2) {
+                    value2 = get_register_value(instruction->reg2);
+                } else {
+                    value2 = instruction->value2;
                 }
                 if (instruction->instruction == "set") {
-                    register_values[instruction->reg1] = value;
+                    register_values[instruction->reg1] = value2;
                 } else if (instruction->instruction == "add") {
-                    register_values[instruction->reg1] = get_register_value(instruction->reg1) + value;
+                    register_values[instruction->reg1] = get_register_value(instruction->reg1) + value2;
                 } else if (instruction->instruction == "mul") {
-                    register_values[instruction->reg1] = get_register_value(instruction->reg1) * value;
+                    register_values[instruction->reg1] = get_register_value(instruction->reg1) * value2;
                 } else if (instruction->instruction == "mod") {
-                    register_values[instruction->reg1] = get_register_value(instruction->reg1) % value;
+                    register_values[instruction->reg1] = get_register_value(instruction->reg1) % value2;
                 } else if (instruction->instruction == "jgz") {
-                    if (get_register_value(instruction->reg1) > 0) {
-                        line += value;
+                    if (value1 > 0) {
+                        line += value2;
                         return true;
                     }
                 } else {
@@ -163,28 +191,62 @@ class Program {
         }
 };
 
+queue<long long int> * queue0 = new queue<long long int>();
+queue<long long int> * queue1 = new queue<long long int>();
+Program* program0 = new Program(0, queue1, queue0);
+Program* program1 = new Program(1, queue0, queue1);
+
+
+bool step_program(int pid, int total_steps) {
+    if (VERBOSE) {
+        cout << "\nPID " << pid << " (total steps: " << total_steps << ")" << endl;
+    }
+    Program* program;
+    if (pid == 0) {
+        program = program0;
+    } else {
+        program = program1;
+    }
+    if (VERBOSE) {
+        program->print_line_str();
+    }
+    bool result = program->step();
+    if (VERBOSE) {
+        cout << "result: " << result << endl;
+        program->print_queues();
+        program->print_registers();
+    }
+    return result;
+}
+
 
 int part2() {
-    queue<unsigned long long int> * queue0 = new queue<unsigned long long int>();
-    queue<unsigned long long int> * queue1 = new queue<unsigned long long int>();
-    Program* program0 = new Program(0, queue1, queue0);
-    Program* program1 = new Program(1, queue0, queue1);
-    bool result0, result1;
+    int total_steps = 0;
     while (true) {
-        // program0->print_line_str();
-        // program0->print_queues();
-        // program0->print_registers();
-        result0 = program0->step();
-        // cout << "result: " << result0 << endl;
-        if (result0) {
+        while (step_program(0, total_steps)) {
+            total_steps++;
+            if (MAX_TOTAL_STEPS != -1 && total_steps >= MAX_TOTAL_STEPS) {
+                return -1;
+            }
+        }
+        while (step_program(1, total_steps)) {
+            total_steps++;
+            if (MAX_TOTAL_STEPS != -1 && total_steps >= MAX_TOTAL_STEPS) {
+                return -1;
+            }
+        }
+        if (step_program(0, total_steps)) {
+            total_steps++;
+            if (MAX_TOTAL_STEPS != -1 && total_steps >= MAX_TOTAL_STEPS) {
+                return -1;
+            }
             continue;
         }
-        // program1->print_line_str();
-        // program1->print_queues();
-        // program1->print_registers();
-        result1 = program1->step();
-        // cout << "result: " << result1 << endl;
-        if (result1) {
+        if (step_program(1, total_steps)) {
+            total_steps++;
+            if (MAX_TOTAL_STEPS != -1 && total_steps >= MAX_TOTAL_STEPS) {
+                return -1;
+            }
             continue;
         }
         return program1->get_num_values_sent();
@@ -197,5 +259,5 @@ int main() {
     while (getline(cin, line)) {
         handle_line(line);
     }
-    cout << "Part 2: \n" << part2() << endl;
+    cout << "Part 2: " << part2() << endl;
 }

@@ -38,8 +38,6 @@ What is the value of the recovered frequency (the value of the most recently pla
 
 Your puzzle answer was 8600.
 
-The first half of this puzzle is complete! It provides one gold star: *
-
 --- Part Two ---
 As you congratulate yourself for a job well done, you notice that the documentation has been on the back of the tablet this entire time. While you actually got most of the instructions correct, there are a few key differences. This assembly code isn't about sound at all - it's meant to be run twice at the same time.
 
@@ -66,4 +64,6 @@ It should be noted that it would be equally valid for the programs to run at dif
 
 Once both of your programs have terminated (regardless of what caused them to do so), how many times did program 1 send a value?
 
-Although it hasn't changed, you can still get your puzzle input.
+Your puzzle answer was 7239.
+
+Both parts of this puzzle are complete! They provide two gold stars: **

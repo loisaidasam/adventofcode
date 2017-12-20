@@ -3,7 +3,7 @@
  * Day 18!
  * Part 1: 8600
  *
- * unsigned long long int
+ * long long int
  * https://stackoverflow.com/questions/1819189/what-range-of-values-can-integer-types-store-in-c/1819236#1819236
  */
 
@@ -23,16 +23,16 @@ struct Instruction {
     char reg1;
     bool use_reg2;
     char reg2;
-    unsigned long long int value;
+    long long int value;
 };
 
 
 vector<Instruction*> instructions;
 
-unordered_map<char, unsigned long long int> register_values;
+unordered_map<char, long long int> register_values;
 
 
-unsigned long long int get_register_value(char reg) {
+long long int get_register_value(char reg) {
     auto search = register_values.find(reg);
     if (search == register_values.end()) {
         return 0;
@@ -43,7 +43,7 @@ unsigned long long int get_register_value(char reg) {
 
 void print_registers() {
     cout << register_values.size() << " registers:" << endl;
-    for (unordered_map<char, unsigned long long int>::iterator it = register_values.begin(); it != register_values.end(); it++) {
+    for (unordered_map<char, long long int>::iterator it = register_values.begin(); it != register_values.end(); it++) {
         cout << "\t" << it->first << ": " << it->second << endl;
     }
 }
@@ -86,8 +86,8 @@ void handle_line(string line) {
  */
 int part1() {
     int line = 0;
-    unsigned long long int frequency;
-    unsigned long long int value;
+    long long int frequency;
+    long long int value;
     while (true) {
         Instruction* instruction = instructions[line];
         // print_registers();

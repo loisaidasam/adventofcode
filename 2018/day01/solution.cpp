@@ -1,3 +1,8 @@
+/**
+ * Day 1
+ *
+ * sets, vectors
+ */
 
 #include <iostream>
 #include <set>

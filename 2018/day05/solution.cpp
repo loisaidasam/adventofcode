@@ -49,9 +49,7 @@ string reduce_polymer(string polymer) {
 }
 
 
-int solution1() {
-    string polymer;
-    cin >> polymer;
+int fully_reduce_polymer(string polymer) {
     int polymer_length;
     int loop = 0;
     do {
@@ -65,7 +63,53 @@ int solution1() {
 }
 
 
+int solution1() {
+    string polymer;
+    cin >> polymer;
+    return fully_reduce_polymer(polymer);
+}
+
+
+string remove_unit_from_polymer(string polymer, char unit) {
+    // Optimization?
+    // if (polymer.find(unit) == string::npos && polymer.find(toupper(unit)) == string::npos) {
+    //     return polymer;
+    // }
+    string result = "";
+    for (int i = 0; i < polymer.length(); i++) {
+        if (tolower(polymer[i]) == unit) {
+            continue;
+        }
+        result += polymer[i];
+    }
+    return result;
+}
+
+
+int solution2() {
+    string polymer, test_polymer;
+    int polymer_length;
+    cin >> polymer;
+    int min_polymer_length = fully_reduce_polymer(polymer);
+    for (char unit = 'a'; unit <= 'z'; unit++) {
+        // For tracking progress
+        cout << unit << endl;
+        test_polymer = remove_unit_from_polymer(polymer, unit);
+        if (test_polymer == polymer) {
+            continue;
+        }
+        polymer_length = fully_reduce_polymer(test_polymer);
+        if (polymer_length < min_polymer_length) {
+            min_polymer_length = polymer_length;
+        }
+    }
+    cout << endl;
+    return min_polymer_length;
+}
+
+
 int main() {
-    cout << solution1() << endl;
+    // cout << solution1() << endl;
+    cout << solution2() << endl;
     return 0;
 }

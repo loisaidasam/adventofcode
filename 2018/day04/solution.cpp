@@ -133,7 +133,52 @@ int solution1() {
 }
 
 
+int solution2() {
+    vector<string> records = read_input();
+    map<int, int*> guard_minute_counts;
+    string record, word;
+    int guard_id, minute, sleep_start, max_sleep_guard_id, max_sleep_minute;
+    int max_sleeptime = 0;
+    for (int i = 0; i < records.size(); i++) {
+        record = records[i];
+        stringstream ss;
+        ss << record;
+        ss >> word >> word;
+        // word now has something like "00:03]"
+        minute = stoi(word.substr(3, 2));
+        ss >> word;
+        if (word == "Guard") {
+            ss >> word;
+            guard_id = stoi(word.substr(1, word.length() - 1));
+            continue;
+        }
+        if (word == "falls") {
+            sleep_start = minute;
+            continue;
+        }
+        if (word == "wakes") {
+            if (guard_minute_counts.find(guard_id) == guard_minute_counts.end()) {
+                guard_minute_counts[guard_id] = new int[60];
+                for (int i = 0; i < 60; i++) {
+                    guard_minute_counts[guard_id][i] = 0;
+                }
+            }
+            for (int i = sleep_start; i < minute; i++) {
+                guard_minute_counts[guard_id][i]++;
+                if (guard_minute_counts[guard_id][i] > max_sleeptime) {
+                    max_sleep_guard_id = guard_id;
+                    max_sleep_minute = i;
+                    max_sleeptime = guard_minute_counts[guard_id][i];
+                }
+            }
+        }
+    }
+    return max_sleep_guard_id * max_sleep_minute;
+}
+
+
 int main() {
-    cout << solution1() << endl;
+    // cout << solution1() << endl;
+    cout << solution2() << endl;
     return 0;
 }

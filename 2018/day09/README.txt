@@ -53,4 +53,12 @@ What is the winning Elf's score?
 
 Your puzzle answer was 374690.
 
-The first half of this puzzle is complete! It provides one gold star: *
+--- Part Two ---
+
+Amused by the speed of your answer, the Elves are curious:
+
+What would the new winning Elf's score be if the number of the last marble were 100 times larger?
+
+Your puzzle answer was 3009951158.
+
+Both parts of this puzzle are complete! They provide two gold stars: **

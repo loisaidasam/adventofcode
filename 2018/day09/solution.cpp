@@ -1,3 +1,8 @@
+/**
+ * Day 9
+ *
+ * Doubly-linked lists, big numbers (int vs. long)
+ */
 
 #include <iostream>
 #include <sstream>
@@ -71,10 +76,8 @@ class Circle {
 };
 
 
-int solution1() {
-    int num_players, last_marble;
-    cin >> num_players >> last_marble;
-    int scores[num_players];
+long solution1(int num_players, int last_marble) {
+    long scores[num_players];
     for (int i = 0; i < num_players; i++) {
         scores[i] = 0;
     }
@@ -83,10 +86,13 @@ int solution1() {
     int player_number = 0;
     for (int number = 1; number <= last_marble; number++) {
         scores[player_number] += circle->add_marble(number);
+        // if (number % 1000000 == 0) {
+        //     cout << number << endl;
+        // }
         // cout << "[" << (player_number + 1) << "]\t" << circle->to_string() << endl;
         player_number = (player_number + 1) % num_players;
     }
-    int max_score = 0;
+    long max_score = 0;
     for (int i = 0; i < num_players; i++) {
         if (scores[i] > max_score) {
             max_score = scores[i];
@@ -96,6 +102,14 @@ int solution1() {
 }
 
 
+long solution2(int num_players, int last_marble) {
+    return solution1(num_players, last_marble * 100);
+}
+
+
 int main() {
-    cout << solution1() << endl;
+    int num_players, last_marble;
+    cin >> num_players >> last_marble;
+    // cout << solution1(num_players, last_marble) << endl;
+    cout << solution2(num_players, last_marble) << endl;
 }

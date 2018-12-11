@@ -97,8 +97,8 @@ class State {
             return ss.str();
         }
         string to_string_grid() {
-            int x_range = this->get_x_range();
-            int y_range = this->get_y_range();
+            int x_range = this->get_x_range() + 1;
+            int y_range = this->get_y_range() + 1;
             char grid[x_range][y_range];
             for (int x = 0; x < x_range; x++) {
                 for (int y = 0; y < y_range; y++) {
@@ -113,14 +113,16 @@ class State {
                 point = this->points[i];
                 x = point->x - min_x;
                 y = point->y - min_y;
+                // cout << x << " " << y << endl;
                 grid[x][y] = '#';
+                // break;
             }
             stringstream ss;
-            for (int x = 0; x < x_range; x++) {
-                // for (int y = 0; y < y_range; y++) {
-                // Reverse the Y's
-                for (int y = y_range; y >= 0; y--) {
-                    ss << grid[x][y];;
+            for (int y = 0; y < y_range; y++) {
+            // Reverse the Y's?
+            // for (int y = y_range; y >= 0; y--) {
+                for (int x = 0; x < x_range; x++) {
+                    ss << grid[x][y];
                 }
                 ss << endl;
             }
@@ -132,11 +134,23 @@ class State {
 void solution1() {
     State* state = new State();
     state->read_input();
-    // Discovery:
+
+    // Confirm test input
+    // cout << "Step " << state->step_num << ": " << state->to_string_ranges() << endl;
+    // cout << state->to_string_verbose() << endl;
+    // cout << state->to_string_grid() << endl;
+    // for (int i = 0; i < 5; i++) {
+    //     state->step();
+    //     cout << "Step " << state->step_num << ": " << state->to_string_ranges() << endl;
+    //     cout << state->to_string_grid() << endl;
+    // }
+
+    // Discovery, look for smallest range:
     // while (true) {
     //     state->step();
     //     cout << state->step_num << ": " << state->to_string_ranges() << endl;
     // }
+
     // Range is smallest at step 10831
     for (int i = 0; i < 10831; i++) {
         state->step();

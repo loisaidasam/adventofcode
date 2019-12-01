@@ -1,64 +1,43 @@
 package day01;
 
 import common.BaseSolution;
+import common.InputReader;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
-public class Solution extends BaseSolution {
+public class Solution extends BaseSolution implements common.Solution {
 
     public static void main(String[] args) {
-        System.out.println("Part1: " + Solution.part1());
-        System.out.println("Part2: " + Solution.part2());
+        new Solution().run();
     }
 
-    private static int part1() {
-        BufferedReader reader;
+    public String part1() {
         int mass, totalFuel = 0;
-        try {
-            reader = new BufferedReader(new FileReader(getInputFilename("day01")));
-            String line = reader.readLine();
-            while (line != null) {
-                mass = Integer.valueOf(line);
-                totalFuel += Solution.getFuel(mass);
-                line = reader.readLine();
-            }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        InputReader reader = getInputReader();
+        String line = reader.next();
+        while (line != null) {
+            mass = Integer.parseInt(line);
+            totalFuel += getFuel(mass);
+            line = reader.next();
         }
-        return totalFuel;
+        return String.valueOf(totalFuel);
     }
 
-    private static int getFuel(int mass) {
+    private int getFuel(int mass) {
         return mass / 3 - 2;
     }
 
-    private static int part2() {
-        BufferedReader reader;
+    public String part2() {
         int mass, totalFuel = 0;
-        try {
-            reader = new BufferedReader(new FileReader(getInputFilename("day01")));
-            String line = reader.readLine();
-            while (line != null) {
-                mass = Integer.valueOf(line);
-                totalFuel += Solution.getFuelWithResiduals(mass);
-                line = reader.readLine();
-            }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        InputReader reader = getInputReader();
+        String line = reader.next();
+        while (line != null) {
+            mass = Integer.parseInt(line);
+            totalFuel += getFuelWithResiduals(mass);
+            line = reader.next();
         }
-        return totalFuel;
+        return String.valueOf(totalFuel);
     }
 
-    private static int getFuelWithResiduals(int mass) {
+    private int getFuelWithResiduals(int mass) {
         int fuel = 0;
         int fuelPiece = mass;
         do {

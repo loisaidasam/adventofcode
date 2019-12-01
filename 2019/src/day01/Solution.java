@@ -9,43 +9,53 @@ public class Solution extends BaseSolution implements common.Solution {
         new Solution().run();
     }
 
-    public String part1() {
-        int mass, totalFuel = 0;
-        InputReader reader = getInputReader();
-        String line = reader.next();
-        while (line != null) {
-            mass = Integer.parseInt(line);
-            totalFuel += getFuel(mass);
-            line = reader.next();
+    class BaseFuelCalculator {
+        public int calculateFuel() {
+            int mass, totalFuel = 0;
+            InputReader reader = getInputReader();
+            String line = reader.next();
+            while (line != null) {
+                mass = Integer.parseInt(line);
+                totalFuel += getFuel(mass);
+                line = reader.next();
+            }
+            return totalFuel;
         }
-        return String.valueOf(totalFuel);
+
+        protected int getFuelForMass(int mass) {
+            return mass / 3 - 2;
+        }
+
+        protected int getFuel(int mass) {
+            return 0;
+        }
     }
 
-    private int getFuel(int mass) {
-        return mass / 3 - 2;
+    class Part1FuelCalculator extends BaseFuelCalculator {
+        protected int getFuel(int mass) {
+            return getFuelForMass(mass);
+        }
+    }
+
+    class Part2FuelCalculator extends BaseFuelCalculator {
+        protected int getFuel(int mass) {
+            int fuel = 0;
+            int fuelPiece = mass;
+            do {
+                fuelPiece = getFuelForMass(fuelPiece);
+                if (fuelPiece > 0) {
+                    fuel += fuelPiece;
+                }
+            } while (fuelPiece > 0);
+            return fuel;
+        }
+    }
+
+    public String part1() {
+        return String.valueOf(new Part1FuelCalculator().calculateFuel());
     }
 
     public String part2() {
-        int mass, totalFuel = 0;
-        InputReader reader = getInputReader();
-        String line = reader.next();
-        while (line != null) {
-            mass = Integer.parseInt(line);
-            totalFuel += getFuelWithResiduals(mass);
-            line = reader.next();
-        }
-        return String.valueOf(totalFuel);
-    }
-
-    private int getFuelWithResiduals(int mass) {
-        int fuel = 0;
-        int fuelPiece = mass;
-        do {
-            fuelPiece = getFuel(fuelPiece);
-            if (fuelPiece > 0) {
-                fuel += fuelPiece;
-            }
-        } while (fuelPiece > 0);
-        return fuel;
+        return String.valueOf(new Part2FuelCalculator().calculateFuel());
     }
 }

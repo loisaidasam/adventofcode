@@ -3,10 +3,10 @@ package day01;
 import common.BaseSolution;
 import common.InputReader;
 
-public class Solution extends BaseSolution implements common.Solution {
+public class Solution01 extends BaseSolution implements common.Solution {
 
     public static void main(String[] args) {
-        new Solution().run();
+        new Solution01().run();
     }
 
     class BaseFuelCalculator {

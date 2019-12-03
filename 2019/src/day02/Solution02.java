@@ -31,4 +31,26 @@ public class Solution02 extends BaseSolution implements common.Solution {
         computer.restoreTo1202ProgramAlarmState();
         return String.valueOf(computer.process());
     }
+
+    @Override
+    public String part2() {
+        int targetOutput = 19690720;
+        IntcodeComputer computer;
+        int output;
+        for (int noun = 0; noun <= 99; noun++) {
+            for (int verb = 0; verb <= 99; verb++) {
+                computer = new IntcodeComputer(positions.clone());
+                computer.restoreToState(noun, verb);
+                try {
+                    output = computer.process();
+                } catch (IntcodeComputer.UnknownOpcodeException exception) {
+                    continue;
+                }
+                if (output == targetOutput) {
+                    return String.valueOf(100 * noun + verb);
+                }
+            }
+        }
+        return null;
+    }
 }

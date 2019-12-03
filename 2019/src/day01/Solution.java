@@ -40,13 +40,11 @@ public class Solution extends BaseSolution implements common.Solution {
     class Part2FuelCalculator extends BaseFuelCalculator {
         protected int getFuel(int mass) {
             int fuel = 0;
-            int fuelPiece = mass;
-            do {
+            int fuelPiece = getFuelForMass(mass);
+            while (fuelPiece > 0) {
+                fuel += fuelPiece;
                 fuelPiece = getFuelForMass(fuelPiece);
-                if (fuelPiece > 0) {
-                    fuel += fuelPiece;
-                }
-            } while (fuelPiece > 0);
+            }
             return fuel;
         }
     }

@@ -29,14 +29,7 @@ public class IntcodeComputer {
         return "Position " + position + " / " + positionsStr4 + " / " + positionsStr;
     }
 
-    public int getPosition(int position) {
-        return positions[position];
-    }
-
-    public void process() throws UnknownOpcodeException {
-//        System.out.println("Before: " + this);
-        restoreTo1202ProgramAlarmState();
-//        System.out.println("1202 state: " + this);
+    public int process() throws UnknownOpcodeException {
         position = 0;
         int opcode = positions[position];
         while (opcode != OPCODE_HALT) {
@@ -51,15 +44,19 @@ public class IntcodeComputer {
             }
             position += 4;
             opcode = positions[position];
-//            System.out.println(this);
         }
+        return positions[0];
     }
 
     /**
      * https://www.hq.nasa.gov/alsj/a11/a11.landing.html#1023832
      */
-    protected void restoreTo1202ProgramAlarmState() {
-        positions[1] = 12;
-        positions[2] = 2;
+    public void restoreTo1202ProgramAlarmState() {
+        restoreToState(12, 2);
+    }
+
+    public void restoreToState(int noun, int verb) {
+        positions[1] = noun;
+        positions[2] = verb;
     }
 }

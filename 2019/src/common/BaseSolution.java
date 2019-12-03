@@ -4,10 +4,11 @@ public class BaseSolution implements Solution {
 
     protected String inputFilename = "input.txt";
 
-    public void run() {
+    public Solution run() throws Exception {
         System.out.println("Solution for " + getDayName());
         System.out.println("Part1: " + part1());
         System.out.println("Part2: " + part2());
+        return this;
     }
 
     protected String getDayName() {
@@ -34,12 +35,12 @@ public class BaseSolution implements Solution {
     }
 
     @Override
-    public String part1() {
+    public String part1() throws Exception {
         return null;
     }
 
     @Override
-    public String part2() {
+    public String part2() throws Exception {
         return null;
     }
 }

@@ -5,7 +5,7 @@ import common.InputReader;
 
 public class Solution01 extends BaseSolution implements common.Solution {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         new Solution01().run();
     }
 
@@ -49,10 +49,12 @@ public class Solution01 extends BaseSolution implements common.Solution {
         }
     }
 
+    @Override
     public String part1() {
         return String.valueOf(new Part1FuelCalculator().calculateFuel());
     }
 
+    @Override
     public String part2() {
         return String.valueOf(new Part2FuelCalculator().calculateFuel());
     }

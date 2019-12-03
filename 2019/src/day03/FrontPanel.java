@@ -4,13 +4,14 @@ import org.apache.commons.collections4.map.MultiKeyMap;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class FrontPanel {
     // {x: {y: {'r', 'b'}}}
-    protected HashMap<Integer, HashMap<Integer, Set<Character>>> pointWires;
+    protected HashMap<Integer, Map<Integer, Map<Character, Integer>>> pointWires;
     // {'r': {x: {y, ...}}}
-    protected HashMap<Character, HashMap<Integer, Set<Integer>>> wirePoints;
+    protected HashMap<Character, Map<Integer, Set<Integer>>> wirePoints;
 
     public class UnknownDirectionException extends Exception {}
 
@@ -49,13 +50,15 @@ public class FrontPanel {
 
     public void handleInstructions(char wire, String[] instructions) throws UnknownDirectionException {
         Point point = new Point(0, 0);
-        addPointWire(point, wire);
+        int wireDistance = 0;
+        addPointWire(point, wire, wireDistance);
         for (String instruction : instructions) {
-            handleInstruction(wire, point, instruction);
+            wireDistance = handleInstruction(wire, wireDistance, point, instruction);
         }
     }
 
-    public void handleInstruction(char wire, Point point, String instruction) throws UnknownDirectionException {
+    public int handleInstruction(char wire, int wireDistance, Point point, String instruction)
+            throws UnknownDirectionException {
         char direction = instruction.charAt(0);
         int distance = Integer.parseInt(instruction.substring(1));
         for (int i = 0; i < distance; i++) {
@@ -75,19 +78,23 @@ public class FrontPanel {
                 default:
                     throw new UnknownDirectionException();
             }
-            addPointWire(point, wire);
+            wireDistance++;
+            addPointWire(point, wire, wireDistance);
         }
+        return wireDistance;
     }
 
-    public void addPointWire(Point point, char wire) {
+    public void addPointWire(Point point, char wire, int wireDistance) {
         // Point Wires:
         if (! pointWires.containsKey(point.x)) {
             pointWires.put(point.x, new HashMap<>());
         }
         if (! pointWires.get(point.x).containsKey(point.y)) {
-            pointWires.get(point.x).put(point.y, new HashSet<>());
+            pointWires.get(point.x).put(point.y, new HashMap<>());
         }
-        pointWires.get(point.x).get(point.y).add(wire);
+        if (! pointWires.get(point.x).get(point.y).containsKey(wire)) {
+            pointWires.get(point.x).get(point.y).put(wire, wireDistance);
+        }
 
         // Wire Points:
         if (! wirePoints.containsKey(wire)) {
@@ -99,7 +106,7 @@ public class FrontPanel {
         wirePoints.get(wire).get(point.x).add(point.y);
     }
 
-    public int findClosestIntersectionDistance() {
+    public int findClosestIntersectionDistanceManhattan() {
         int distance;
         Point point;
         int minDistance = -1;
@@ -116,5 +123,24 @@ public class FrontPanel {
             }
         }
         return minDistance;
+    }
+
+    public int findClosestIntersectionDistanceSteps() {
+        int steps;
+        Point point;
+        int minSteps = -1;
+        for (int x : pointWires.keySet()) {
+            for (int y : pointWires.get(x).keySet()) {
+                if (pointWires.get(x).get(y).size() == 1) {
+                    continue;
+                }
+                // TODO: This assumes we have 'r' and 'b'. Could do it more dynamically.
+                steps = pointWires.get(x).get(y).get('r') + pointWires.get(x).get(y).get('b');
+                if (steps != 0 && (minSteps == -1 || steps < minSteps)) {
+                    minSteps = steps;
+                }
+            }
+        }
+        return minSteps;
     }
 }

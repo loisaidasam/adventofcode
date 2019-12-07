@@ -21,12 +21,11 @@ public class Solution02 extends BaseSolution implements common.Solution {
     protected int[] getInputPositions() {
         InputReader reader = getInputReader();
         String line = reader.next();
-        String[] values = line.split(",");
-        return Arrays.stream(values).mapToInt(Integer::parseInt).toArray();
+        return IntcodeComputer.buildInputPositions(line);
     }
 
     @Override
-    public String part1() throws IntcodeComputer.UnknownOpcodeException {
+    public String part1() throws IntcodeComputer.IntcodeException {
         IntcodeComputer computer = new IntcodeComputer(positions.clone());
         computer.restoreTo1202ProgramAlarmState();
         return String.valueOf(computer.process());
@@ -43,7 +42,7 @@ public class Solution02 extends BaseSolution implements common.Solution {
                 computer.restoreToState(noun, verb);
                 try {
                     output = computer.process();
-                } catch (IntcodeComputer.UnknownOpcodeException exception) {
+                } catch (IntcodeComputer.IntcodeException exception) {
                     continue;
                 }
                 if (output == targetOutput) {

@@ -10,6 +10,10 @@ public class IntcodeComputer extends day02.IntcodeComputer {
 
     public final static int OPCODE_INPUT = 3;
     public final static int OPCODE_OUTPUT = 4;
+    public final static int OPCODE_JUMP_IF_TRUE = 5;
+    public final static int OPCODE_JUMP_IF_FALSE = 6;
+    public final static int OPCODE_LESS_THAN = 7;
+    public final static int OPCODE_EQUALS = 8;
 
     protected Queue<Integer> inputs;
     protected List<Integer> outputs;
@@ -53,16 +57,36 @@ public class IntcodeComputer extends day02.IntcodeComputer {
                 instructionPointer += 2;
                 return;
         }
+
         int param2 = positions[instructionPointer + 2];
-        int param3 = positions[instructionPointer + 3];
-
-        System.out.println(opcode + " " + param1 + " " + param2 + " " + param3);
-
         int item2 = instruction.modeParam2 == Instruction.PARAMETER_MODE_POSITION ? positions[param2] : param2;
+
+        switch (instruction.opcode) {
+            case OPCODE_JUMP_IF_TRUE:
+                System.out.println(opcode + " " + param1 + " " + param2);
+                if (item1 != 0) {
+                    instructionPointer = item2;
+                } else {
+                    instructionPointer += 3;
+                }
+                return;
+            case OPCODE_JUMP_IF_FALSE:
+                System.out.println(opcode + " " + param1 + " " + param2);
+                if (item1 == 0) {
+                    instructionPointer = item2;
+                } else {
+                    instructionPointer += 3;
+                }
+                return;
+        }
+
+        int param3 = positions[instructionPointer + 3];
         // Confirm that param 3 can never be in immediate mode
         if (instruction.modeParam3 == Instruction.PARAMETER_MODE_IMMEDIATE) {
             throw new InvalidImmediateException();
         }
+
+        System.out.println(opcode + " " + param1 + " " + param2 + " " + param3);
 
         switch (instruction.opcode) {
             case OPCODE_ADD:
@@ -70,6 +94,12 @@ public class IntcodeComputer extends day02.IntcodeComputer {
                 break;
             case OPCODE_MULTIPLY:
                 positions[param3] = item1 * item2;
+                break;
+            case OPCODE_LESS_THAN:
+                positions[param3] = item1 < item2 ? 1 : 0;
+                break;
+            case OPCODE_EQUALS:
+                positions[param3] = item1 == item2 ? 1 : 0;
                 break;
             default:
                 throw new UnknownOpcodeException();

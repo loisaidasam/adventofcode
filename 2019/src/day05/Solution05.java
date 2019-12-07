@@ -12,11 +12,6 @@ public class Solution05 extends BaseSolution implements common.Solution {
         new Solution05().run();
     }
 
-    public Solution05() {
-        super();
-        computer = new day05.IntcodeComputer(getInputPositions());
-    }
-
     protected int[] getInputPositions() {
         InputReader reader = getInputReader();
         String line = reader.next();
@@ -25,13 +20,16 @@ public class Solution05 extends BaseSolution implements common.Solution {
 
     @Override
     public String part1() throws IntcodeComputer.IntcodeException {
+        computer = new day05.IntcodeComputer(getInputPositions());
         int[] inputs = {1};
-        computer.process(inputs);
-        return null;
+        return String.valueOf(computer.process(inputs));
     }
 
     @Override
-    public String part2() {
-        return null;
+    public String part2() throws IntcodeComputer.IntcodeException {
+        // inputFilename = "input-test.txt";
+        computer = new day05.IntcodeComputer(getInputPositions());
+        int[] inputs = {5};
+        return String.valueOf(computer.process(inputs));
     }
 }

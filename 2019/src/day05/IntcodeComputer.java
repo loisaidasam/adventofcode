@@ -39,7 +39,7 @@ public class IntcodeComputer extends day02.IntcodeComputer {
     protected void handleOpcode(int opcode) throws IntcodeException {
         Instruction instruction = new Instruction(opcode);
         int param1 = positions[instructionPointer + 1];
-        int item1, item2;
+        int item1 = instruction.modeParam1 == Instruction.PARAMETER_MODE_POSITION ? positions[param1] : param1;
         switch (instruction.opcode) {
             case OPCODE_INPUT:
                 System.out.println(opcode + " " + param1);
@@ -48,8 +48,8 @@ public class IntcodeComputer extends day02.IntcodeComputer {
                 return;
             case OPCODE_OUTPUT:
                 System.out.println(opcode + " " + param1);
-                outputs.add(positions[param1]);
-                System.out.println("OUTPUT " + positions[param1] + "\n");
+                outputs.add(item1);
+                System.out.println("OUTPUT " + item1 + "\n");
                 instructionPointer += 2;
                 return;
         }
@@ -58,8 +58,7 @@ public class IntcodeComputer extends day02.IntcodeComputer {
 
         System.out.println(opcode + " " + param1 + " " + param2 + " " + param3);
 
-        item1 = instruction.modeParam1 == Instruction.PARAMETER_MODE_POSITION ? positions[param1] : param1;
-        item2 = instruction.modeParam2 == Instruction.PARAMETER_MODE_POSITION ? positions[param2] : param2;
+        int item2 = instruction.modeParam2 == Instruction.PARAMETER_MODE_POSITION ? positions[param2] : param2;
         // Confirm that param 3 can never be in immediate mode
         if (instruction.modeParam3 == Instruction.PARAMETER_MODE_IMMEDIATE) {
             throw new InvalidImmediateException();

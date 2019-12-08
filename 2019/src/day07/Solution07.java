@@ -1,7 +1,6 @@
 package day07;
 
 import common.BaseSolution;
-import common.InputReader;
 import common.IntcodeComputer;
 
 public class Solution07 extends BaseSolution implements common.Solution {

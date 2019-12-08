@@ -46,14 +46,14 @@ public class IntcodeComputer extends day02.IntcodeComputer {
         int item1 = instruction.modeParam1 == Instruction.PARAMETER_MODE_POSITION ? positions[param1] : param1;
         switch (instruction.opcode) {
             case OPCODE_INPUT:
-                System.out.println(opcode + " " + param1);
+                // System.out.println(opcode + " " + param1);
                 positions[param1] = inputs.remove();
                 instructionPointer += 2;
                 return;
             case OPCODE_OUTPUT:
-                System.out.println(opcode + " " + param1);
+                // System.out.println(opcode + " " + param1);
                 outputs.add(item1);
-                System.out.println("OUTPUT " + item1 + "\n");
+                // System.out.println("OUTPUT " + item1 + "\n");
                 instructionPointer += 2;
                 return;
         }
@@ -63,7 +63,7 @@ public class IntcodeComputer extends day02.IntcodeComputer {
 
         switch (instruction.opcode) {
             case OPCODE_JUMP_IF_TRUE:
-                System.out.println(opcode + " " + param1 + " " + param2);
+                // System.out.println(opcode + " " + param1 + " " + param2);
                 if (item1 != 0) {
                     instructionPointer = item2;
                 } else {
@@ -71,7 +71,7 @@ public class IntcodeComputer extends day02.IntcodeComputer {
                 }
                 return;
             case OPCODE_JUMP_IF_FALSE:
-                System.out.println(opcode + " " + param1 + " " + param2);
+                // System.out.println(opcode + " " + param1 + " " + param2);
                 if (item1 == 0) {
                     instructionPointer = item2;
                 } else {
@@ -86,7 +86,7 @@ public class IntcodeComputer extends day02.IntcodeComputer {
             throw new InvalidImmediateException();
         }
 
-        System.out.println(opcode + " " + param1 + " " + param2 + " " + param3);
+        // System.out.println(opcode + " " + param1 + " " + param2 + " " + param3);
 
         switch (instruction.opcode) {
             case OPCODE_ADD:

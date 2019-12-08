@@ -1,11 +1,8 @@
 package day07;
 
 import day05.IntcodeComputer;
-import org.apache.commons.collections4.iterators.PermutationIterator;
 
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 public class AmpCircuit {

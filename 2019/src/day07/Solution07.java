@@ -10,11 +10,6 @@ public class Solution07 extends BaseSolution implements common.Solution {
         new Solution07().run();
     }
 
-    // public Solution07() {
-    //     super();
-    //     buildOrbitObjectMap();
-    // }
-
     @Override
     public String part1() throws IntcodeComputer.IntcodeException {
         int outputSignal = new AmpCircuit(getInputPositions()).findLargestOutputSignal();
@@ -22,7 +17,8 @@ public class Solution07 extends BaseSolution implements common.Solution {
     }
 
     @Override
-    public String part2() {
-        return null;
+    public String part2() throws IntcodeComputer.IntcodeException {
+        int outputSignal = new AmpCircuit(getInputPositions()).findLargestOutputSignalWithFeedback();
+        return String.valueOf(outputSignal);
     }
 }

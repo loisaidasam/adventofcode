@@ -1,28 +1,33 @@
 package common;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 public class IntcodeComputer {
 
     public final static int OPCODE_ADD = 1;
     public final static int OPCODE_MULTIPLY = 2;
-    public final static int OPCODE_HALT = 99;
     public final static int OPCODE_INPUT = 3;
     public final static int OPCODE_OUTPUT = 4;
     public final static int OPCODE_JUMP_IF_TRUE = 5;
     public final static int OPCODE_JUMP_IF_FALSE = 6;
     public final static int OPCODE_LESS_THAN = 7;
     public final static int OPCODE_EQUALS = 8;
+    public final static int OPCODE_HALT = 99;
 
     protected int instructionPointer = 0;
     protected int[] positions;
 
     protected Queue<Integer> inputs;
-    protected List<Integer> outputs;
+    protected Queue<Integer> outputs;
+    protected Integer lastOutput = null;
+
+    protected boolean halted = false;
+
+    protected boolean verbose = false;
+
+    protected boolean interruptOnOutput = false;
 
     public class IntcodeException extends Exception {}
 
@@ -30,13 +35,55 @@ public class IntcodeComputer {
 
     public class InvalidImmediateException extends IntcodeException {}
 
+    public class WaitingOnInputInterrupt extends IntcodeException {
+        public Queue<Integer> outputs;
+
+        public WaitingOnInputInterrupt(Queue<Integer> outputs) {
+            this.outputs = outputs;
+        }
+    }
+
+    public class OutputInterrupt extends IntcodeException {
+        public int output;
+
+        public OutputInterrupt(int output) {
+            this.output = output;
+        }
+    }
+
     public IntcodeComputer(int[] positions) {
         this.positions = positions;
+        inputs = new LinkedList<>();
+        outputs = new LinkedList<>();
     }
 
     public static int[] buildInputPositions(String input) {
         String[] values = input.split(",");
         return Arrays.stream(values).mapToInt(Integer::parseInt).toArray();
+    }
+
+    public boolean isHalted() {
+        return halted;
+    }
+
+    public void setVerbose(boolean verbose) {
+        this.verbose = verbose;
+    }
+
+    public void pushOntoInputs(int input) {
+        inputs.add(input);
+    }
+
+    public void pushOntoInputs(int[] inputs) {
+        for (int input : inputs) {
+            this.inputs.add(input);
+        }
+    }
+
+    public void pushOntoInputs(Queue<Integer> inputs) {
+        for (int input : inputs) {
+            this.inputs.add(input);
+        }
     }
 
     public int processDay02() throws IntcodeException {
@@ -49,20 +96,53 @@ public class IntcodeComputer {
         return positions[0];
     }
 
-    public int process(int[] inputs) throws IntcodeException {
-        this.inputs = new LinkedList<>();
-        for (int input : inputs) {
-            this.inputs.add(input);
-        }
-        outputs = new ArrayList<>();
+    public Integer processAndReturnLastOutput(int[] inputs) throws IntcodeException {
+        process(inputs);
+        return getLastOutput();
+    }
 
+    public Queue<Integer> process(int[] inputs) throws IntcodeException {
+        pushOntoInputs(inputs);
+        return process();
+    }
+
+    public Integer processWithFeedback(IntcodeComputer nextComputer) throws IntcodeException {
+        interruptOnOutput = true;
+        try {
+            process();
+        }
+        catch (IntcodeComputer.WaitingOnInputInterrupt exception) {
+            nextComputer.pushOntoInputs(outputs);
+            outputs.clear();
+            return null;
+        }
+        catch (OutputInterrupt exception) {
+            nextComputer.pushOntoInputs(outputs);
+            outputs.clear();
+            return null;
+        }
+        return getLastOutput();
+    }
+
+    public Queue<Integer> process() throws IntcodeException {
         int opcode = positions[instructionPointer];
         while (opcode != OPCODE_HALT) {
             handleOpcode(opcode);
             opcode = positions[instructionPointer];
         }
-        // Return the last output
-        return outputs.get(outputs.size() - 1);
+        halted = true;
+        // Return all outputs
+        return outputs;
+    }
+
+    public Integer getLastOutput() {
+        return lastOutput;
+    }
+
+    protected void logVerbose(String instruction) {
+        if (verbose) {
+            System.out.println(instruction);
+        }
     }
 
     protected void handleOpcode(int opcode) throws IntcodeException {
@@ -71,15 +151,24 @@ public class IntcodeComputer {
         int item1 = instruction.modeParam1 == Instruction.PARAMETER_MODE_POSITION ? positions[param1] : param1;
         switch (instruction.opcode) {
             case OPCODE_INPUT:
-                // System.out.println(opcode + " " + param1);
+                logVerbose(opcode + " " + param1);
+                if (inputs.isEmpty()) {
+                    logVerbose("WaitingOnInputInterrupt!");
+                    throw new WaitingOnInputInterrupt(outputs);
+                }
                 positions[param1] = inputs.remove();
                 instructionPointer += 2;
                 return;
             case OPCODE_OUTPUT:
-                // System.out.println(opcode + " " + param1);
+                logVerbose(opcode + " " + param1);
                 outputs.add(item1);
-                // System.out.println("OUTPUT " + item1 + "\n");
+                lastOutput = item1;
+                logVerbose("OUTPUT " + item1 + "\n");
                 instructionPointer += 2;
+                if (interruptOnOutput) {
+                    logVerbose("OutputInterrupt!)");
+                    throw new OutputInterrupt(item1);
+                }
                 return;
         }
 
@@ -88,7 +177,7 @@ public class IntcodeComputer {
 
         switch (instruction.opcode) {
             case OPCODE_JUMP_IF_TRUE:
-                // System.out.println(opcode + " " + param1 + " " + param2);
+                logVerbose(opcode + " " + param1 + " " + param2);
                 if (item1 != 0) {
                     instructionPointer = item2;
                 } else {
@@ -96,7 +185,7 @@ public class IntcodeComputer {
                 }
                 return;
             case OPCODE_JUMP_IF_FALSE:
-                // System.out.println(opcode + " " + param1 + " " + param2);
+                logVerbose(opcode + " " + param1 + " " + param2);
                 if (item1 == 0) {
                     instructionPointer = item2;
                 } else {
@@ -111,7 +200,7 @@ public class IntcodeComputer {
             throw new InvalidImmediateException();
         }
 
-        // System.out.println(opcode + " " + param1 + " " + param2 + " " + param3);
+        logVerbose(opcode + " " + param1 + " " + param2 + " " + param3);
 
         switch (instruction.opcode) {
             case OPCODE_ADD:

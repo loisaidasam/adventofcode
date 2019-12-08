@@ -34,6 +34,12 @@ public class BaseSolution implements Solution {
         return new InputReader(getInputFilename());
     }
 
+    protected int[] getInputPositions() {
+        InputReader reader = getInputReader();
+        String line = reader.next();
+        return IntcodeComputer.buildInputPositions(line);
+    }
+
     @Override
     public String part1() throws Exception {
         return null;

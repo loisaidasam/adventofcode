@@ -1,4 +1,4 @@
-package day05;
+package common;
 
 
 public class Instruction {

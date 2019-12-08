@@ -2,7 +2,7 @@ package day07;
 
 import common.BaseSolution;
 import common.InputReader;
-import day05.IntcodeComputer;
+import common.IntcodeComputer;
 
 public class Solution07 extends BaseSolution implements common.Solution {
 
@@ -15,14 +15,8 @@ public class Solution07 extends BaseSolution implements common.Solution {
     //     buildOrbitObjectMap();
     // }
 
-    protected int[] getInputPositions() {
-        InputReader reader = getInputReader();
-        String line = reader.next();
-        return IntcodeComputer.buildInputPositions(line);
-    }
-
     @Override
-    public String part1() throws day02.IntcodeComputer.IntcodeException {
+    public String part1() throws IntcodeComputer.IntcodeException {
         int outputSignal = new AmpCircuit(getInputPositions()).findLargestOutputSignal();
         return String.valueOf(outputSignal);
     }

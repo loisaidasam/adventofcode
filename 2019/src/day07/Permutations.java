@@ -10,20 +10,26 @@ import java.util.List;
  * - https://github.com/eugenp/tutorials/blob/ac4de4e809fd22dbd9eb533490a9bb57c8b26c1c/algorithms-miscellaneous-4/src/main/java/com/baeldung/algorithms/permutation/Permutation.java
  */
 public class Permutations {
-    public static List<int[]> getPermutations(int n) {
-        List<int[]> permutations = new ArrayList<>();
 
-        int[] indexes = new int[n];
+    public static List<int[]> getPermutations(int n) {
         int[] elements = new int[n];
         for (int i = 0; i < n; i++) {
-            indexes[i] = 0;
             elements[i] = i;
+        }
+        return getPermutations(elements);
+    }
+
+    public static List<int[]> getPermutations(int[] elements) {
+        List<int[]> permutations = new ArrayList<>();
+        int[] indexes = new int[elements.length];
+        for (int i = 0; i < elements.length; i++) {
+            indexes[i] = 0;
         }
 
         permutations.add(elements.clone());
 
         int i = 0;
-        while (i < n) {
+        while (i < elements.length) {
             if (indexes[i] < i) {
                 swap(elements, i % 2 == 0 ?  0: indexes[i], i);
                 permutations.add(elements.clone());

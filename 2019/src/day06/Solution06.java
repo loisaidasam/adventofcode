@@ -2,13 +2,9 @@ package day06;
 
 import common.BaseSolution;
 import common.InputReader;
-import day02.IntcodeComputer;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class Solution06 extends BaseSolution implements common.Solution {
 

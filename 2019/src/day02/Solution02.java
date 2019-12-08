@@ -2,8 +2,7 @@ package day02;
 
 import common.BaseSolution;
 import common.InputReader;
-
-import java.util.Arrays;
+import common.IntcodeComputer;
 
 public class Solution02 extends BaseSolution implements common.Solution {
 
@@ -18,17 +17,11 @@ public class Solution02 extends BaseSolution implements common.Solution {
         positions = getInputPositions();
     }
 
-    protected int[] getInputPositions() {
-        InputReader reader = getInputReader();
-        String line = reader.next();
-        return IntcodeComputer.buildInputPositions(line);
-    }
-
     @Override
     public String part1() throws IntcodeComputer.IntcodeException {
         IntcodeComputer computer = new IntcodeComputer(positions.clone());
         computer.restoreTo1202ProgramAlarmState();
-        return String.valueOf(computer.process());
+        return String.valueOf(computer.processDay02());
     }
 
     @Override
@@ -41,7 +34,7 @@ public class Solution02 extends BaseSolution implements common.Solution {
                 computer = new IntcodeComputer(positions.clone());
                 computer.restoreToState(noun, verb);
                 try {
-                    output = computer.process();
+                    output = computer.processDay02();
                 } catch (IntcodeComputer.IntcodeException exception) {
                     continue;
                 }

@@ -1,6 +1,6 @@
 package day07;
 
-import day05.IntcodeComputer;
+import common.IntcodeComputer;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +13,7 @@ public class AmpCircuit {
         this.ampControllerSoftware = ampControllerSoftware;
     }
 
-    public int findLargestOutputSignal() throws day02.IntcodeComputer.IntcodeException {
+    public int findLargestOutputSignal() throws IntcodeComputer.IntcodeException {
         int outputSignal;
         int maxOutputSignal = -1;
         List<int[]> phaseSettingSequences = Permutations.getPermutations(5);
@@ -28,7 +28,7 @@ public class AmpCircuit {
         return maxOutputSignal;
     }
 
-    protected int getOutputSignal(int[] phaseSettingSequence) throws day02.IntcodeComputer.IntcodeException {
+    protected int getOutputSignal(int[] phaseSettingSequence) throws IntcodeComputer.IntcodeException {
         int inputSignal = 0;
         int[] inputs;
 

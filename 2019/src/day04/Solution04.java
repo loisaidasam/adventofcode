@@ -2,10 +2,6 @@ package day04;
 
 import common.BaseSolution;
 import common.InputReader;
-import day06.OrbitObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Solution04 extends BaseSolution implements common.Solution {
 

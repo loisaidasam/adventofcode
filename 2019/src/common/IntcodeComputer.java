@@ -1,8 +1,7 @@
 package common;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.math.BigInteger;
+import java.util.*;
 
 public class IntcodeComputer {
 
@@ -14,14 +13,16 @@ public class IntcodeComputer {
     public final static int OPCODE_JUMP_IF_FALSE = 6;
     public final static int OPCODE_LESS_THAN = 7;
     public final static int OPCODE_EQUALS = 8;
+    public final static int OPCODE_ADJUST_RELATIVE_BASE = 9;
     public final static int OPCODE_HALT = 99;
 
     protected int instructionPointer = 0;
-    protected int[] positions;
+    protected int relativeBase = 0;
+    protected Map<Integer, BigInteger> positions;
 
-    protected Queue<Integer> inputs;
-    protected Queue<Integer> outputs;
-    protected Integer lastOutput = null;
+    protected Queue<BigInteger> inputs;
+    protected Queue<BigInteger> outputs;
+    protected BigInteger lastOutput = null;
 
     protected boolean halted = false;
 
@@ -35,24 +36,24 @@ public class IntcodeComputer {
 
     public class InvalidImmediateException extends IntcodeException {}
 
-    public class WaitingOnInputInterrupt extends IntcodeException {
-        public Queue<Integer> outputs;
+    public class WaitingOnInputInterrupt extends IntcodeException {}
 
-        public WaitingOnInputInterrupt(Queue<Integer> outputs) {
-            this.outputs = outputs;
-        }
-    }
+    public class OutputInterrupt extends IntcodeException {}
 
-    public class OutputInterrupt extends IntcodeException {
-        public int output;
-
-        public OutputInterrupt(int output) {
-            this.output = output;
-        }
-    }
+    public class UnknownParameterModeException extends IntcodeException {}
 
     public IntcodeComputer(int[] positions) {
-        this.positions = positions;
+        setup();
+        setPositions(positions);
+    }
+
+    public IntcodeComputer(BigInteger[] positions) {
+        setup();
+        setPositions(positions);
+    }
+
+    protected void setup() {
+        this.positions = new HashMap<>();
         inputs = new LinkedList<>();
         outputs = new LinkedList<>();
     }
@@ -60,6 +61,15 @@ public class IntcodeComputer {
     public static int[] buildInputPositions(String input) {
         String[] values = input.split(",");
         return Arrays.stream(values).mapToInt(Integer::parseInt).toArray();
+    }
+
+    public static BigInteger[] buildInputPositionsBigInteger(String input) {
+        String[] values = input.split(",");
+        BigInteger[] inputPositions = new BigInteger[values.length];
+        for (int i = 0; i < values.length; i++) {
+            inputPositions[i] = new BigInteger(values[i]);
+        }
+        return inputPositions;
     }
 
     public boolean isHalted() {
@@ -70,43 +80,53 @@ public class IntcodeComputer {
         this.verbose = verbose;
     }
 
-    public void pushOntoInputs(int input) {
+    public void pushOntoInputs(BigInteger input) {
         inputs.add(input);
+    }
+
+    public void pushOntoInputs(int input) {
+        pushOntoInputs(BigInteger.valueOf(input));
     }
 
     public void pushOntoInputs(int[] inputs) {
         for (int input : inputs) {
-            this.inputs.add(input);
+            pushOntoInputs(input);
         }
     }
 
-    public void pushOntoInputs(Queue<Integer> inputs) {
-        for (int input : inputs) {
-            this.inputs.add(input);
+    public void pushOntoInputs(Queue<BigInteger> inputs) {
+        for (BigInteger input : inputs) {
+            pushOntoInputs(input);
+        }
+    }
+
+    protected void setPositions(int[] positions) {
+        BigInteger[] positionsBigInteger = (BigInteger[]) Arrays.stream(positions).mapToObj(BigInteger::valueOf).toArray();
+        setPositions(positionsBigInteger);
+    }
+
+    protected void setPositions(BigInteger[] positions) {
+        for (int i = 0; i < positions.length; i++) {
+            this.positions.put(i, positions[i]);
         }
     }
 
     public int processDay02() throws IntcodeException {
-        instructionPointer = 0;
-        int opcode = positions[instructionPointer];
-        while (opcode != OPCODE_HALT) {
-            handleOpcode(opcode);
-            opcode = positions[instructionPointer];
-        }
-        return positions[0];
+        process();
+        return outputs.peek().intValue();
     }
 
-    public Integer processAndReturnLastOutput(int[] inputs) throws IntcodeException {
+    public int processAndReturnLastOutput(int[] inputs) throws IntcodeException {
         process(inputs);
-        return getLastOutput();
+        return getLastOutput().intValue();
     }
 
-    public Queue<Integer> process(int[] inputs) throws IntcodeException {
+    public Queue<BigInteger> process(int[] inputs) throws IntcodeException {
         pushOntoInputs(inputs);
         return process();
     }
 
-    public Integer processWithFeedback(IntcodeComputer nextComputer) throws IntcodeException {
+    public BigInteger processWithFeedback(IntcodeComputer nextComputer) throws IntcodeException {
         interruptOnOutput = true;
         try {
             process();
@@ -124,96 +144,166 @@ public class IntcodeComputer {
         return getLastOutput();
     }
 
-    public Queue<Integer> process() throws IntcodeException {
-        int opcode = positions[instructionPointer];
+    public Queue<BigInteger> process() throws IntcodeException {
+        int opcode = getPositionValue().intValue();
         while (opcode != OPCODE_HALT) {
             handleOpcode(opcode);
-            opcode = positions[instructionPointer];
+            opcode = getPositionValue().intValue();
         }
         halted = true;
         // Return all outputs
         return outputs;
     }
 
-    public Integer getLastOutput() {
+    public BigInteger getLastOutput() {
         return lastOutput;
     }
 
-    protected void logVerbose(String instruction) {
-        if (verbose) {
-            System.out.println(instruction);
+    protected BigInteger getPositionValue() {
+        return getPositionValue(instructionPointer);
+    }
+
+    protected BigInteger getPositionValue(int position) {
+        // Default to 0
+        if (! positions.containsKey(position)) {
+            return BigInteger.valueOf(0);
         }
+        return positions.get(position);
+    }
+
+    protected void logVerbose(String message) {
+        if (verbose) {
+            System.out.println(message);
+//            logPositions();
+        }
+    }
+
+    protected void logPositions() {
+        String message = "\t";
+        for (int position : positions.keySet()) {
+            message += position + "=" + positions.get(position) + " ";
+        }
+        System.out.println(message);
+    }
+
+    protected BigInteger getItemValue(int mode, BigInteger param) throws UnknownParameterModeException {
+        switch (mode) {
+            case Instruction.PARAMETER_MODE_POSITION:
+                return getPositionValue(param.intValue());
+            case Instruction.PARAMETER_MODE_IMMEDIATE:
+                return param;
+            case Instruction.PARAMETER_MODE_RELATIVE:
+                return getPositionValue(relativeBase + param.intValue());
+        }
+        throw new UnknownParameterModeException();
+    }
+
+    protected int getDestinationPosition(int mode, BigInteger param)
+            throws InvalidImmediateException, UnknownParameterModeException {
+        switch (mode) {
+            case Instruction.PARAMETER_MODE_POSITION:
+                return param.intValue();
+            case Instruction.PARAMETER_MODE_IMMEDIATE:
+                // Confirm that destination param can never be in immediate mode
+                throw new InvalidImmediateException();
+            case Instruction.PARAMETER_MODE_RELATIVE:
+                return relativeBase + param.intValue();
+        }
+        throw new UnknownParameterModeException();
     }
 
     protected void handleOpcode(int opcode) throws IntcodeException {
         Instruction instruction = new Instruction(opcode);
-        int param1 = positions[instructionPointer + 1];
-        int item1 = instruction.modeParam1 == Instruction.PARAMETER_MODE_POSITION ? positions[param1] : param1;
+        int destination;
+        BigInteger result;
+
+        BigInteger param1 = getPositionValue(instructionPointer + 1);
+        BigInteger item1 = getItemValue(instruction.modeParam1, param1);
         switch (instruction.opcode) {
             case OPCODE_INPUT:
-                logVerbose(opcode + " " + param1);
                 if (inputs.isEmpty()) {
                     logVerbose("WaitingOnInputInterrupt!");
-                    throw new WaitingOnInputInterrupt(outputs);
+                    throw new WaitingOnInputInterrupt();
                 }
-                positions[param1] = inputs.remove();
+                destination = getDestinationPosition(instruction.modeParam1, param1);
+                result = inputs.remove();
+                logVerbose("INPUT\t" + opcode + " " + param1 +
+                        " (" + result + " -> " + destination + ")");
+                positions.put(destination, result);
                 instructionPointer += 2;
                 return;
             case OPCODE_OUTPUT:
-                logVerbose(opcode + " " + param1);
+                logVerbose("OUTPUT\t" + opcode + " " + param1 + " (" + item1 + ")");
                 outputs.add(item1);
                 lastOutput = item1;
-                logVerbose("OUTPUT " + item1 + "\n");
+                logVerbose("output=" + item1 + "\n");
                 instructionPointer += 2;
                 if (interruptOnOutput) {
                     logVerbose("OutputInterrupt!)");
-                    throw new OutputInterrupt(item1);
+                    throw new OutputInterrupt();
                 }
+                return;
+            case OPCODE_ADJUST_RELATIVE_BASE:
+                relativeBase += item1.intValue();
+                logVerbose("ADJUST_RELATIVE_BASE\t" + opcode + " " + param1 +
+                        " (+ " + item1 + ", " + relativeBase + ")");
+                instructionPointer += 2;
                 return;
         }
 
-        int param2 = positions[instructionPointer + 2];
-        int item2 = instruction.modeParam2 == Instruction.PARAMETER_MODE_POSITION ? positions[param2] : param2;
+        BigInteger param2 = getPositionValue(instructionPointer + 2);
+        BigInteger item2 = getItemValue(instruction.modeParam2, param2);
 
+        boolean jump;
         switch (instruction.opcode) {
             case OPCODE_JUMP_IF_TRUE:
-                logVerbose(opcode + " " + param1 + " " + param2);
-                if (item1 != 0) {
-                    instructionPointer = item2;
+                jump = ! item1.equals(BigInteger.valueOf(0));
+                logVerbose("JUMP_IF_TRUE\t" + opcode + " " + param1 + " " + param2 +
+                        " (" + item1 + " != 0, " + jump + ")");
+                if (jump) {
+                    instructionPointer = item2.intValue();
                 } else {
                     instructionPointer += 3;
                 }
                 return;
             case OPCODE_JUMP_IF_FALSE:
-                logVerbose(opcode + " " + param1 + " " + param2);
-                if (item1 == 0) {
-                    instructionPointer = item2;
+                jump = item1.equals(BigInteger.valueOf(0));
+                logVerbose("JUMP_IF_FALSE\t" + opcode + " " + param1 + " " + param2 +
+                        " (" + item1 + " == 0, " + jump + ")");
+                if (jump) {
+                    instructionPointer = item2.intValue();
                 } else {
                     instructionPointer += 3;
                 }
                 return;
         }
 
-        int param3 = positions[instructionPointer + 3];
-        // Confirm that param 3 can never be in immediate mode
-        if (instruction.modeParam3 == Instruction.PARAMETER_MODE_IMMEDIATE) {
-            throw new InvalidImmediateException();
-        }
-
-        logVerbose(opcode + " " + param1 + " " + param2 + " " + param3);
-
+        BigInteger param3 = getPositionValue(instructionPointer + 3);
+        destination = getDestinationPosition(instruction.modeParam3, param3);
         switch (instruction.opcode) {
             case OPCODE_ADD:
-                positions[param3] = item1 + item2;
+                result = item1.add(item2);
+                logVerbose("ADD\t" + opcode + " " + param1 + " " + param2 + " " + param3 +
+                        " (" + item1 + " + " + item2 + " -> " + destination + ", " + result + ")");
+                positions.put(destination, result);
                 break;
             case OPCODE_MULTIPLY:
-                positions[param3] = item1 * item2;
+                result = item1.multiply(item2);
+                logVerbose("MULTIPLY\t" + opcode + " " + param1 + " " + param2 + " " + param3 +
+                        " (" + item1 + " * " + item2 + " -> " + destination + ", " + result + ")");
+                positions.put(destination, result);
                 break;
             case OPCODE_LESS_THAN:
-                positions[param3] = item1 < item2 ? 1 : 0;
+                result = BigInteger.valueOf(item1.compareTo(item2) < 0 ? 1 : 0);
+                logVerbose("LESS_THAN\t" + opcode + " " + param1 + " " + param2 + " " + param3 +
+                        " (" + item1 + " < " + item2 + " -> " + destination + ", " + result + ")");
+                positions.put(destination, result);
                 break;
             case OPCODE_EQUALS:
-                positions[param3] = item1 == item2 ? 1 : 0;
+                result = BigInteger.valueOf(item1.equals(item2) ? 1 : 0);
+                logVerbose("EQUALS\t" + opcode + " " + param1 + " " + param2 + " " + param3 +
+                        " (" + item1 + " == " + item2 + " -> " + destination + ", " + result + ")");
+                positions.put(destination, result);
                 break;
             default:
                 throw new UnknownOpcodeException();
@@ -229,7 +319,7 @@ public class IntcodeComputer {
     }
 
     public void restoreToState(int noun, int verb) {
-        positions[1] = noun;
-        positions[2] = verb;
+        positions.put(1, BigInteger.valueOf(noun));
+        positions.put(2, BigInteger.valueOf(verb));
     }
 }

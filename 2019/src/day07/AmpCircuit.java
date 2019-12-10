@@ -93,7 +93,7 @@ public class AmpCircuit {
             ampE.processWithFeedback(ampA);
 
             if (ampA.isHalted() && ampB.isHalted() && ampC.isHalted() && ampD.isHalted() && ampE.isHalted()) {
-                return ampE.getLastOutput();
+                return ampE.getLastOutput().intValue();
             }
         }
     }

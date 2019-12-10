@@ -4,6 +4,7 @@ package common;
 public class Instruction {
     public final static int PARAMETER_MODE_POSITION = 0;
     public final static int PARAMETER_MODE_IMMEDIATE = 1;
+    public final static int PARAMETER_MODE_RELATIVE = 2;
 
     public final static int PARAMETER_MODE_DEFAULT = PARAMETER_MODE_POSITION;
 

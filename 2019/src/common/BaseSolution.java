@@ -1,5 +1,7 @@
 package common;
 
+import java.math.BigInteger;
+
 public class BaseSolution implements Solution {
 
     protected String inputFilename = "input.txt";
@@ -38,6 +40,12 @@ public class BaseSolution implements Solution {
         InputReader reader = getInputReader();
         String line = reader.next();
         return IntcodeComputer.buildInputPositions(line);
+    }
+
+    protected BigInteger[] getInputPositionsBigInteger() {
+        InputReader reader = getInputReader();
+        String line = reader.next();
+        return IntcodeComputer.buildInputPositionsBigInteger(line);
     }
 
     @Override

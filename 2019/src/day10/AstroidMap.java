@@ -1,5 +1,7 @@
 package day10;
 
+import common.Point;
+
 import java.util.*;
 
 public class AstroidMap {

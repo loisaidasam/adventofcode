@@ -1,4 +1,4 @@
-package day10;
+package common;
 
 import java.util.Objects;
 

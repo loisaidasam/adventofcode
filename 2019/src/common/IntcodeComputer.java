@@ -80,6 +80,10 @@ public class IntcodeComputer {
         this.verbose = verbose;
     }
 
+    public void setInterruptOnOutput(boolean interruptOnOutput) {
+        this.interruptOnOutput = interruptOnOutput;
+    }
+
     public void pushOntoInputs(BigInteger input) {
         inputs.add(input);
     }
@@ -127,7 +131,7 @@ public class IntcodeComputer {
     }
 
     public BigInteger processWithFeedback(IntcodeComputer nextComputer) throws IntcodeException {
-        interruptOnOutput = true;
+        setInterruptOnOutput(true);
         try {
             process();
         }

@@ -2,6 +2,7 @@ package day10;
 
 import common.BaseSolution;
 import common.InputReader;
+import common.Point;
 import common.Solution;
 
 import java.util.ArrayList;
@@ -26,8 +27,12 @@ public class Solution10 extends BaseSolution implements Solution {
     }
 
     @Override
-    public String part2() {
-        return null;
+    public String part2() throws Exception {
+        AstroidMap astroidMap = new AstroidMap(getRows());
+        astroidMap.findNumVisibleFromBestMonitoringStation();
+        Point astroid = astroidMap.vaporizeUntilAstroidN(200);
+        int result = astroid.x * 100 + astroid.y;
+        return String.valueOf(result);
     }
 
     protected List<String> getRows() {

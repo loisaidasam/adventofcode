@@ -6,6 +6,7 @@ import common.IntcodeComputer;
 import common.Solution;
 import javafx.geometry.Pos;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +16,10 @@ public class Solution12 extends BaseSolution implements Solution {
         new Solution12().run();
     }
 
-//    public Solution12() {
-//        super();
-//        inputFilename = "input-test-2.txt";
-//    }
+    public Solution12() {
+        super();
+        inputFilename = "input-test-2.txt";
+    }
 
     @Override
     public String part1() throws Exception {
@@ -29,7 +30,8 @@ public class Solution12 extends BaseSolution implements Solution {
 
     @Override
     public String part2() {
-        return null;
+        JupiterSystem system = new JupiterSystem(readPositions());
+        return system.getNumStepsUntilRepeat().toString();
     }
 
     protected List<Position> readPositions() {

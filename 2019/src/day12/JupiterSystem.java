@@ -1,17 +1,28 @@
 package day12;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigInteger;
+import java.util.*;
 
 public class JupiterSystem {
 
     protected JupiterMoon io, europa, ganymede, callisto;
+
+    public JupiterSystem() {}
 
     public JupiterSystem(List<Position> positions) {
         this.io = new JupiterMoon(positions.get(0));
         this.europa = new JupiterMoon(positions.get(1));
         this.ganymede = new JupiterMoon(positions.get(2));
         this.callisto = new JupiterMoon(positions.get(3));
+    }
+
+    public JupiterSystem clone() {
+        JupiterSystem system = new JupiterSystem();
+        system.io = io.clone();
+        system.europa = europa.clone();
+        system.ganymede = ganymede.clone();
+        system.callisto = callisto.clone();
+        return system;
     }
 
     protected JupiterMoon[] getMoons() {
@@ -47,6 +58,24 @@ public class JupiterSystem {
         return energy;
     }
 
+    public BigInteger getNumStepsUntilRepeat() {
+        Set<Integer> systemHashes = new HashSet<>();
+        int hash = hashCode();
+        System.out.println(hash);
+        systemHashes.add(hash);
+        BigInteger numSteps = BigInteger.valueOf(0);
+        while (true) {
+            step();
+            numSteps = numSteps.add(BigInteger.ONE);
+            hash = hashCode();
+            System.out.println(numSteps + " - " + hash);
+            if (systemHashes.contains(hash)) {
+                return numSteps;
+            }
+            systemHashes.add(hash);
+        }
+    }
+
     @Override
     public String toString() {
         return "JupiterSystem{" +
@@ -70,5 +99,52 @@ public class JupiterSystem {
             System.out.println("Step #" + step + ": " + system.toString());
         }
         System.out.println("Total energy: " + system.getTotalEnergy());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        JupiterSystem that = (JupiterSystem) o;
+        return io.equals(that.io) &&
+                europa.equals(that.europa) &&
+                ganymede.equals(that.ganymede) &&
+                callisto.equals(that.callisto);
+    }
+
+    @Override
+    public int hashCode() {
+        // Default
+        // return Objects.hash(io, europa, ganymede, callisto);
+        // Better
+        return Arrays.hashCode(new int[] {
+                io.position.x,
+                io.position.y,
+                io.position.z,
+                io.velocity.x,
+                io.velocity.y,
+                io.velocity.z,
+
+                europa.position.x,
+                europa.position.y,
+                europa.position.z,
+                europa.velocity.x,
+                europa.velocity.y,
+                europa.velocity.z,
+
+                ganymede.position.x,
+                ganymede.position.y,
+                ganymede.position.z,
+                ganymede.velocity.x,
+                ganymede.velocity.y,
+                ganymede.velocity.z,
+
+                callisto.position.x,
+                callisto.position.y,
+                callisto.position.z,
+                callisto.velocity.x,
+                callisto.velocity.y,
+                callisto.velocity.z,
+        });
     }
 }

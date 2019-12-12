@@ -1,5 +1,7 @@
 package day12;
 
+import java.util.Objects;
+
 public class JupiterMoon {
     public Position position;
     public Position velocity;
@@ -7,6 +9,12 @@ public class JupiterMoon {
     public JupiterMoon(Position position) {
         this.position = position;
         velocity = new Position(0, 0, 0);
+    }
+
+    public JupiterMoon clone() {
+        JupiterMoon moon = new JupiterMoon(position.clone());
+        moon.velocity = velocity.clone();
+        return moon;
     }
 
     public void applyGravity(JupiterMoon otherMoon) {
@@ -51,5 +59,19 @@ public class JupiterMoon {
                 "position=" + position +
                 ", velocity=" + velocity +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        JupiterMoon that = (JupiterMoon) o;
+        return position.equals(that.position) &&
+                velocity.equals(that.velocity);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(position, velocity);
     }
 }

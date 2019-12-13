@@ -105,14 +105,19 @@ public class IntcodeComputer {
     }
 
     protected void setPositions(int[] positions) {
-        BigInteger[] positionsBigInteger = (BigInteger[]) Arrays.stream(positions).mapToObj(BigInteger::valueOf).toArray();
+        BigInteger[] positionsBigInteger =
+                (BigInteger[]) Arrays.stream(positions).mapToObj(BigInteger::valueOf).toArray();
         setPositions(positionsBigInteger);
     }
 
     protected void setPositions(BigInteger[] positions) {
         for (int i = 0; i < positions.length; i++) {
-            this.positions.put(i, positions[i]);
+            setPosition(i, positions[i]);
         }
+    }
+
+    public void setPosition(int position, BigInteger value) {
+        this.positions.put(position, value);
     }
 
     public int processDay02() throws IntcodeException {
@@ -156,6 +161,19 @@ public class IntcodeComputer {
         }
         halted = true;
         // Return all outputs
+        return outputs;
+    }
+
+    public Queue<BigInteger> processUntilNOutputs(int numOutputs) throws IntcodeException {
+        setInterruptOnOutput(true);
+        for (int i = 0; i < numOutputs; i++) {
+            try {
+                process();
+                return outputs;
+            } catch (OutputInterrupt exception) {
+                // System.out.println("Caught OutputInterrupt " + i);
+            }
+        }
         return outputs;
     }
 

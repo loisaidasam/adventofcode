@@ -1,6 +1,8 @@
 package common;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BaseSolution implements Solution {
 
@@ -34,6 +36,17 @@ public class BaseSolution implements Solution {
 
     protected InputReader getInputReader() {
         return new InputReader(getInputFilename());
+    }
+
+    protected List<String> getInputStrings() {
+        List<String> inputStrings = new ArrayList<>();
+        InputReader reader = getInputReader();
+        String line = reader.next();
+        while (line != null) {
+            inputStrings.add(line);
+            line = reader.next();
+        }
+        return inputStrings;
     }
 
     protected int[] getInputPositions() {

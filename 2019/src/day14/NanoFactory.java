@@ -65,9 +65,9 @@ public class NanoFactory {
         }
     }
 
-    public boolean canMakeFuel() {
+    public boolean canMakeOneFuel() {
 //        System.out.println(this);
-        if (containsFuel()) {
+        if (containsExactlyOneFuel()) {
             return true;
         }
         NanoFactory factory;
@@ -78,15 +78,16 @@ public class NanoFactory {
             } catch (InvalidReactionException e) {
                 continue;
             }
-            if (factory.canMakeFuel()) {
+            if (factory.canMakeOneFuel()) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean containsFuel() {
-        return availableIngredients.containsKey(Ingredient.INGREDIENT_FUEL);
+    public boolean containsExactlyOneFuel() {
+        return availableIngredients.containsKey(Ingredient.INGREDIENT_FUEL) &&
+                availableIngredients.get(Ingredient.INGREDIENT_FUEL).quantity == 1;
     }
 
     @Override

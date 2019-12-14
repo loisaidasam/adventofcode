@@ -23,7 +23,7 @@ public class Solution14 extends BaseSolution implements Solution {
             NanoFactory nanoFactory = new NanoFactory(reactionList);
             nanoFactory.addIngredient(new Ingredient(numOreNeeded, Ingredient.INGREDIENT_ORE));
             System.out.println("Trying " + nanoFactory + " ...");
-            if (nanoFactory.canMakeFuel()) {
+            if (nanoFactory.canMakeOneFuel()) {
                 return String.valueOf(numOreNeeded);
             }
         }

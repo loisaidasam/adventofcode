@@ -12,6 +12,10 @@ public class Reaction {
         this.output = output;
     }
 
+    public boolean isOreReaction() {
+        return inputs.size() == 1 && inputs.get(0).name.equals(Ingredient.INGREDIENT_ORE);
+    }
+
     public static Reaction parseReactionString(String reactionString) throws Exception {
         String[] pieces = reactionString.split(" ");
         List<Ingredient> inputs = new ArrayList<>();

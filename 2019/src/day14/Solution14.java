@@ -13,20 +13,14 @@ public class Solution14 extends BaseSolution implements Solution {
 
     public Solution14() {
         super();
-        inputFilename = "input-test-2.txt";
+        inputFilename = "input-test-3.txt";
     }
 
     @Override
     public String part1() throws Exception {
         List<Reaction> reactionList = Reaction.parseReactionStrings(getInputStrings());
-        for (int numOreNeeded = 0; true; numOreNeeded++) {
-            NanoFactory nanoFactory = new NanoFactory(reactionList);
-            nanoFactory.addIngredient(new Ingredient(numOreNeeded, Ingredient.INGREDIENT_ORE));
-            System.out.println("Trying " + nanoFactory + " ...");
-            if (nanoFactory.canMakeOneFuel()) {
-                return String.valueOf(numOreNeeded);
-            }
-        }
+        NanoFactory nanoFactory = new NanoFactory(reactionList);
+        return String.valueOf(nanoFactory.numOreNeededForOneFuel());
     }
 
     @Override

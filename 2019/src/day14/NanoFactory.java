@@ -4,11 +4,15 @@ import java.util.*;
 
 public class NanoFactory {
 
-    protected List<Reaction> reactionList;
+    protected List<Reaction> reactionList, reactionListOre, reactionListNonOre;
 
     protected Map<String, Ingredient> availableIngredients;
 
     protected List<Reaction> reactionHistory;
+
+    protected Set<String> finalOreIngredients;
+
+    protected final boolean verbose = false;
 
     public class InvalidReactionException extends Exception {};
 
@@ -50,8 +54,30 @@ public class NanoFactory {
 
     public NanoFactory(List<Reaction> reactionList) {
         this.reactionList = reactionList;
+        splitReactionList();
         availableIngredients = new HashMap<>();
         reactionHistory = new ArrayList<>();
+        setFinalOreIngredients();
+    }
+
+    protected void splitReactionList() {
+        reactionListOre = new ArrayList<>();
+        reactionListNonOre = new ArrayList<>();
+        for (Reaction reaction : reactionList) {
+            if (reaction.isOreReaction()) {
+                reactionListOre.add(reaction);
+            } else {
+                reactionListNonOre.add(reaction);
+            }
+        }
+        Collections.sort(reactionListOre, new Reaction());
+    }
+
+    protected void setFinalOreIngredients() {
+        finalOreIngredients = new HashSet<>();
+        for (Reaction reaction : reactionListOre) {
+            finalOreIngredients.add(reaction.output.name);
+        }
     }
 
     public void setReactionHistory(List<Reaction> reactionHistory) {
@@ -111,13 +137,13 @@ public class NanoFactory {
      * @param reaction
      * @throws InvalidReactionException
      */
-//    public void executeReaction(Reaction reaction) throws InvalidReactionException {
-//        for (Ingredient ingredient : reaction.inputs) {
-//            removeIngredient(ingredient);
-//        }
-//        addIngredient(reaction.output);
-//        reactionHistory.add(reaction);
-//    }
+    public void executeReaction(Reaction reaction) throws InvalidReactionException {
+        for (Ingredient ingredient : reaction.inputs) {
+            removeIngredient(ingredient);
+        }
+        addIngredient(reaction.output);
+        reactionHistory.add(reaction);
+    }
 
     /**
      * For going from 1 AB => 3 A, 4 B
@@ -125,6 +151,9 @@ public class NanoFactory {
      * @throws InvalidReactionException
      */
     public void executeReactionReverse(Reaction reaction) throws InvalidReactionException {
+        // Don't allow ORE reactions:
+        // removeIngredient(reaction.output);
+        // Allow ORE reactions:
         try {
             removeIngredient(reaction.output);
         } catch (NotEnoughIngredient exception) {
@@ -146,7 +175,7 @@ public class NanoFactory {
      * @return
      */
 //    public boolean canMakeOneFuel() {
-////        System.out.println(this);
+////        logVerbose(this);
 //        if (containsExactlyOneFuel()) {
 //            return true;
 //        }
@@ -175,9 +204,12 @@ public class NanoFactory {
      * @return
      */
     public Integer numOreNeededForOneFuel() {
+        printReactionLists();
+        printFinalOreIngredients();
         Integer minOreNeeded = null;
         Stack<NanoFactory> stack = new Stack<>();
 //        Queue<NanoFactory> queue = new LinkedList<>();
+        Stack<NanoFactory> stackOreOnly = new Stack<>();
         addIngredient(new Ingredient(1, Ingredient.INGREDIENT_FUEL));
         stack.push(this);
 //        queue.add(this);
@@ -194,29 +226,75 @@ public class NanoFactory {
                 continue;
             }
             factoryStatesSeen.add(hash);
-//            System.out.println(stack.size());
-//            System.out.println(factory);
+//            logVerbose(stack.size());
+            logVerbose(factory.getReactionSizeBuffer() + factory);
             if (factory.getReactionHistorySize() > maxDepth) {
                 maxDepth = factory.getReactionHistorySize();
-                System.out.println("maxDepth=" + maxDepth + " stack.size()=" + stack.size());
+                logInfo("maxDepth=" + maxDepth + " stack.size()=" + stack.size());
             }
             if (factory.hasOnlyOre()) {
-//                System.out.println("HAS ONLY ORE!!!");
+//                logVerbose("HAS ONLY ORE!!!");
                 if (minOreNeeded == null || factory.getNumOre() < minOreNeeded) {
                     minOreNeeded = factory.getNumOre();
                 }
             }
-            for (Reaction reaction : reactionList) {
+            boolean executedReaction = false;
+//            for (Reaction reaction : reactionList) {
+            for (Reaction reaction : reactionListNonOre) {
                 clone = factory.clone();
-//                System.out.println(clone.getReactionSizeBuffer() + "?" + reaction);
+                logVerbose(clone.getReactionSizeBuffer() + "?" + reaction);
                 try {
                     clone.executeReactionReverse(reaction);
                 } catch (InvalidReactionException e) {
-//                    System.out.println(clone.getReactionSizeBuffer() + "->" + e);
+                    logVerbose(clone.getReactionSizeBuffer() + "->" + e);
                     continue;
                 }
+                executedReaction = true;
+                logVerbose(clone.getReactionSizeBuffer(-1) + "->Y");
                 stack.push(clone);
 //                queue.add(clone);
+            }
+            if (! executedReaction) {
+                stackOreOnly.push(factory);
+            }
+        }
+        logInfo("Checking stackOreOnly (size=" + stackOreOnly.size() + ")");
+        logInfo(stackOreOnly.peek().toString());
+        while (! stackOreOnly.isEmpty()) {
+            factory = stackOreOnly.pop();
+//            hash = factory.hashCode();
+//            if (factoryStatesSeen.contains(hash)) {
+//                continue;
+//            }
+//            factoryStatesSeen.add(hash);
+//            logVerbose(stack.size());
+            logVerbose(factory.getReactionSizeBuffer() + factory);
+            if (factory.getReactionHistorySize() > maxDepth) {
+                maxDepth = factory.getReactionHistorySize();
+                logInfo("maxDepth=" + maxDepth + " stackOreOnly.size()=" + stackOreOnly.size());
+            }
+            int numOre = factory.getNumOre();
+            if (minOreNeeded != null && numOre > minOreNeeded) {
+                continue;
+            }
+            if (factory.hasOnlyOre()) {
+                logVerbose("HAS ONLY ORE!!! " + numOre + " of 'em!");
+                if (minOreNeeded == null || numOre < minOreNeeded) {
+                    minOreNeeded = numOre;
+                }
+            }
+//            for (Reaction reaction : reactionList) {
+            for (Reaction reaction : reactionListOre) {
+                clone = factory.clone();
+                logVerbose(clone.getReactionSizeBuffer() + "?" + reaction);
+                try {
+                    clone.executeReactionReverse(reaction);
+                } catch (InvalidReactionException e) {
+                    logVerbose(clone.getReactionSizeBuffer() + "->" + e);
+                    continue;
+                }
+                logVerbose(clone.getReactionSizeBuffer() + "->Y");
+                stackOreOnly.push(clone);
             }
         }
         return minOreNeeded;
@@ -226,14 +304,23 @@ public class NanoFactory {
         return availableIngredients.size() == 1 && availableIngredients.containsKey(Ingredient.INGREDIENT_ORE);
     }
 
+    protected boolean hasOnlyFinalOreIngredients() {
+        for (String ingredientName : availableIngredients.keySet()) {
+            if (! finalOreIngredients.contains(ingredientName)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public int getNumOre() {
-        return availableIngredients.get(Ingredient.INGREDIENT_ORE).quantity;
+        return availableIngredients.containsKey(Ingredient.INGREDIENT_ORE) ?
+                availableIngredients.get(Ingredient.INGREDIENT_ORE).quantity : 0;
     }
 
     @Override
     public String toString() {
-        return getReactionSizeBuffer() +
-                "NanoFactory{" +
+        return "NanoFactory{" +
                 "availableIngredients=" + getAvailableIngredientsString() +
                 ", reactionHistory.size()=" + getReactionHistorySize() +
                 '}';
@@ -253,8 +340,12 @@ public class NanoFactory {
     }
 
     public String getReactionSizeBuffer() {
+        return getReactionSizeBuffer(0);
+    }
+
+    public String getReactionSizeBuffer(int plusMinus) {
         String buffer = "";
-        for (int i = 0; i < getReactionHistorySize(); i++) {
+        for (int i = 0; i < getReactionHistorySize() + plusMinus; i++) {
             buffer += "  ";
         }
         return buffer;
@@ -273,5 +364,34 @@ public class NanoFactory {
         // TODO: Look into why this doesn't work for input-test-2.txt
 //        return Objects.hash(availableIngredients);
         return getAvailableIngredientsString().hashCode();
+    }
+
+    public void printReactionLists() {
+        logVerbose("reactionListOre:");
+        for (Reaction reaction : reactionListOre) {
+            logVerbose("\t" + reaction);
+        }
+        logVerbose("reactionListNonOre:");
+        for (Reaction reaction : reactionListNonOre) {
+            logVerbose("\t" + reaction);
+        }
+    }
+
+    public void printFinalOreIngredients() {
+        logVerbose("finalOreIngredients:");
+        for (String ingredientName : finalOreIngredients) {
+            logVerbose("\t" + ingredientName);
+        }
+    }
+
+    protected void logInfo(String message) {
+        System.out.println(message);
+    }
+
+    protected void logVerbose(String message) {
+        if (! verbose) {
+            return;
+        }
+        System.out.println(message);
     }
 }

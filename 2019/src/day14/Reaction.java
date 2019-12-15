@@ -1,11 +1,20 @@
 package day14;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-public class Reaction {
+public class Reaction implements Comparator<Reaction> {
     public final List<Ingredient> inputs;
     public final Ingredient output;
+
+    /**
+     * So we can implement compare() below
+     */
+    public Reaction() {
+        inputs = null;
+        output = null;
+    }
 
     public Reaction(List<Ingredient> inputs, Ingredient output) {
         this.inputs = inputs;
@@ -59,5 +68,16 @@ public class Reaction {
                 "inputs=" + inputs +
                 ", output='" + output + '\'' +
                 '}';
+    }
+
+    /**
+     * For sorting by the most ore
+     * @param o1
+     * @param o2
+     * @return
+     */
+    @Override
+    public int compare(Reaction o1, Reaction o2) {
+        return o2.inputs.get(0).quantity - o1.inputs.get(0).quantity;
     }
 }

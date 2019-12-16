@@ -13,7 +13,7 @@ public class Solution14 extends BaseSolution implements Solution {
 
     public Solution14() {
         super();
-        inputFilename = "input-test-3.txt";
+        inputFilename = "input-test-1.txt";
     }
 
     @Override

@@ -10,7 +10,7 @@ public class NanoFactory {
 
     protected List<Reaction> reactionHistory;
 
-    protected final boolean verbose = false;
+    protected final boolean verbose = true;
 
     public class InvalidReactionException extends Exception {}
 
@@ -204,23 +204,38 @@ public class NanoFactory {
                     minOreNeeded = factory.getNumOre();
                 }
             }
+            boolean didPerformReaction = false;
+            // TODO: We want to go in order from "farthest from ore" to "closest to ore"
             for (String ingredientName : factory.getAvailableIngredients().keySet()) {
                 if (ingredientName.equals(Ingredient.INGREDIENT_ORE)) {
                     // Not cashing ore in for anything
                     continue;
                 }
                 reaction = ingredientReactionMap.get(ingredientName);
-                clone = factory.cloneFactory();
-                logVerbose(clone.getReactionSizeBuffer() + "?" + reaction);
+                logVerbose(factory.getReactionSizeBuffer() + "?" + reaction);
                 try {
-                    clone.executeReactionReverse(reaction);
+                    factory.executeReactionReverse(reaction);
                 } catch (InvalidReactionException e) {
-                    logVerbose(clone.getReactionSizeBuffer() + "->" + e);
+                    logVerbose(factory.getReactionSizeBuffer() + "->" + e);
                     continue;
                 }
-                logVerbose(clone.getReactionSizeBuffer(-1) + "->Y");
-                stack.push(clone);
-                // queue.add(clone);
+                logVerbose(factory.getReactionSizeBuffer(-1) + "->Y");
+                didPerformReaction = true;
+                break;
+                // clone = factory.cloneFactory();
+                // logVerbose(clone.getReactionSizeBuffer() + "?" + reaction);
+                // try {
+                //     clone.executeReactionReverse(reaction);
+                // } catch (InvalidReactionException e) {
+                //     logVerbose(clone.getReactionSizeBuffer() + "->" + e);
+                //     continue;
+                // }
+                // logVerbose(clone.getReactionSizeBuffer(-1) + "->Y");
+                // stack.push(clone);
+                // // queue.add(clone);
+            }
+            if (didPerformReaction) {
+                stack.push(factory);
             }
         }
         return minOreNeeded;

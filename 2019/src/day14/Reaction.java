@@ -4,22 +4,31 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class Reaction implements Comparator<Reaction> {
+//public class Reaction implements Comparator<Reaction> {
+public class Reaction {
     public final List<Ingredient> inputs;
     public final Ingredient output;
 
     /**
      * So we can implement compare() below
      */
-    public Reaction() {
-        inputs = null;
-        output = null;
-    }
+    // public Reaction() {
+    //     inputs = null;
+    //     output = null;
+    // }
 
     public Reaction(List<Ingredient> inputs, Ingredient output) {
         this.inputs = inputs;
         this.output = output;
     }
+
+    // public Reaction clone() {
+    //     List<Ingredient> inputs = new ArrayList<>();
+    //     for (Ingredient ingredient : this.inputs) {
+    //         inputs.add(ingredient.clone());
+    //     }
+    //     return new Reaction(inputs, output.clone());
+    // }
 
     public boolean isOreReaction() {
         return inputs.size() == 1 && inputs.get(0).name.equals(Ingredient.INGREDIENT_ORE);
@@ -76,8 +85,8 @@ public class Reaction implements Comparator<Reaction> {
      * @param o2
      * @return
      */
-    @Override
-    public int compare(Reaction o1, Reaction o2) {
-        return o2.inputs.get(0).quantity - o1.inputs.get(0).quantity;
-    }
+    // @Override
+    // public int compare(Reaction o1, Reaction o2) {
+    //     return o2.inputs.get(0).quantity - o1.inputs.get(0).quantity;
+    // }
 }

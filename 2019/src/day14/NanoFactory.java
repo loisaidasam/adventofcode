@@ -6,6 +6,9 @@ public class NanoFactory {
 
     public final Map<String, Reaction> ingredientReactionMap;
 
+    protected List<Reaction> reactionsOre;
+    protected List<Reaction> reactionsNonOre;
+
     protected Map<String, Ingredient> availableIngredients;
 
     protected List<Reaction> reactionHistory;
@@ -56,6 +59,7 @@ public class NanoFactory {
 
     public NanoFactory(Map<String, Reaction> ingredientReactionMap) {
         this.ingredientReactionMap = ingredientReactionMap;
+        setupReactions();
         availableIngredients = new HashMap<>();
         reactionHistory = new ArrayList<>();
     }
@@ -69,6 +73,18 @@ public class NanoFactory {
             ingredientReactionMap.put(reaction.output.name, reaction);
         }
         return ingredientReactionMap;
+    }
+
+    protected void setupReactions() {
+        reactionsOre = new ArrayList<>();
+        reactionsNonOre = new ArrayList<>();
+        for (Reaction reaction : ingredientReactionMap.values()) {
+            if (reaction.isOreReaction()) {
+                reactionsOre.add(reaction);
+            } else {
+                reactionsNonOre.add(reaction);
+            }
+        }
     }
 
     public void setReactionHistory(List<Reaction> reactionHistory) {
@@ -132,13 +148,22 @@ public class NanoFactory {
      * @param reaction
      * @throws InvalidReactionException
      */
-    // public void executeReaction(Reaction reaction) throws InvalidReactionException {
-    //     for (Ingredient ingredient : reaction.inputs) {
-    //         removeIngredient(ingredient);
-    //     }
-    //     addIngredient(reaction.output);
-    //     reactionHistory.add(reaction);
-    // }
+    public void executeReaction(Reaction reaction) throws InvalidReactionException {
+        for (Ingredient ingredient : reaction.inputs) {
+            // Don't allow ORE reactions
+            // removeIngredient(ingredient);
+            // Allow ORE reactions:
+            try {
+                removeIngredient(ingredient);
+            } catch (InvalidReactionException e) {
+                if (! reaction.isOreReaction()) {
+                    throw e;
+                }
+            }
+        }
+        addIngredient(reaction.output);
+        reactionHistory.add(reaction);
+    }
 
     /**
      * For going from 1 AB => 3 A, 4 B
@@ -147,19 +172,18 @@ public class NanoFactory {
      */
     public void executeReactionReverse(Reaction reaction) throws InvalidReactionException {
         // Don't allow ORE reactions:
-        // removeIngredient(reaction.output);
+        removeIngredient(reaction.output);
         // Allow ORE reactions:
-        Ingredient output = reaction.output;
-        try {
-            removeIngredient(output);
-        } catch (NotEnoughIngredient exception) {
-            // If it's *just* ore, this is OK
-            if (reaction.isOreReaction()) {
-                availableIngredients.remove(reaction.output.name);
-            } else {
-                throw exception;
-            }
-        }
+        // try {
+        //     removeIngredient(reaction.output);
+        // } catch (NotEnoughIngredient exception) {
+        //     // If it's *just* ore, this is OK
+        //     if (reaction.isOreReaction()) {
+        //         availableIngredients.remove(reaction.output.name);
+        //     } else {
+        //         throw exception;
+        //     }
+        // }
         for (Ingredient ingredient : reaction.inputs) {
             addIngredient(ingredient);
         }
@@ -182,7 +206,6 @@ public class NanoFactory {
         int hash;
         Set<Integer> factoryStatesSeen = new HashSet<>();
         int maxDepth = 0;
-        Reaction reaction;
         while (! stack.isEmpty()) {
 //        while (!queue.isEmpty()) {
             factory = stack.pop();
@@ -206,17 +229,27 @@ public class NanoFactory {
             }
             boolean didPerformReaction = false;
             // TODO: We want to go in order from "farthest from ore" to "closest to ore"
-            for (String ingredientName : factory.getAvailableIngredients().keySet()) {
-                if (ingredientName.equals(Ingredient.INGREDIENT_ORE)) {
-                    // Not cashing ore in for anything
-                    continue;
-                }
-                reaction = ingredientReactionMap.get(ingredientName);
+            // for (String ingredientName : factory.getAvailableIngredients().keySet()) {
+            for (Reaction reaction : reactionsNonOre) {
+                // if (ingredientName.equals(Ingredient.INGREDIENT_ORE)) {
+                //     // Not cashing ore in for anything
+                //     continue;
+                // }
+                // reaction = ingredientReactionMap.get(ingredientName);
+                // if (! availableIngredients.containsKey(reaction.output.name)) {
+                //     continue;
+                // }
                 logVerbose(factory.getReactionSizeBuffer() + "?" + reaction);
                 try {
                     factory.executeReactionReverse(reaction);
                 } catch (InvalidReactionException e) {
                     logVerbose(factory.getReactionSizeBuffer() + "->" + e);
+                    // if (reaction.isOreReaction()) {
+                    //     logVerbose("Caught invalid ore reaction, reversing ...");
+                    //     factory.executeReaction(reaction);
+                    //     logVerbose(factory.getReactionSizeBuffer() + factory);
+                    //     // break;
+                    // }
                     continue;
                 }
                 logVerbose(factory.getReactionSizeBuffer(-1) + "->Y");
@@ -236,7 +269,17 @@ public class NanoFactory {
             }
             if (didPerformReaction) {
                 stack.push(factory);
+            } else {
+                for (Reaction reaction : reactionsOre) {
+                    logVerbose("ORE reaction");
+                    clone = factory.cloneFactory();
+                    clone.executeReaction(reaction);
+                    stack.push(clone);
+                }
             }
+            // if (didPerformReaction) {
+            //     stack.push(factory);
+            // }
         }
         return minOreNeeded;
     }

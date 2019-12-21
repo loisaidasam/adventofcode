@@ -45,6 +45,8 @@ References
 
 Image with multiple layers of pixels
 
+![https://raw.githubusercontent.com/loisaidasam/adventofcode/master/2019/src/day08/Screen%20Shot%202019-12-08%20at%2003.10.04.png](https://raw.githubusercontent.com/loisaidasam/adventofcode/master/2019/src/day08/Screen%20Shot%202019-12-08%20at%2003.10.04.png)
+
 ## Day 9: Sensor Boost
 
 Intcode Computer mods for relative mode, large numbers (used `BigInteger`)
@@ -57,6 +59,8 @@ Line-of-sight on a grid, rotation, angles, visibility.
 
 Emergency Hull Painting Robot, walking a 2D grid
 
+![https://raw.githubusercontent.com/loisaidasam/adventofcode/master/2019/src/day11/Screen%20Shot%202019-12-11%20at%2010.19.28%20PM.png](https://raw.githubusercontent.com/loisaidasam/adventofcode/master/2019/src/day11/Screen%20Shot%202019-12-11%20at%2010.19.28%20PM.png)
+
 ## Day 12: The N-Body Problem
 
 Jupiter's 4 moons, positions, gravity, velocity. Cycle detection on x/y/z axes.
@@ -64,6 +68,8 @@ Jupiter's 4 moons, positions, gravity, velocity. Cycle detection on x/y/z axes.
 ## Day 13: Care Package
 
 Block breaking Intcode Computer program
+
+![https://raw.githubusercontent.com/loisaidasam/adventofcode/master/2019/src/day13/Screen%20Shot%202019-12-13%20at%2010.49.14.png](https://raw.githubusercontent.com/loisaidasam/adventofcode/master/2019/src/day13/Screen%20Shot%202019-12-13%20at%2010.49.14.png)
 
 ## Day 14: Space Stoichiometry
 

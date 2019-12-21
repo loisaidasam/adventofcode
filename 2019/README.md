@@ -83,6 +83,11 @@ Move repair droid to find location of oxygen system - good candidate for user in
 
 Repeated pattern, part 2 should prob be optimized using vector x scalar multiplication.
 
+Possible libs:
+
+- http://la4j.org/
+- http://ejml.org/
+
 ## Day 17: Set and Forget
 
 Intcode Computer program for watching cameras and vacuum robot.

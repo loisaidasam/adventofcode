@@ -29,8 +29,6 @@ However, you'll need to scan a larger area to understand the shape of the beam. 
 
 Your puzzle answer was 118.
 
-The first half of this puzzle is complete! It provides one gold star: *
-
 --- Part Two ---
 
 You aren't sure how large Santa's ship is. You aren't even sure if you'll need to use this thing on Santa's ship, but it doesn't hurt to be prepared. You figure Santa's ship might fit in a 100x100 square.
@@ -78,3 +76,8 @@ For example, suppose you have the following tractor beam readings:
 In this example, the 10x10 square closest to the emitter that fits entirely within the tractor beam has been marked O. Within it, the point closest to the emitter (the only highlighted O) is at X=25, Y=20.
 
 Find the 100x100 square closest to the emitter that fits entirely within the tractor beam; within that square, find the point closest to the emitter. What value do you get if you take that point's X coordinate, multiply it by 10000, then add the point's Y coordinate? (In the example above, this would be 250020.)
+
+Your puzzle answer was 18651593.
+
+Both parts of this puzzle are complete! They provide two gold stars: **
+

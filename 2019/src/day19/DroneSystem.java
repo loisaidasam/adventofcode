@@ -24,7 +24,6 @@ public class DroneSystem {
     public void scanArea(int minX, int minY, int n) throws IntcodeComputer.IntcodeException {
         for (int y = minY; y < minY + n; y++) {
             for (int x = minX; x < minX + n; x++) {
-                // System.out.println("x=" + x + " y=" + y);
                 int result = getResultAtPosition(x, y);
                 tractorBeamMap.put(new Point(x, y), result);
             }
@@ -67,42 +66,32 @@ public class DroneSystem {
         Point point;
         int x = 0;
         for (int y = 837; true; y++) {
-            // if (y % 100 == 0) {
-            //     System.out.println("y=" + y);
-            // }
-            x = findMinXforY(x, y);
-            point = new Point(x, y);
+            x = findMaxXforY(x, y);
+            point = new Point(x - 99, y);
             if (check100x100Square(point)) {
                 return point;
             }
         }
     }
 
-    protected int findMinXforY(int x, int y) throws IntcodeComputer.IntcodeException {
-        while (true) {
-            int result = getResultAtPosition(x, y);
-            // System.out.println("getResultAtPosition(" + x + ", " + y + ")=" + result);
-            if (result == RESULT_PULLED) {
-                return x;
-            }
+    protected int findMaxXforY(int x, int y) throws IntcodeComputer.IntcodeException {
+        int result = getResultAtPosition(x, y);
+        while (result == RESULT_STATIONARY) {
             x++;
+            result = getResultAtPosition(x, y);
         }
+        while (result == RESULT_PULLED) {
+            x++;
+            result = getResultAtPosition(x, y);
+        }
+        return x - 1;
     }
 
     protected boolean check100x100Square(Point point) throws IntcodeComputer.IntcodeException {
         System.out.println("check100x100Square(" + point + ")");
         // scanForTractorBeam(point.x, point.y, 100);
-        for (int y = point.y; y > point.y - 100; y--) {
-            for (int x = point.x; x < point.x + 100; x++) {
-                // System.out.println("x=" + x + " y=" + y);
-                int result = getResultAtPosition(x, y);
-                // System.out.println("result=" + result);
-                if (result != RESULT_PULLED) {
-                    System.out.println("x=" + x + " point.x=" + point.x + " width=" + (x - point.x));
-                    return false;
-                }
-            }
-        }
-        return true;
+        return getResultAtPosition(point.x, point.y) == RESULT_PULLED &&
+                getResultAtPosition(point.x + 99, point.y) == RESULT_PULLED &&
+                getResultAtPosition(point.x, point.y + 99) == RESULT_PULLED;
     }
 }

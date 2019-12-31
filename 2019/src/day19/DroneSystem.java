@@ -19,16 +19,24 @@ public class DroneSystem {
 
     public DroneSystem(BigInteger[] instructions) {
         this.instructions = instructions;
-        tractorBeamMap = new HashMap<>();
     }
 
-    public void scanArea(int n) throws IntcodeComputer.IntcodeException {
-        for (int y = 0; y < n; y++) {
-            for (int x = 0; x < n; x++) {
+    public void scanArea(int minX, int minY, int n) throws IntcodeComputer.IntcodeException {
+        for (int y = minY; y < minY + n; y++) {
+            for (int x = minX; x < minX + n; x++) {
                 // System.out.println("x=" + x + " y=" + y);
                 int result = getResultAtPosition(x, y);
                 tractorBeamMap.put(new Point(x, y), result);
             }
+        }
+    }
+
+    public void printArea(int minX, int minY, int n) {
+        for (int y = minY; y < minY + n; y++) {
+            for (int x = minX; x < minX + n; x++) {
+                System.out.print(tractorBeamMap.get(new Point(x, y)));
+            }
+            System.out.println();
         }
     }
 
@@ -40,15 +48,61 @@ public class DroneSystem {
         return outputs.poll().intValue();
     }
 
-    public int scanForTractorBeam(int n) {
+    public int scanForTractorBeam(int minX, int minY, int n) throws IntcodeComputer.IntcodeException {
+        tractorBeamMap = new HashMap<>();
+        scanArea(minX, minY, n);
+        printArea(minX, minY, n);
         int count = 0;
-        for (int y = 0; y < n; y++) {
-            for (int x = 0; x < n; x++) {
+        for (int y = minY; y < minY + n; y++) {
+            for (int x = minX; x < minX + n; x++) {
                 if (tractorBeamMap.get(new Point(x, y)) == RESULT_PULLED) {
                     count++;
                 }
             }
         }
         return count;
+    }
+
+    public Point find100x100Square() throws IntcodeComputer.IntcodeException {
+        Point point;
+        int x = 0;
+        for (int y = 837; true; y++) {
+            // if (y % 100 == 0) {
+            //     System.out.println("y=" + y);
+            // }
+            x = findMinXforY(x, y);
+            point = new Point(x, y);
+            if (check100x100Square(point)) {
+                return point;
+            }
+        }
+    }
+
+    protected int findMinXforY(int x, int y) throws IntcodeComputer.IntcodeException {
+        while (true) {
+            int result = getResultAtPosition(x, y);
+            // System.out.println("getResultAtPosition(" + x + ", " + y + ")=" + result);
+            if (result == RESULT_PULLED) {
+                return x;
+            }
+            x++;
+        }
+    }
+
+    protected boolean check100x100Square(Point point) throws IntcodeComputer.IntcodeException {
+        System.out.println("check100x100Square(" + point + ")");
+        // scanForTractorBeam(point.x, point.y, 100);
+        for (int y = point.y; y > point.y - 100; y--) {
+            for (int x = point.x; x < point.x + 100; x++) {
+                // System.out.println("x=" + x + " y=" + y);
+                int result = getResultAtPosition(x, y);
+                // System.out.println("result=" + result);
+                if (result != RESULT_PULLED) {
+                    System.out.println("x=" + x + " point.x=" + point.x + " width=" + (x - point.x));
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

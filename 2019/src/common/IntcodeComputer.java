@@ -169,9 +169,10 @@ public class IntcodeComputer {
         for (int i = 0; i < numOutputs; i++) {
             try {
                 process();
+                // System.out.println("Processed with no OutputInterrupt, returning outputs: " + outputs);
                 return outputs;
             } catch (OutputInterrupt exception) {
-                // System.out.println("Caught OutputInterrupt " + i);
+                // System.out.println("Caught OutputInterrupt on i=" + i + " " + exception);
             }
         }
         return outputs;

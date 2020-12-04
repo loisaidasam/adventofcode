@@ -6,7 +6,24 @@ import java.util.stream.Collectors;
 
 public class BaseSolution {
 
+    public enum InputType {
+        NONE,
+        STRINGS,
+        INTS,
+    }
+
+    protected List<String> inputStrs;
+    protected List<Integer> inputInts;
+
     protected String inputFilename = "input.txt";
+
+    public BaseSolution() {
+        if (getInputType() == InputType.STRINGS) {
+            inputStrs = getInputStrings();
+        } else if (getInputType() == InputType.INTS) {
+            inputInts = getInputInts();
+        }
+    }
 
     public BaseSolution run() throws Exception {
         System.out.println("Solution for " + getDayName());
@@ -53,6 +70,10 @@ public class BaseSolution {
         return getInputStrings().stream()
                 .map(s -> Integer.parseInt(s))
                 .collect(Collectors.toList());
+    }
+
+    protected InputType getInputType() {
+        return InputType.NONE;
     }
 
     protected Integer part1Int() throws Exception {

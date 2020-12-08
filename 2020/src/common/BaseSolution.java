@@ -15,8 +15,6 @@ public class BaseSolution {
     protected List<String> inputStrs;
     protected List<Integer> inputInts;
 
-    protected String inputFilename = "input.txt";
-
     public BaseSolution() {
         if (getInputType() == InputType.STRINGS) {
             inputStrs = getInputStrings();
@@ -47,12 +45,12 @@ public class BaseSolution {
         return System.getProperty("user.dir");
     }
 
-    protected String getInputFilename() {
-        return getCurrentDir() + "/src/" + getDayName() + "/" + inputFilename;
+    protected String getInputFilenamePath() {
+        return getCurrentDir() + "/src/" + getDayName() + "/" + getInputFilename();
     }
 
     protected InputReader getInputReader() {
-        return new InputReader(getInputFilename());
+        return new InputReader(getInputFilenamePath());
     }
 
     protected List<String> getInputStrings() {
@@ -74,6 +72,10 @@ public class BaseSolution {
 
     protected InputType getInputType() {
         return InputType.NONE;
+    }
+
+    public String getInputFilename() {
+        return "input.txt";
     }
 
     protected Integer part1Int() throws Exception {

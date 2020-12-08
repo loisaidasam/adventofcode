@@ -1,0 +1,594 @@
+muted white,4 dark orange,3 bright white
+bright salmon,5 light indigo
+drab brown,2 dark green,2 plaid fuchsia,1 muted tomato,5 light tan
+dark salmon,1 posh white,4 light violet
+mirrored gray,4 mirrored turquoise
+posh turquoise,3 mirrored magenta,1 muted red,4 dim gray,5 dull tan
+posh coral,4 dark purple,5 drab teal
+light violet,2 striped magenta,5 light lime,5 posh cyan
+dull brown,1 vibrant silver,3 dotted beige
+dim salmon,no other
+light bronze,1 bright maroon,3 faded olive,2 shiny beige,4 striped orange
+pale plum,3 muted white,3 striped magenta
+shiny tomato,4 vibrant chartreuse
+dark gray,5 dim bronze
+plaid tan,4 light coral,2 dim fuchsia,3 mirrored coral
+bright blue,4 muted gold,4 striped aqua
+faded cyan,4 drab teal,2 faded black,1 posh cyan
+clear purple,4 posh lavender,4 dim green,2 dull white,5 pale crimson
+faded chartreuse,2 wavy orange,5 vibrant red,5 pale salmon,2 vibrant plum
+dull plum,2 posh gray,1 bright aqua,3 faded lavender,3 dull salmon
+dull magenta,3 shiny violet,2 posh tan
+pale lime,2 vibrant plum,5 striped crimson
+shiny cyan,5 plaid black,4 muted lime,3 posh black
+posh lime,5 light lavender,1 dim green,3 dull purple,5 muted tomato
+dotted tomato,2 bright lavender,5 muted white,5 pale maroon,4 dotted tan
+muted teal,5 shiny brown,1 drab olive,2 shiny black,3 posh white
+mirrored violet,1 striped gold,4 drab lavender,4 mirrored blue,4 bright gold
+dim crimson,1 pale bronze,2 pale turquoise,5 striped aqua,1 light lavender
+wavy chartreuse,2 shiny violet,2 striped white,1 vibrant silver
+mirrored red,3 clear maroon,4 dim indigo,5 drab brown,1 shiny white
+mirrored maroon,4 drab maroon,1 mirrored teal,5 faded coral
+clear teal,4 dim orange,4 mirrored bronze,3 faded beige
+muted lime,4 faded indigo,2 muted olive,2 mirrored chartreuse
+faded fuchsia,5 dim bronze,3 muted tan,3 drab teal,5 faded bronze
+dull blue,5 shiny beige,2 shiny silver,5 dull fuchsia
+drab white,1 dotted aqua
+dark chartreuse,2 mirrored magenta,3 wavy yellow
+bright gold,4 faded fuchsia,1 plaid olive,5 muted tomato,4 drab bronze
+drab chartreuse,1 vibrant lime,2 dark teal
+muted plum,5 light yellow,4 drab lime
+shiny lime,4 dull brown,5 dark brown
+pale white,2 dull aqua,5 muted tan,1 drab bronze
+dim violet,1 wavy red,2 striped brown
+posh gold,4 wavy blue,3 dotted aqua,5 wavy maroon,5 striped indigo
+light indigo,3 striped teal,2 wavy blue,5 shiny brown,3 plaid fuchsia
+posh tan,4 bright aqua,5 clear gold
+muted bronze,4 drab fuchsia,3 bright brown,2 dull brown,3 plaid red
+shiny turquoise,2 muted purple,2 striped green,1 clear tomato,5 bright plum
+pale tan,4 dark brown,1 clear tomato,1 mirrored black,4 bright red
+faded yellow,3 drab purple
+striped black,1 clear lavender
+dotted indigo,4 striped plum
+dull black,5 posh crimson,5 shiny bronze,5 posh salmon,4 bright salmon
+plaid beige,3 drab turquoise,4 striped lavender
+striped gray,5 vibrant bronze,4 bright chartreuse
+wavy bronze,2 clear teal,2 light orange,1 striped beige
+mirrored green,5 plaid lavender,2 mirrored purple,1 dark silver
+posh maroon,2 faded blue,5 light tan,4 clear brown
+plaid chartreuse,2 posh white,3 striped orange,5 light beige,3 drab lime
+muted tomato,3 striped teal
+drab magenta,3 bright brown,2 muted white,4 shiny silver,1 shiny indigo
+light gray,3 striped turquoise,1 light purple
+pale violet,3 posh olive,2 drab green
+light chartreuse,2 dull silver,5 faded maroon,5 drab purple,5 shiny gold
+dull gold,2 shiny indigo,5 bright orange,4 faded bronze,1 shiny tan
+dark black,1 faded lavender,1 faded gold,5 clear blue
+clear blue,3 dull teal,3 wavy violet
+vibrant violet,3 dark purple,3 bright aqua,2 light indigo,2 vibrant lime
+pale gray,3 plaid green,2 dull beige
+plaid teal,1 wavy gold
+dotted maroon,2 shiny green,5 wavy magenta,5 posh fuchsia
+pale coral,1 plaid chartreuse,1 dark bronze,3 wavy blue
+shiny plum,2 dark yellow,2 plaid gold
+light plum,2 light olive,1 clear yellow
+drab aqua,4 wavy gray,5 bright beige,1 drab plum,2 posh coral
+posh brown,4 dim blue,3 shiny tan
+pale tomato,4 light olive,2 shiny olive,3 posh lavender
+dim orange,3 posh tan
+dull olive,5 dim turquoise,3 dotted blue,1 dotted plum,5 mirrored bronze
+dim gray,3 shiny blue,3 striped aqua,2 bright tomato
+posh gray,1 plaid crimson,1 mirrored yellow
+wavy silver,5 mirrored black,5 clear gray
+muted salmon,1 clear indigo
+clear gold,no other
+dotted cyan,2 dotted turquoise
+light crimson,2 shiny turquoise,3 plaid fuchsia,2 shiny yellow
+plaid lime,1 dim silver
+dim beige,3 clear green,3 mirrored gray,4 dotted lavender,5 muted bronze
+dark coral,4 bright tomato,3 shiny brown,3 light magenta
+dull orange,5 striped red,3 pale coral,5 vibrant green,5 muted indigo
+vibrant gold,4 dull crimson,2 dark yellow
+mirrored coral,2 bright green,3 shiny orange,3 clear aqua,3 dull salmon
+pale purple,2 bright tomato,3 light beige,5 plaid bronze,4 dull beige
+bright olive,1 shiny beige,3 mirrored crimson,5 striped orange,3 plaid fuchsia
+clear black,2 dull green
+bright red,5 posh cyan,1 clear black,2 plaid turquoise,4 muted yellow
+mirrored tan,3 light cyan,2 vibrant red
+muted orange,1 clear lavender,4 posh bronze,3 dim bronze
+plaid orange,3 shiny silver
+shiny teal,4 light chartreuse,2 dull crimson
+striped crimson,2 dotted tomato,5 dim fuchsia
+dotted tan,3 drab purple,2 mirrored bronze,3 shiny beige,3 posh tan
+posh olive,1 clear tomato
+faded silver,4 drab blue,5 dull yellow,4 dim red
+plaid violet,3 dull tan,1 dim yellow
+muted violet,4 clear violet,2 mirrored teal,1 plaid violet
+dull lavender,2 dotted silver,4 striped coral,5 striped indigo
+faded crimson,2 drab red
+striped coral,5 dull brown,3 vibrant red
+shiny tan,1 shiny fuchsia,2 plaid gray
+plaid coral,4 muted brown,3 faded indigo,5 wavy white,3 mirrored blue
+bright white,no other
+dark green,2 mirrored lime,4 wavy maroon
+mirrored yellow,3 posh white
+bright magenta,1 drab lime,4 mirrored black,4 dark yellow,1 light indigo
+shiny aqua,4 drab tan,3 muted gray
+dim olive,4 dotted lavender,4 plaid green,1 posh lavender,5 dim tan
+posh magenta,3 posh white,1 clear plum
+light aqua,4 dim salmon
+muted indigo,5 plaid purple
+clear chartreuse,2 mirrored bronze
+dim teal,4 striped orange,4 posh tan,2 wavy maroon,3 bright turquoise
+dim lime,5 faded coral,2 muted aqua,4 faded maroon,3 mirrored bronze
+faded black,1 wavy maroon,1 light aqua,2 muted gray
+striped violet,3 drab olive,3 clear purple
+plaid silver,4 wavy violet,4 dotted beige,4 dull bronze
+dull salmon,4 light bronze,1 drab fuchsia
+posh salmon,4 dim bronze
+dim plum,4 pale maroon,2 dim yellow,4 dim turquoise
+faded maroon,1 shiny blue,4 striped lavender,2 bright aqua,4 posh white
+plaid white,1 dark coral,4 drab salmon,5 muted blue
+pale red,3 dim aqua,3 shiny lavender
+plaid gold,3 dotted brown,5 clear tomato
+dim white,4 bright olive,4 vibrant maroon,5 pale brown
+bright brown,3 dark green,3 dim gold,2 bright aqua,2 pale indigo
+mirrored bronze,5 striped orange,1 dim bronze,2 clear gold
+plaid plum,3 dotted tan,5 dim salmon
+dim maroon,5 light aqua
+striped brown,3 vibrant beige,2 dim indigo
+vibrant yellow,2 plaid black
+shiny white,2 dim maroon,1 posh lavender,5 dim gray
+striped tomato,2 pale plum,2 wavy lime,3 dim lime,5 dark teal
+drab tan,5 dark brown
+pale beige,4 dim teal,3 dim silver
+faded aqua,1 muted black,1 light bronze
+dim green,3 vibrant lime,2 drab fuchsia
+dim lavender,3 dotted beige,1 dim green,1 faded coral,1 shiny teal
+pale blue,4 plaid fuchsia,2 dark purple,5 bright crimson
+faded lavender,1 mirrored black,4 muted blue
+plaid aqua,2 clear maroon,4 shiny teal,2 posh fuchsia
+dotted violet,2 pale indigo,2 muted red,3 light lavender,3 shiny yellow
+dotted olive,4 dim aqua,5 striped maroon,1 pale red
+drab lime,3 dotted aqua,4 posh tan,2 faded black
+dim yellow,2 faded maroon,5 light teal
+dull maroon,5 drab purple,1 pale maroon,2 light gold,1 faded salmon
+wavy tan,2 vibrant maroon,3 muted white,2 shiny brown,4 light chartreuse
+dull violet,4 bright beige,2 vibrant maroon,5 dim gold,4 drab violet
+drab cyan,1 light olive,3 dark turquoise,3 dark yellow,2 light black
+wavy coral,3 posh lavender,2 pale indigo,2 striped green,5 light beige
+clear white,5 dull purple,2 wavy red
+shiny gray,3 striped teal
+shiny indigo,4 clear gold,3 dark teal
+light blue,1 muted coral,5 dark cyan
+bright cyan,5 drab brown,1 pale teal,2 posh cyan,5 shiny indigo
+plaid yellow,1 vibrant gray
+dotted brown,3 mirrored silver
+dotted bronze,1 light indigo,5 mirrored crimson
+bright purple,3 posh teal,3 dim orange,4 dark gold,1 striped purple
+striped lavender,5 dim salmon,2 posh indigo
+dark gold,5 faded brown,1 faded magenta,4 drab lavender,1 dull tan
+clear beige,3 drab violet,2 dim crimson
+drab orange,1 clear blue
+wavy teal,4 plaid green,5 light bronze,5 shiny indigo,4 drab violet
+muted maroon,1 bright plum,1 dim teal
+wavy violet,2 striped green,5 striped brown,4 muted bronze
+clear brown,2 wavy lime,2 mirrored red
+plaid magenta,3 vibrant gold,2 striped green,4 striped maroon
+vibrant blue,2 light beige,5 mirrored cyan,4 dark blue,5 drab yellow
+mirrored brown,2 dotted white
+light gold,3 vibrant silver
+mirrored silver,4 faded maroon,5 faded coral
+bright indigo,1 clear salmon,4 dim turquoise,2 mirrored black,1 striped indigo
+mirrored olive,2 drab olive,4 vibrant gray
+dark silver,4 bright chartreuse,1 shiny indigo,2 dull brown
+drab salmon,3 dotted plum,2 bright gold,2 plaid beige
+dotted white,3 bright plum,5 dotted beige,1 dotted silver
+light olive,1 muted aqua,2 striped brown,1 mirrored bronze
+dotted blue,3 drab red,2 mirrored bronze
+muted lavender,4 clear chartreuse,4 striped brown,3 mirrored tan,5 shiny indigo
+dotted chartreuse,3 clear maroon,5 clear turquoise,4 mirrored aqua,5 plaid aqua
+posh crimson,5 plaid plum,1 wavy blue
+vibrant olive,3 wavy silver,1 shiny blue
+wavy yellow,3 dim teal,1 light brown,4 dull chartreuse,5 striped red
+dark olive,5 bright maroon,4 dim tan,3 bright aqua,2 pale turquoise
+bright plum,1 light yellow,4 muted aqua
+drab plum,1 dim gray,5 light chartreuse
+striped salmon,4 drab lavender
+bright coral,4 clear tomato
+drab silver,2 shiny orange,2 muted coral
+posh violet,3 wavy red,3 shiny blue,4 pale brown,1 light yellow
+mirrored black,3 wavy white,4 dotted tan,3 shiny purple,3 dim bronze
+faded green,2 drab brown
+posh yellow,3 striped gold,4 light purple
+drab lavender,5 pale brown,4 striped aqua
+clear magenta,4 dull beige,2 wavy red
+wavy fuchsia,4 dull fuchsia,1 bright beige
+bright maroon,2 striped orange,2 muted white,4 vibrant beige
+mirrored chartreuse,2 bright plum
+mirrored lavender,4 clear magenta
+light lime,4 vibrant cyan,2 mirrored yellow,5 light teal,4 muted plum
+pale green,3 vibrant coral
+dark plum,3 shiny lavender,1 light plum,5 drab gold
+faded purple,2 wavy lime,5 drab teal,1 dark green
+dim silver,5 striped white,5 drab coral
+faded bronze,1 bright white,5 posh fuchsia,2 mirrored teal
+pale indigo,1 dull brown,4 muted red,3 vibrant chartreuse,5 drab teal
+dark tan,2 dim blue,3 plaid indigo,1 vibrant indigo,5 dull salmon
+bright silver,4 vibrant black,5 clear salmon,5 dull violet
+striped aqua,1 pale brown,5 shiny silver,1 dim salmon,3 dull chartreuse
+light beige,1 posh lavender,2 muted gold,5 light tan,5 striped magenta
+faded gold,1 posh brown,5 dull salmon,5 faded olive,2 posh coral
+drab violet,3 vibrant gray,1 light silver,5 posh gold,1 vibrant lime
+striped beige,5 shiny yellow,5 striped magenta,1 shiny gold,2 dotted tan
+muted beige,4 wavy lavender,2 light beige,4 vibrant tan,5 dark plum
+shiny salmon,4 muted aqua,3 dark olive,5 shiny blue,3 wavy maroon
+dotted crimson,5 mirrored cyan,2 light black,2 faded lavender,3 drab indigo
+vibrant red,3 light silver,1 shiny purple,1 shiny blue,4 dotted lavender
+striped yellow,4 clear red,2 dim violet
+posh bronze,3 clear salmon,1 dull salmon,3 drab turquoise
+mirrored plum,1 bright plum,5 striped tan,4 shiny magenta,1 shiny coral
+plaid gray,4 dim teal,2 plaid green,5 muted green
+bright orange,5 muted gray,3 dim violet,1 dark turquoise
+dim purple,3 dark brown,3 dark cyan,5 faded indigo,1 light coral
+muted magenta,2 muted white
+vibrant white,2 wavy lime,2 vibrant gold,1 dim silver
+dull lime,3 dark salmon,1 mirrored yellow,5 clear salmon,4 light white
+dark fuchsia,2 wavy salmon,4 bright lavender
+bright bronze,3 dark turquoise,3 dim maroon
+faded beige,5 wavy gold
+dotted green,4 muted red,4 light black,5 wavy cyan,4 mirrored aqua
+light salmon,4 dim plum,3 dark bronze,3 dotted turquoise
+light red,4 vibrant gold,5 drab red
+mirrored orange,5 drab lavender,2 drab aqua,5 mirrored aqua,2 posh blue
+light coral,3 posh magenta,3 dim maroon,2 light aqua
+dotted purple,2 plaid purple,3 light chartreuse
+light cyan,1 dotted magenta,1 drab lime,2 clear magenta
+shiny green,4 drab silver,4 wavy blue
+dull yellow,4 wavy maroon,4 bright white,3 wavy white
+vibrant gray,1 wavy maroon,5 dark yellow,1 wavy silver,1 vibrant silver
+plaid purple,1 dark yellow,1 faded maroon,1 muted coral,2 clear yellow
+light orange,1 vibrant black,4 striped brown
+vibrant tomato,4 plaid cyan,5 dim salmon,1 pale lime,1 dim teal
+shiny coral,5 shiny blue,1 shiny beige,2 drab silver
+dark aqua,4 plaid magenta,2 dull cyan,3 dim red
+dotted aqua,4 pale turquoise
+clear gray,2 vibrant salmon,4 dim salmon,2 shiny silver
+striped purple,2 muted salmon,2 posh green
+dark indigo,1 muted lime,3 posh cyan,2 dull brown
+wavy crimson,5 pale purple,1 pale black,5 plaid gold,2 dull red
+faded gray,1 plaid maroon,2 muted red,1 drab turquoise,3 clear maroon
+drab indigo,1 faded olive,2 pale plum,3 muted aqua,3 muted white
+light green,3 plaid gray
+posh white,3 dim salmon
+shiny bronze,3 pale brown
+light tomato,4 dim tan,4 dull crimson,4 dark coral,3 mirrored gold
+shiny crimson,1 vibrant gray
+muted blue,1 light magenta,4 drab indigo,1 vibrant salmon,4 dim tomato
+wavy maroon,4 mirrored bronze,3 clear gray,3 muted white
+wavy white,5 dim salmon,3 striped lavender,3 faded olive
+striped plum,1 drab purple
+bright lavender,2 posh white
+posh red,5 vibrant salmon,3 dark yellow,1 dotted tan
+dark violet,5 vibrant beige,3 drab lime,1 dull plum
+mirrored aqua,4 posh orange,4 mirrored fuchsia,1 shiny chartreuse
+dark crimson,4 dim cyan,2 wavy magenta
+striped cyan,3 mirrored teal,5 light turquoise
+posh blue,3 posh indigo,4 clear maroon,5 pale salmon,1 faded yellow
+mirrored tomato,1 dim silver,3 bright purple,3 clear lavender,2 drab gold
+plaid green,5 drab indigo,4 vibrant gray,1 vibrant chartreuse,5 mirrored lavender
+clear maroon,2 shiny beige
+faded turquoise,4 vibrant crimson
+striped magenta,3 vibrant salmon,4 dull chartreuse,3 faded olive,2 striped aqua
+dark magenta,4 mirrored purple,1 dull beige,2 plaid chartreuse
+drab turquoise,2 dark olive,4 pale plum
+faded tan,5 dull crimson,3 wavy gray
+muted tan,no other
+dull tan,2 plaid maroon,3 dark green,3 shiny orange
+striped red,1 striped maroon,4 clear red
+faded magenta,3 shiny teal,4 bright crimson
+dull aqua,5 pale turquoise,5 bright tomato,4 drab lime,3 drab brown
+bright lime,2 light red,2 shiny olive,4 posh white,2 dotted white
+clear tomato,1 shiny beige,2 bright lavender
+faded indigo,5 muted tan,4 dim bronze
+bright yellow,2 wavy blue
+striped bronze,3 muted gold
+mirrored fuchsia,5 faded yellow,5 light cyan,4 striped crimson
+wavy gray,3 dull chartreuse,2 drab black
+muted coral,1 light aqua,1 striped lavender
+vibrant lime,5 posh lavender,2 dim bronze,1 dull silver
+shiny gold,1 plaid orange,2 striped lavender,4 pale brown,5 wavy blue
+plaid red,1 light aqua,2 mirrored salmon
+dark brown,1 dull maroon
+pale fuchsia,5 striped coral,5 dim tomato
+dull green,3 mirrored yellow,2 bright lavender,2 faded coral,4 light bronze
+clear coral,1 mirrored black,5 light chartreuse
+clear fuchsia,1 clear plum,3 faded maroon
+drab gray,1 wavy tomato,3 dark cyan
+wavy lavender,1 dim lavender,3 clear turquoise
+dark tomato,3 dark red,4 mirrored red,1 plaid plum,2 dark turquoise
+shiny maroon,2 plaid tomato,2 posh magenta
+plaid bronze,3 light beige
+dim magenta,1 clear gold,5 dark orange,3 striped red
+pale aqua,1 vibrant beige,3 vibrant maroon
+dim red,1 vibrant silver,3 dark teal,4 muted olive,3 shiny beige
+shiny lavender,4 dim indigo,4 muted brown,4 dim tan,3 dull white
+wavy turquoise,5 dim salmon,1 light aqua,3 vibrant salmon
+posh green,1 drab purple
+dim fuchsia,3 muted white,3 pale bronze,4 bright aqua
+wavy orange,5 muted tomato
+dark turquoise,2 plaid bronze
+shiny silver,no other
+pale gold,5 posh turquoise,3 posh gray,1 wavy magenta,2 posh beige
+dull chartreuse,no other
+vibrant crimson,4 striped red,3 light aqua,5 shiny purple
+clear olive,3 shiny violet,5 posh coral,2 vibrant beige,2 shiny salmon
+vibrant magenta,2 shiny blue,2 dark brown,5 dim teal,5 pale purple
+faded orange,2 clear maroon,4 posh tomato,5 vibrant white,3 shiny tan
+drab yellow,5 wavy maroon,4 dotted fuchsia
+wavy purple,2 pale lavender,4 faded indigo,5 dotted lavender,3 dim tomato
+drab beige,4 dark yellow,5 drab indigo,4 faded yellow
+wavy tomato,3 dim tan
+vibrant beige,2 bright aqua,2 dull chartreuse
+dull bronze,3 dotted lavender,3 shiny violet,5 bright blue
+striped gold,3 dim white,3 drab aqua,4 dotted indigo,5 vibrant black
+shiny yellow,1 dotted fuchsia
+mirrored salmon,3 wavy blue,2 striped green,3 dull beige,5 light tan
+clear red,5 vibrant lime,1 faded maroon,2 striped lavender
+pale black,4 mirrored crimson,3 drab lavender,4 drab blue
+wavy green,2 drab lavender,4 light teal,1 mirrored chartreuse
+muted crimson,3 dim aqua
+dull red,2 pale cyan,5 dotted indigo,4 drab violet
+dull purple,2 dull gray,3 dim turquoise
+dull beige,3 bright white,2 dark orange,3 dull chartreuse
+light silver,2 muted gold,2 clear chartreuse,1 faded maroon,2 pale plum
+mirrored turquoise,3 faded black,4 light teal,2 striped plum
+wavy blue,3 faded indigo,2 wavy white,2 bright aqua,5 light yellow
+faded lime,2 drab black,4 shiny indigo,2 light black,1 dim green
+plaid brown,5 light turquoise
+drab gold,1 mirrored silver,3 dark coral,2 muted green
+vibrant aqua,5 muted salmon,2 clear gray
+clear turquoise,4 dark coral
+dark cyan,2 mirrored silver,1 wavy blue,5 vibrant purple
+striped indigo,3 dim violet,2 bright aqua,5 shiny orange
+wavy red,4 dim indigo,5 light gold
+clear cyan,1 muted cyan,1 muted magenta,2 faded cyan
+shiny violet,1 mirrored bronze,3 wavy red
+wavy indigo,1 vibrant cyan
+posh fuchsia,1 dotted silver
+mirrored white,2 shiny fuchsia,5 drab indigo
+dotted black,4 clear magenta,2 dim plum,5 dim red
+vibrant turquoise,3 dim aqua
+bright green,3 drab black,3 light magenta,3 dark purple
+bright crimson,5 faded indigo,2 dim indigo,4 pale purple
+posh beige,5 dim orange,2 vibrant chartreuse,2 bright crimson
+faded white,5 drab fuchsia,4 faded cyan
+striped turquoise,1 muted olive
+bright chartreuse,5 plaid turquoise,1 muted tomato,1 bright gold
+muted red,2 faded maroon,2 light chartreuse,5 dark olive
+dull turquoise,1 striped lavender,5 dark purple,3 dim coral
+pale yellow,5 muted indigo,2 dull black
+dim indigo,5 bright aqua,1 shiny silver,2 drab purple,1 muted aqua
+faded blue,1 pale maroon,3 faded maroon
+plaid olive,2 plaid cyan,3 dim plum,2 bright salmon
+drab black,1 faded black,4 light yellow,4 dim bronze,4 drab indigo
+vibrant plum,5 mirrored lime,4 dim yellow,4 posh tomato,3 light gold
+dotted lime,5 posh lavender,5 faded purple,4 dim salmon,3 clear tomato
+pale turquoise,1 muted tan,5 dark orange,4 vibrant salmon,5 dim bronze
+drab blue,2 posh white,1 muted aqua,2 light fuchsia
+faded olive,no other
+posh black,2 faded bronze,5 mirrored red,3 dim gray
+shiny orange,5 dark olive,5 drab indigo,3 faded indigo,3 striped brown
+mirrored blue,3 posh crimson,2 striped lavender,2 mirrored yellow
+drab purple,2 light teal,5 striped magenta,3 striped aqua
+bright gray,2 striped tan,4 bright coral
+dim gold,2 dull brown,5 mirrored crimson,2 bright tomato
+posh aqua,2 bright magenta,5 posh orange,2 wavy silver,1 posh plum
+wavy gold,2 drab purple,5 posh plum
+wavy lime,4 drab teal,5 drab bronze,1 wavy maroon,4 wavy silver
+muted black,5 drab gray,3 pale salmon,3 dull indigo,3 pale brown
+bright aqua,3 dim salmon,1 dark orange
+vibrant brown,3 dim gray
+striped teal,1 muted tan,2 pale plum
+drab olive,2 dotted lavender,1 muted green,4 wavy gray
+shiny blue,1 pale turquoise,3 faded olive
+dotted yellow,5 dim blue,2 vibrant silver
+vibrant lavender,3 posh fuchsia,4 mirrored crimson,5 posh gray
+bright black,2 striped blue
+pale salmon,5 bright maroon
+dull white,2 striped salmon,4 wavy turquoise
+faded teal,3 vibrant brown
+shiny olive,3 muted tomato,5 light cyan
+shiny chartreuse,3 pale olive,2 vibrant chartreuse,3 striped cyan
+muted turquoise,3 light white,4 pale maroon
+bright tomato,2 mirrored bronze,3 light aqua,4 bright aqua
+light black,4 mirrored chartreuse
+bright turquoise,4 shiny silver,4 wavy blue
+dim coral,2 dull coral,1 shiny yellow,2 dark lavender,3 light magenta
+clear indigo,2 faded maroon
+vibrant coral,3 mirrored teal
+dark red,3 drab lavender
+posh chartreuse,3 posh bronze,1 posh crimson,5 dark gray,4 dark silver
+shiny purple,2 dull silver,4 light aqua,4 posh white,1 clear chartreuse
+dull crimson,4 bright blue
+vibrant cyan,4 pale maroon,4 mirrored yellow,4 dark teal
+pale magenta,1 bright lavender,5 wavy gray,2 dark bronze
+shiny black,2 striped blue,3 shiny brown
+pale lavender,3 dark gray,4 vibrant beige,1 dull coral
+dark beige,2 vibrant tomato,1 shiny chartreuse,4 light coral,1 light violet
+bright violet,3 plaid lavender,2 faded white
+pale silver,5 faded maroon,5 clear coral,3 light beige
+clear tan,4 wavy tan
+striped white,2 drab indigo,1 faded olive,3 dull chartreuse,3 dotted beige
+muted chartreuse,4 bright crimson,1 dull bronze,1 dark aqua
+plaid black,2 striped brown,5 wavy crimson,4 plaid olive
+muted olive,1 posh white,2 plaid plum
+dim brown,3 wavy lime,2 bright orange,4 striped aqua,3 bright teal
+striped silver,2 wavy tan,1 light coral
+drab tomato,2 dotted fuchsia,4 plaid aqua
+dim chartreuse,5 pale beige,5 bright brown,1 dull lavender
+clear lavender,5 wavy maroon,5 drab coral,5 muted tan
+light magenta,4 wavy white,2 pale salmon,5 muted gold,2 pale cyan
+pale crimson,5 striped blue,4 pale lavender
+plaid crimson,5 mirrored black,5 pale magenta,4 wavy plum,3 bright green
+pale cyan,5 light tan,1 drab purple
+pale teal,4 wavy magenta
+wavy salmon,3 muted aqua,1 dull purple,1 drab teal,2 dull gray
+plaid blue,4 plaid gray,4 dim fuchsia,3 muted purple
+dotted magenta,3 dotted lavender,4 striped magenta
+striped olive,3 striped teal,5 faded maroon,4 plaid maroon,4 muted gold
+dotted turquoise,3 dull cyan,3 shiny yellow,1 striped maroon
+dotted plum,5 bright plum,4 shiny yellow
+pale bronze,3 faded salmon,5 muted gray,5 shiny beige
+mirrored beige,1 vibrant gold,2 posh plum,1 plaid purple
+vibrant purple,4 bright crimson,3 faded coral,2 striped lavender,3 wavy turquoise
+dim tan,4 posh indigo
+faded violet,3 clear silver,5 faded salmon
+dim turquoise,5 light beige
+faded salmon,5 shiny purple,3 dim bronze,2 light aqua,5 posh indigo
+dull gray,4 dotted magenta
+dark purple,4 striped magenta,4 faded maroon
+muted silver,5 posh lavender
+drab green,3 dotted tomato,4 muted gray,1 dim maroon,1 plaid chartreuse
+mirrored indigo,4 shiny crimson
+muted purple,4 plaid plum,4 dull gray
+plaid indigo,5 drab bronze,3 light turquoise,1 dull chartreuse,5 bright blue
+drab bronze,5 light cyan,1 faded yellow
+clear violet,5 bright silver,3 mirrored yellow
+faded brown,5 wavy red,3 muted aqua
+dotted red,4 clear chartreuse
+drab teal,5 striped aqua,3 pale salmon
+wavy beige,3 bright brown
+striped green,3 wavy blue,5 light aqua,4 light tan,3 mirrored lime
+dark blue,2 bright crimson,3 striped salmon
+dark bronze,3 plaid yellow,2 wavy white
+clear crimson,5 dull white,5 plaid crimson,3 mirrored yellow,3 wavy lime
+dark lavender,1 striped green
+light maroon,1 faded fuchsia
+dull coral,1 mirrored lavender
+plaid cyan,5 faded maroon,2 light indigo,4 light brown
+drab fuchsia,4 drab turquoise,2 bright white,3 vibrant chartreuse,2 posh white
+clear orange,5 clear red
+posh plum,4 dim indigo,4 muted coral,1 light aqua,5 muted tomato
+dotted salmon,5 drab aqua,2 faded cyan,4 light red,2 shiny aqua
+clear aqua,2 shiny red,2 pale white
+clear yellow,2 dark orange,4 light silver,1 plaid fuchsia
+striped lime,1 drab lime
+posh silver,4 posh yellow,4 light orange,3 striped fuchsia,5 dull silver
+wavy black,5 dim crimson,3 muted violet
+dull silver,4 vibrant silver,4 dim salmon,4 drab lavender
+light lavender,4 bright lavender,3 dim gray,4 drab lime
+posh tomato,4 dark bronze,4 dull silver,5 dull bronze
+wavy brown,2 clear lime,3 mirrored tan,2 dull coral
+clear salmon,5 dull white,4 drab purple,3 shiny violet,3 plaid chartreuse
+bright beige,2 dull tomato,2 drab chartreuse
+dull cyan,5 bright plum,5 light lavender
+light turquoise,4 muted green,4 wavy maroon,5 dotted beige
+dark maroon,2 bright fuchsia,5 dull crimson,5 plaid crimson
+vibrant black,3 muted red
+wavy aqua,3 pale plum,5 shiny lime
+plaid turquoise,3 shiny red,5 bright tomato,3 muted olive,5 pale maroon
+dull tomato,3 dim yellow,4 posh violet,4 plaid yellow
+drab maroon,4 drab olive
+dark orange,2 clear gold,1 striped aqua,2 muted aqua,2 striped magenta
+vibrant chartreuse,1 dim indigo,1 drab purple,2 shiny gold,3 faded salmon
+striped chartreuse,3 drab gray,1 drab red
+plaid tomato,2 dark gray,5 dim bronze
+drab red,4 light silver,2 drab turquoise,1 striped lavender
+clear green,1 vibrant magenta,3 plaid beige,2 mirrored tan
+dull teal,1 vibrant green
+vibrant fuchsia,2 dull purple,1 drab gold,5 light aqua
+vibrant salmon,no other
+posh teal,2 light magenta,4 dotted fuchsia
+mirrored gold,1 posh crimson,5 dull beige,3 plaid salmon
+pale orange,2 plaid violet
+vibrant maroon,3 drab teal
+faded coral,4 muted gold,2 posh white,5 plaid plum,4 mirrored lime
+vibrant teal,3 faded black,2 posh green,3 plaid fuchsia
+shiny red,2 striped orange,2 light purple
+mirrored cyan,4 muted bronze,1 shiny green
+dotted silver,2 striped indigo,2 dotted magenta,3 striped plum,2 faded brown
+mirrored purple,2 plaid red,3 dotted beige,3 drab black
+clear lime,5 faded salmon
+muted fuchsia,2 dim gold,2 clear gray,1 posh red,2 drab indigo
+mirrored lime,1 drab turquoise,4 dark yellow
+bright teal,3 wavy plum,3 plaid red,2 bright tomato
+dark teal,2 muted coral,1 light tan,5 dotted tan
+faded plum,4 pale indigo,1 bright plum,2 shiny crimson
+vibrant tan,3 muted violet
+shiny magenta,4 posh tan,4 mirrored tan,3 plaid chartreuse
+vibrant orange,1 vibrant crimson,3 shiny tan,4 dark crimson,1 dotted silver
+muted aqua,no other
+clear silver,2 faded olive,5 vibrant purple
+plaid fuchsia,4 vibrant beige,1 mirrored bronze
+muted gold,2 striped aqua,1 light yellow
+posh cyan,2 vibrant gold,2 light lavender,5 striped green
+bright tan,3 pale maroon,4 dim coral
+drab crimson,3 mirrored chartreuse,5 faded maroon,3 dotted magenta,4 bright brown
+dotted coral,4 muted aqua,1 striped white,1 dim bronze
+dotted gray,1 mirrored white
+shiny beige,2 dim tan
+light brown,1 dim violet
+shiny fuchsia,3 dark teal,4 drab purple,2 mirrored bronze,2 dim salmon
+wavy magenta,4 vibrant gray,5 clear salmon
+light teal,1 dull beige
+dark yellow,1 clear chartreuse,4 mirrored bronze,4 dim salmon,4 wavy white
+bright fuchsia,1 pale magenta,5 muted plum
+muted cyan,2 shiny tan,5 mirrored blue,1 mirrored chartreuse,2 plaid chartreuse
+dim aqua,4 pale bronze,2 muted blue,3 clear red,3 light lavender
+pale brown,no other
+plaid salmon,3 posh coral,3 dim white,2 drab olive,4 shiny violet
+dull fuchsia,5 striped red,1 pale black
+light purple,3 plaid orange,5 vibrant red
+dotted lavender,2 light gold,3 shiny gold,3 dim tan
+dotted gold,1 muted gray
+wavy cyan,1 drab teal,2 wavy yellow,1 striped blue,3 dull blue
+striped orange,1 striped lavender,1 posh white,5 bright aqua,2 shiny silver
+clear bronze,2 striped gold,3 light tomato
+mirrored teal,1 bright lavender,4 dim green,4 bright brown
+vibrant green,4 vibrant violet,5 pale bronze
+muted gray,5 pale brown,5 mirrored bronze,3 dim tan,3 bright white
+shiny brown,3 light chartreuse
+pale maroon,3 drab lavender,1 bright turquoise,1 dim tan
+light fuchsia,4 plaid bronze
+pale olive,4 striped teal
+plaid lavender,5 posh gold
+light yellow,4 striped aqua,1 dotted aqua,2 dark orange,4 faded olive
+dull indigo,2 bright indigo,2 dotted plum,3 pale black,5 pale turquoise
+light white,2 bright brown,3 pale brown,1 faded olive
+mirrored crimson,2 faded maroon,2 dim maroon,5 faded indigo,2 striped aqua
+dim black,1 muted silver,4 plaid magenta,3 muted fuchsia,4 dim olive
+dotted fuchsia,3 mirrored salmon,3 drab purple
+faded tomato,4 dim gold,4 light olive
+vibrant bronze,5 mirrored turquoise
+faded red,1 bright bronze,2 dotted aqua
+vibrant silver,2 dull chartreuse,3 faded olive,1 shiny blue
+muted green,2 posh lavender,2 faded indigo,2 mirrored black,5 clear magenta
+pale chartreuse,2 wavy olive,5 faded orange,1 pale indigo,4 bright plum
+dim bronze,4 striped magenta,5 faded olive,4 pale brown,4 muted tan
+posh purple,3 posh indigo,4 faded white,1 dull salmon,2 pale aqua
+drab coral,5 posh red,4 clear plum,1 faded tomato,5 wavy maroon
+striped fuchsia,3 pale brown
+striped blue,4 drab lavender,2 plaid gray
+posh indigo,2 muted white,5 striped aqua
+mirrored magenta,4 posh tan,1 light magenta
+dim blue,4 vibrant purple
+striped maroon,5 drab black,2 bright beige,5 posh tomato,3 plaid red
+dark lime,3 drab indigo,1 bright teal
+clear plum,1 pale cyan,3 wavy white
+muted brown,3 light indigo,3 light olive,1 light lavender
+posh lavender,2 striped magenta
+striped tan,4 pale bronze,3 dull aqua
+dim cyan,3 dark violet,2 dull brown
+dotted teal,5 posh gray,2 posh purple,1 vibrant gray
+muted yellow,1 plaid red,3 faded black
+dotted beige,2 dotted tan
+wavy plum,2 mirrored black
+wavy olive,4 shiny silver
+dotted orange,2 faded indigo,3 posh lavender,5 plaid fuchsia,1 bright magenta
+dim tomato,2 faded olive,3 posh tan
+light tan,5 drab lavender,2 striped lavender,3 posh indigo,3 shiny silver
+posh orange,3 vibrant green,1 dim orange,5 dull silver,5 wavy orange
+plaid maroon,5 dim gray,3 muted red,5 posh violet,3 dark green
+dark white,4 drab chartreuse,2 striped lavender,4 dull aqua
+vibrant indigo,1 clear plum

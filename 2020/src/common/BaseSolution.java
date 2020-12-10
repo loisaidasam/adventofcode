@@ -10,16 +10,20 @@ public class BaseSolution {
         NONE,
         STRINGS,
         INTS,
+        LONGS
     }
 
     protected List<String> inputStrs;
     protected List<Integer> inputInts;
+    protected List<Long> inputLongs;
 
     public BaseSolution() {
         if (getInputType() == InputType.STRINGS) {
             inputStrs = getInputStrings();
         } else if (getInputType() == InputType.INTS) {
             inputInts = getInputInts();
+        } else if (getInputType() == InputType.LONGS) {
+            inputLongs = getInputLongs();
         }
     }
 
@@ -70,6 +74,12 @@ public class BaseSolution {
                 .collect(Collectors.toList());
     }
 
+    protected List<Long> getInputLongs() {
+        return getInputStrings().stream()
+                .map(s -> Long.parseLong(s))
+                .collect(Collectors.toList());
+    }
+
     protected InputType getInputType() {
         return InputType.NONE;
     }
@@ -82,17 +92,39 @@ public class BaseSolution {
         return null;
     }
 
+    protected Long part1Long() throws Exception {
+        return null;
+    }
+
     public String part1() throws Exception {
-        Integer value = part1Int();
-        return value == null ? null : String.valueOf(value);
+        Integer valueInt = part1Int();
+        if (valueInt != null) {
+            return String.valueOf(valueInt);
+        }
+        Long valueLong = part1Long();
+        if (valueLong != null) {
+            return String.valueOf(valueLong);
+        }
+        return null;
     }
 
     protected Integer part2Int() throws Exception {
         return null;
     }
 
+    protected Long part2Long() throws Exception {
+        return null;
+    }
+
     public String part2() throws Exception {
-        Integer value = part2Int();
-        return value == null ? null : String.valueOf(value);
+        Integer valueInt = part2Int();
+        if (valueInt != null) {
+            return String.valueOf(valueInt);
+        }
+        Long valueLong = part2Long();
+        if (valueLong != null) {
+            return String.valueOf(valueLong);
+        }
+        return null;
     }
 }

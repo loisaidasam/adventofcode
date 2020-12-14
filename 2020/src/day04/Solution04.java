@@ -145,12 +145,12 @@ public class Solution04 extends BaseSolution {
     }
 
     @Override
-    protected Integer part1Int() {
+    public Integer part1Int() {
         return runCheck(false);
     }
 
     @Override
-    protected Integer part2Int() {
+    public Integer part2Int() {
         return runCheck(true);
     }
 

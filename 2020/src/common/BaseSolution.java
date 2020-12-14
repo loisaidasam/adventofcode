@@ -88,11 +88,11 @@ public class BaseSolution {
         return "input.txt";
     }
 
-    protected Integer part1Int() throws Exception {
+    public Integer part1Int() throws Exception {
         return null;
     }
 
-    protected Long part1Long() throws Exception {
+    public Long part1Long() throws Exception {
         return null;
     }
 
@@ -108,11 +108,11 @@ public class BaseSolution {
         return null;
     }
 
-    protected Integer part2Int() throws Exception {
+    public Integer part2Int() throws Exception {
         return null;
     }
 
-    protected Long part2Long() throws Exception {
+    public Long part2Long() throws Exception {
         return null;
     }
 

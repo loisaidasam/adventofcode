@@ -16,12 +16,12 @@ public class Solution03 extends BaseSolution {
     }
 
     @Override
-    protected Integer part1Int() throws Exception {
+    public Integer part1Int() throws Exception {
         return tobogganRun(3, 1);
     }
 
     @Override
-    protected Integer part2Int() {
+    public Integer part2Int() {
         List<Integer> results = new ArrayList<>();
         results.add(tobogganRun(1, 1));
         results.add(tobogganRun(3, 1));

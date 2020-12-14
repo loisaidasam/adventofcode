@@ -13,7 +13,7 @@ public class Solution02 extends BaseSolution {
     }
 
     @Override
-    protected Integer part1Int() throws Exception {
+    public Integer part1Int() throws Exception {
         int numValid = 0;
         for (String input : inputStrs) {
             if (isValidCount(input)) {
@@ -24,7 +24,7 @@ public class Solution02 extends BaseSolution {
     }
 
     @Override
-    protected Integer part2Int() {
+    public Integer part2Int() {
         int numValid = 0;
         for (String input : inputStrs) {
             if (isValidPositions(input)) {

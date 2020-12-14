@@ -29,7 +29,7 @@ public class Solution07 extends BaseSolution {
     }
 
     @Override
-    protected Integer part1Int() {
+    public Integer part1Int() {
         Set<String> validBags = new HashSet();
         validBags.addAll(bagMap.get("shiny gold"));
         int lastNum = 0;

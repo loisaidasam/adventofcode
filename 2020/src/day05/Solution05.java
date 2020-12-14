@@ -19,7 +19,7 @@ public class Solution05 extends BaseSolution {
     }
 
     @Override
-    protected Integer part1Int() {
+    public Integer part1Int() {
         int maxSeatId = 0;
         for (String input : inputStrs) {
             int seatId = getSeatId(input);
@@ -31,7 +31,7 @@ public class Solution05 extends BaseSolution {
     }
 
     @Override
-    protected Integer part2Int() {
+    public Integer part2Int() {
         List<Integer> seatIds = new ArrayList<>();
         for (String input : inputStrs) {
             seatIds.add(getSeatId(input));

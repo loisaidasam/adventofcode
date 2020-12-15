@@ -6,6 +6,14 @@ import java.util.stream.Collectors;
 
 public class BaseSolution {
 
+    protected InputType getInputType() {
+        return InputType.NONE;
+    }
+
+    public String getInputFilename() {
+        return "input.txt";
+    }
+
     public enum InputType {
         NONE,
         STRINGS,
@@ -78,14 +86,6 @@ public class BaseSolution {
         return getInputStrings().stream()
                 .map(s -> Long.parseLong(s))
                 .collect(Collectors.toList());
-    }
-
-    protected InputType getInputType() {
-        return InputType.NONE;
-    }
-
-    public String getInputFilename() {
-        return "input.txt";
     }
 
     public Integer part1Int() throws Exception {

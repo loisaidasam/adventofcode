@@ -64,3 +64,10 @@ Disk map, file checksums
 
 ### --- Day 10: Hoof It ---
 
+Depth first search
+
+### --- Day 11: Plutonian Pebbles ---
+
+Linked lists
+
+Part 2 isn't reasonable to brute force, you have to figure out an optimization/pattern.

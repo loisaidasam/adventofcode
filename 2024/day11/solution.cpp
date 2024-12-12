@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <set>
 
 using namespace std;
 
@@ -22,13 +23,21 @@ public:
     long long int firstHalfValue() const {
         string numStr = to_string(value);
         string firstHalf = numStr.substr(0, numStr.length() / 2);
-        return firstHalf.empty() ? 0 : stoll(firstHalf);
+        if (firstHalf.empty()) {
+            return 0;
+        }
+        long long int newValue = stoll(firstHalf);
+        return newValue;
     }
 
     long long int secondHalfValue() const {
         string numStr = to_string(value);
         string secondHalf = numStr.substr(numStr.length() / 2);
-        return secondHalf.empty() ? 0 : stoll(secondHalf);
+        if (secondHalf.empty()) {
+            return 0;
+        }
+        long long int newValue = stoll(secondHalf);
+        return newValue;
     }
 };
 
@@ -127,40 +136,6 @@ public:
         }
     }
     
-    // void remove(int value) {
-    //     Node* current = head;
-        
-    //     while (current != nullptr) {
-    //         if (current->value == value) {
-    //             if (current->prev != nullptr) {
-    //                 current->prev->next = current->next;
-    //             } else {
-    //                 head = current->next;
-    //             }
-                
-    //             if (current->next != nullptr) {
-    //                 current->next->prev = current->prev;
-    //             } else {
-    //                 tail = current->prev;
-    //             }
-                
-    //             delete current;
-    //             size--;
-    //             return;
-    //         }
-    //         current = current->next;
-    //     }
-    // }
-    
-    // bool contains(int value) const {
-    //     Node* current = head;
-    //     while (current != nullptr) {
-    //         if (current->value == value) return true;
-    //         current = current->next;
-    //     }
-    //     return false;
-    // }
-    
     int getSize() const {
         return size;
     }
@@ -186,7 +161,7 @@ public:
     }
 };
 
-long long int solution1() {
+DoublyLinkedList prepList() {
     DoublyLinkedList list;
 
     long long int input;
@@ -194,6 +169,12 @@ long long int solution1() {
     while (cin >> input) {
         list.pushBack(input);
     }
+
+    return list;
+}
+
+int run(int numBlinks) {
+    DoublyLinkedList list = prepList();
     
     // list.pushBack(1);
     // list.pushBack(2);
@@ -207,21 +188,104 @@ long long int solution1() {
 
     // list.printForward();
 
-    for (int i = 1; i <= 25; i++) {
-        // cout << "blink " << i << endl;
+    for (int i = 1; i <= numBlinks; i++) {
+        cout << "blink " << i << endl;
         list.blink();
-        // list.printForward();
+        list.printForward();
     }
     
     return list.getSize();
 }
 
+int solution1() {
+    return run(25);
+}
+
 int solution2() {
-    return 0;
+    return run(75);
+}
+
+int testSequence(int steps, bool firstHalf) {
+    Node* node = new Node(0);
+
+    cout << "Start\t" << node->value << endl;
+
+    for (int step = 1; step <= steps; step++) {
+        // Change to 1
+        if (node->value == 0) {
+            node->setValue(1);
+        }
+        // Split into two nodes
+        else if (node->getDigitCount() % 2 == 0) {
+            node->setValue(firstHalf ? node->firstHalfValue() : node->secondHalfValue());
+        }
+        // Multiply by 2024
+        else {
+            node->setValue(node->value * 2024);
+        }
+        cout << "Step " << step << "\t" << node->value << endl;
+    }
+    return node->value;
+}
+
+int testAllValues() {
+    // set<int> values;
+    // set<int> values = {5, 2, 8, 2};  // Will contain {2, 5, 8}
+    // set<long long int> values = {0};
+    // set<long long int> values = {125, 17};
+    // set<long long int> values = {8069LL, 87014LL, 98LL, 809367LL, 525LL, 0LL, 9494914LL, 5LL};
+    set<long long int> values = {8069, 87014, 98, 809367, 525, 0, 9494914, 5};
+
+    int size = values.size();
+
+    int loop = 1;
+    while (true) {
+        cout << "loop " << loop << ": " << values.size() << " values" << endl;
+        // Range doesn't work if we're modifying the set within the loop
+        // for (const int& value : values) {
+        // Need to iterate like this:
+        for (auto it = values.begin(); it != values.end(); ++it) {
+            long long int value = *it;
+            // cout << "\t" << value << endl;
+            // Change to 1
+            if (value == 0) {
+                values.insert(1);
+            } else {
+                Node node(value);
+                // Split into two nodes
+                if (node.getDigitCount() % 2 == 0) {
+                    // cout << "splitskis: " << endl;
+                    // cout << "\t\t" << node.firstHalfValue() << endl;
+                    // cout << "\t\t" << node.secondHalfValue() << endl;
+                    long long int newValue = node.firstHalfValue();
+                    values.insert(newValue);
+                    newValue = node.secondHalfValue();
+                    values.insert(newValue);
+                }
+                // Multiply by 2024
+                else {
+                    // cout << "mult: " << endl;
+                    long long int newValue = value * 2024LL;
+                    // cout << "\t\t" << newValue << endl;
+                    values.insert(newValue);
+                }
+            }
+        }
+        if (values.size() == size) { 
+            break;
+        }
+        size = values.size();
+        loop++;
+    }
+    cout << "done" << endl;
+    return size;
 }
 
 int main() {
-    cout << solution1() << endl;
+    // cout << solution1() << endl;
     // cout << solution2() << endl;
+    // testSequence(100, true);
+    // testSequence(100, false);
+    cout << testAllValues() << endl;
     return 0;
 }

@@ -22,4 +22,3 @@ $ g++ -o a.out solution.cpp && ./a.out < input-test.txt
 $ g++ -o a.out solution.cpp && ./a.out < input.txt 
 591
 ```
-

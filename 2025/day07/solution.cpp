@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <map>
 #include <set>
 #include <string>
 // For pair
@@ -69,25 +70,33 @@ pair<int, vector<set<int>>> read_input() {
     return make_pair(start, row_splitters);
 }
 
-int get_num_timelines(vector<set<int>> row_splitters, string path_so_far, int row, int col) {
-    cout << path_so_far << "\t" << row << "," << col << endl;
+long get_num_timelines(vector<set<int>> row_splitters, string path_so_far,
+        map<pair<int, int>, long>& from_splitter_cache, int row, int col) {
+    pair<int, int> cache_key = make_pair(row, col);
+    if (from_splitter_cache.count(cache_key)) {
+        return from_splitter_cache[cache_key];
+    }
+    // cout << path_so_far << "\t" << row << "," << col << endl;
     for (; row < row_splitters.size(); row++) {
         // Hit
         if (row_splitters[row].count(col)) {
-            return get_num_timelines(row_splitters, path_so_far + "L", row+1, col-1) + 
-                get_num_timelines(row_splitters, path_so_far + "R", row+1, col+1);
+            from_splitter_cache[cache_key] = get_num_timelines(row_splitters, path_so_far + "L", from_splitter_cache, row+1, col-1) +
+                get_num_timelines(row_splitters, path_so_far + "R", from_splitter_cache, row+1, col+1);
+            return from_splitter_cache[cache_key];
         }
     }
     // No more hits from this starting path, this is the end for this timeline
-    return 1;
+    from_splitter_cache[cache_key] = 1;
+    return from_splitter_cache[cache_key];
 }
 
-int solution2() {
+long solution2() {
     // First read in the whole thing
     pair<int, vector<set<int>>> input = read_input();
     int start = input.first;
     vector<set<int>> row_splitters = input.second;
-    return get_num_timelines(row_splitters, "", 0, start);
+    map<pair<int, int>, long> from_splitter_cache;
+    return get_num_timelines(row_splitters, "", from_splitter_cache, 0, start);
 }
 
 int main() {

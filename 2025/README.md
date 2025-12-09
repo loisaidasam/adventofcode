@@ -45,3 +45,13 @@ Ex:
 
 String parsing, string to number conversion, long number handling.
 
+### --- Day 7: Laboratories ---
+
+> To repair the teleporter, you first need to understand the beam-splitting properties of the tachyon manifold.
+
+That's just gold.
+
+For this one it's a space optimization. You don't need to read all the lines in first, just go line by line, maintaining a set of how many columns are currently active.
+
+Space: `O(w)` where `w` is the width of a line of input, aka the number of columns.
+Time: `O(n)` where `n` is the number of lines of input.

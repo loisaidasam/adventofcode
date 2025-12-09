@@ -69,32 +69,13 @@ pair<int, vector<set<int>>> read_input() {
     return make_pair(start, row_splitters);
 }
 
-int get_num_timelines(int start, vector<set<int>> row_splitters, string path_so_far) {
-    int row = 0;
-    int col = start;
-    for (int path_index = 0; path_index < path_so_far.length(); path_index++) {
-        bool hit = false;
-        for (; row < row_splitters.size(); row++) {
-            if (row_splitters[row].count(col)) {
-                hit = true;
-                if (path_so_far[path_index] == 'L') {
-                    col--;
-                } else {
-                    col++;
-                }
-                break;
-            }
-        }
-        if (!hit) {
-            cerr << "Ran out of rows without hitting any splitters, something is wrong" << endl;
-            return 0;
-        }
-    }
+int get_num_timelines(vector<set<int>> row_splitters, string path_so_far, int row, int col) {
+    cout << path_so_far << "\t" << row << "," << col << endl;
     for (; row < row_splitters.size(); row++) {
         // Hit
         if (row_splitters[row].count(col)) {
-            return get_num_timelines(start, row_splitters, path_so_far + "L") + 
-                get_num_timelines(start, row_splitters, path_so_far + "R");
+            return get_num_timelines(row_splitters, path_so_far + "L", row+1, col-1) + 
+                get_num_timelines(row_splitters, path_so_far + "R", row+1, col+1);
         }
     }
     // No more hits from this starting path, this is the end for this timeline
@@ -106,7 +87,7 @@ int solution2() {
     pair<int, vector<set<int>>> input = read_input();
     int start = input.first;
     vector<set<int>> row_splitters = input.second;
-    return get_num_timelines(start, row_splitters, "");
+    return get_num_timelines(row_splitters, "", 0, start);
 }
 
 int main() {

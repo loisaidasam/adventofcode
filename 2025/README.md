@@ -61,3 +61,11 @@ Time: `O(n)` where `n` is the number of lines of input.
 Part 2:
 
 Optimized recursion.
+
+### --- Day 8: Playground ---
+
+Euclidean nearest neighbors in 3d space
+
+### --- Day 9: Movie Theater ---
+
+Rectangles with the largest area based on two opposing corners

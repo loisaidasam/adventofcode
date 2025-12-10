@@ -15,7 +15,7 @@ g++ -std=c++11 -o day01/a.out day01/solution.cpp
 
 ```
 
-## Days
+## Days (SPOILER ALERT!)
 
 ### --- Day 1: Secret Entrance ---
 
@@ -63,6 +63,40 @@ Banks of batteries with joltages, ex:
 
 Figuring out a combination (and in part 2, a variable-length combination) of individual batteries to produce the maximum joltage.
 
+### --- Day 4: Printing Department ---
+
+Rolls of paper accessible by a forklift, ex:
+
+```
+..@@.@@@@.
+@@@.@.@.@@
+@@@@@.@.@@
+@.@@@@..@.
+@@.@@@@.@@
+.@@@@@@@.@
+.@.@.@.@@@
+@.@@@.@@@@
+.@@@@@@@@.
+@.@.@@@.@.
+```
+
+### --- Day 5: Cafeteria ---
+
+Fresh and spoiled ingredients
+
+Overlapping integer range membership.
+
+### --- Day 6: Trash Compactor ---
+
+Cephalopod math, ex:
+
+```
+123 328  51 64 
+ 45 64  387 23 
+  6 98  215 314
+*   +   *   +  
+```
+
 ### --- Day 7: Laboratories ---
 
 > To repair the teleporter, you first need to understand the beam-splitting properties of the tachyon manifold.
@@ -86,7 +120,44 @@ Euclidean nearest neighbors in 3d space
 
 ### --- Day 9: Movie Theater ---
 
-Rectangles with the largest area based on two opposing corners
+Red and green tiles, rectangles with the largest area based on two opposing corners, ex:
+
+```
+..............
+.......#XXX#..
+.......X...X..
+..#XXXX#...X..
+..X........X..
+..#XXXXXX#.X..
+.........X.X..
+.........#X#..
+..............
+```
+
+```
+..............
+.......#XXX#..
+.......X...X..
+..OOOOOOOO.X..
+..OOOOOOOO.X..
+..OOOOOOOO.X..
+.........X.X..
+.........#X#..
+..............
+```
+
+Part 2 looking for rectangles INSIDE the polygon. Maybe ray tracing?
+
+via Claude:
+
+> Ray Casting Algorithm
+> The ray casting algorithm is the most widely used method due to its simplicity and efficiency. The basic idea is to cast a ray from the test point in any direction and count how many times it intersects the polygon’s edges.
+>
+> How it works:
+>
+> 1. Cast a horizontal ray from the test point extending to infinity (typically to the right)
+> 2. Count the number of times this ray crosses the polygon’s edges
+> 3. If the count is odd, the point is inside; if even, it’s outside
 
 ### --- Day 10: Factory ---
 

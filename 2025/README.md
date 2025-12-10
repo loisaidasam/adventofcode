@@ -61,6 +61,8 @@ Banks of batteries with joltages, ex:
 818181911112111
 ```
 
+Figuring out a combination (and in part 2, a variable-length combination) of individual batteries to produce the maximum joltage.
+
 ### --- Day 7: Laboratories ---
 
 > To repair the teleporter, you first need to understand the beam-splitting properties of the tachyon manifold.

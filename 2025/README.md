@@ -3,6 +3,11 @@
 ## Usage
 
 ```
+$ make DAY=day03 new
+Created new day directory: day03
+```
+
+```
 $ make DAY=day01 run
 g++ -std=c++11 -o day01/a.out day01/solution.cpp
 ./day01/a.out < day01/input.txt
@@ -45,6 +50,17 @@ Ex:
 
 String parsing, string to number conversion, long number handling.
 
+### --- Day 3: Lobby ---
+
+Banks of batteries with joltages, ex:
+
+```
+987654321111111
+811111111111119
+234234234234278
+818181911112111
+```
+
 ### --- Day 7: Laboratories ---
 
 > To repair the teleporter, you first need to understand the beam-splitting properties of the tachyon manifold.
@@ -69,3 +85,15 @@ Euclidean nearest neighbors in 3d space
 ### --- Day 9: Movie Theater ---
 
 Rectangles with the largest area based on two opposing corners
+
+### --- Day 10: Factory ---
+
+Indicator light diagrams, button wiring schematics, and joltage requirements. Ex:
+
+```
+[.##.] (3) (1,3) (2) (2,3) (0,2) (0,1) {3,5,4,7}
+[...#.] (0,2,3,4) (2,3) (0,4) (0,1,2) (1,2,3,4) {7,5,12,7,2}
+[.###.#] (0,1,2,3,4) (0,3,4) (0,1,2,4,5) (1,2) {10,11,11,5,10,5}
+```
+
+Something to do with bitwise arithmetic.

@@ -116,7 +116,9 @@ Optimized recursion.
 
 ### --- Day 8: Playground ---
 
-Euclidean nearest neighbors in 3d space
+Euclidean nearest neighbors in 3d space, but that was the easy part.
+
+The harder part was creating, connecting, and maintaining multiple graphs of connected nodes and traversing them all.
 
 ### --- Day 9: Movie Theater ---
 

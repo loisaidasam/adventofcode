@@ -19,12 +19,20 @@ struct Device {
     set<string> outputs;
 };
 
-int find_paths(unordered_map<string, Device> devices, set<string> seen, string current_name) {
-    // Debugging
+/**
+ * Note: duds is by reference, a shared global cache
+ */
+int find_paths(unordered_map<string, Device> devices, set<string> seen, set<string>& duds, string current_name) {
+    // // Debugging
     // for (string seen_item : seen) {
     //     cout << seen_item << " ";
     // }
     // cout << current_name << endl;
+    // cout << "\tduds: ";
+    // for (string dud : duds) {
+    //     cout << dud << " ";
+    // }
+    // cout << endl;
     Device device = devices[current_name];
     seen.insert(current_name);
     int num_paths = 0;
@@ -37,8 +45,15 @@ int find_paths(unordered_map<string, Device> devices, set<string> seen, string c
             // cout << endl;
             num_paths++;
         }
-        if (! seen.count(input)) {
-            num_paths += find_paths(devices, seen, input);
+        // Test the path if it hasn't been seen and it isn't a dud
+        if (! seen.count(input) && ! duds.count(input)) {
+            int added = find_paths(devices, seen, duds, input);
+            if (added == 0) {
+                // Dud
+                duds.insert(input);
+            } else {
+                num_paths += added;
+            }
         }
     }
     return num_paths;
@@ -55,6 +70,12 @@ int find_paths(unordered_map<string, Device> devices, set<string> seen, string c
  * ggg out
  * hhh ccc fff iii
  * iii out
+ *
+ * you bbb ddd ggg out
+ * you ccc ddd ggg out
+ * you bbb eee out
+ * you ccc eee out
+ * you ccc fff out
  */
 int solution1() {
     unordered_map<string, Device> devices;
@@ -91,8 +112,8 @@ int solution1() {
     //     }
     //     cout << endl;
     // }
-    set<string> seen;
-    return find_paths(devices, seen, "out");
+    set<string> seen, duds;
+    return find_paths(devices, seen, duds, "out");
 }
 
 int solution2() {

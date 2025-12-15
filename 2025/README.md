@@ -172,3 +172,22 @@ Indicator light diagrams, button wiring schematics, and joltage requirements. Ex
 ```
 
 Something to do with bitwise arithmetic.
+
+### --- Day 11: Reactor ---
+
+Device inputs and outputs, finding paths from `you` to `out`:
+
+```
+aaa: you hhh
+you: bbb ccc
+bbb: ddd eee
+ccc: ddd eee fff
+ddd: ggg
+eee: out
+fff: out
+ggg: out
+hhh: ccc fff iii
+iii: out
+```
+
+(I removed the `:`'s from the inputs for simpler parsing)

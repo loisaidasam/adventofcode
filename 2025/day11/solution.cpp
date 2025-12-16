@@ -156,6 +156,7 @@ int find_paths2(unordered_map<string, Device> devices, set<string> seen, set<str
     Device device = devices[current_name];
     seen.insert(current_name);
     int num_paths = 0;
+    // int num_paths_explored = 0;
     for (string input : device.inputs) {
         if (input == "svr") {
         // if (input == "svr" && seen.count("dac") && seen.count("fft")) {
@@ -168,7 +169,7 @@ int find_paths2(unordered_map<string, Device> devices, set<string> seen, set<str
         }
         // Test the path if it hasn't been seen and it isn't a dud
         // if (! seen.count(input)) {
-        if (! seen.count(input) && ! duds.count(input)) {
+        if (! seen.count(input) && (input != "svr" && ! duds.count(input))) {
             int added = find_paths2(devices, seen, duds, input);
             if (added == 0) {
                 // Dud
@@ -177,7 +178,9 @@ int find_paths2(unordered_map<string, Device> devices, set<string> seen, set<str
                 num_paths += added;
             }
         }
+        // num_paths_explored++;
     }
+    // cout << num_paths_explored << endl;
     return num_paths;
 }
 

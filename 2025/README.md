@@ -97,6 +97,8 @@ Cephalopod math, ex:
 *   +   *   +  
 ```
 
+Parsing equations vertically, then parsing by columns.
+
 ### --- Day 7: Laboratories ---
 
 > To repair the teleporter, you first need to understand the beam-splitting properties of the tachyon manifold.

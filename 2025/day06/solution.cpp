@@ -6,7 +6,7 @@
 using namespace std;
 
 
-// Equation e = {'+' {}}
+// Equation e = {'+', {}}
 struct Equation {
     char type;
     vector<long> inputs;
@@ -23,10 +23,10 @@ void print_equation(Equation e) {
 /**
  * Example:
  *
- * 123 328  51 64 
- *  45 64  387 23 
- *   6 98  215 314
- * *   +   *   +
+ * "123 328  51 64 "
+ * " 45 64  387 23 "
+ * "  6 98  215 314"
+ * "*   +   *   +  "
  */
 vector<Equation> read_equations() {
     vector<string> lines;
@@ -60,22 +60,30 @@ vector<Equation> read_equations() {
     return equations;
 }
 
-long solve_equation(Equation e) {
+long solve_equation(Equation e, bool debug) {
     long total = 0;
     if (e.type == '*') {
         total = 1;
     }
     for (long input : e.inputs) {
-        // cout << input;
+        if (debug) {
+            cout << input;
+        }
         if (e.type == '*') {
             total *= input;
-            // cout << " * ";
+            if (debug) {
+                cout << " * ";
+            }
         } else {
             total += input;
-            // cout << " + ";
+            if (debug) {
+                cout << " + ";
+            }
         }
     }
-    // cout << "= " << total << endl;
+    if (debug) {
+        cout << "= " << total << endl;
+    }
     return total;
 }
 
@@ -85,17 +93,77 @@ long solution1() {
     long total = 0;
     for (Equation e : equations) {
         // print_equation(e);
-        total += solve_equation(e);
+        total += solve_equation(e, false);
     }
     return total;
 }
 
-int solution2() {
-    return 0;
+/**
+ * Example:
+ *
+ * "123 328  51 64 "
+ * " 45 64  387 23 "
+ * "  6 98  215 314"
+ * "*   +   *   +  "
+ */
+vector<Equation> read_equations2() {
+    vector<string> lines;
+    string line, item;
+    while (getline(cin, line)) {
+        lines.push_back(line);
+    }
+    vector<Equation> equations;
+    Equation e = {' ', {}};
+    for (int col = line.length()-1; col >= 0; col--) {
+        bool seen = false;
+        int input = 0;
+        for (int row = 0; row < lines.size()-1; row++) {
+            char value = lines[row][col];
+            if (value != ' ') {
+                input *= 10;
+                // char to int:
+                // char c = '5';
+                // int num = c - '0';  // num = 5
+                input += value - '0';
+                seen = true;
+            }
+        }
+        if (seen) {
+            e.inputs.push_back(input);
+        }
+        // Move onto the next equation
+        else {
+            equations.push_back(e);
+            e = {' ', {}};
+        }
+    }
+    // Always write the last one
+    equations.push_back(e);
+    e = {' ', {}};
+    stringstream ss(lines[lines.size()-1]);
+    int j = equations.size() - 1;
+    while (ss >> item) {
+        equations[j].type = item[0];
+        j--;
+    }
+    // for (Equation e : equations) {
+    //     print_equation(e);
+    // }
+    return equations;
+}
+
+long solution2() {
+    vector<Equation> equations = read_equations2();
+    long total = 0;
+    for (Equation e : equations) {
+        // print_equation(e);
+        total += solve_equation(e, false);
+    }
+    return total;
 }
 
 int main() {
-    cout << solution1() << endl;
-    // cout << solution2() << endl;
+    // cout << solution1() << endl;
+    cout << solution2() << endl;
     return 0;
 }

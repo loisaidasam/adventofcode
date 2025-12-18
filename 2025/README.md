@@ -173,7 +173,9 @@ Indicator light diagrams, button wiring schematics, and joltage requirements. Ex
 [.###.#] (0,1,2,3,4) (0,3,4) (0,1,2,4,5) (1,2) {10,11,11,5,10,5}
 ```
 
-Something to do with bitwise arithmetic.
+Fewest number of buttons to press to achieve desired state. XOR bitwise logic combined with recursive depth-first search.
+
+I removed all of the brackets (square, round, and curly) in the IDE for ease of parsing.
 
 ### --- Day 11: Reactor ---
 
